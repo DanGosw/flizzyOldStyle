@@ -1,5 +1,41 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+// import "primevue/resources/themes/nano/theme.css";
+import { createApp } from "vue";
+import "./style.css";
+import App from "./App.vue";
+import PrimeVue from "primevue/config";
+import "primevue/resources/primevue.min.css";
+import Toast from "primevue/toast";
+import Panel from "primevue/panel";
+import PanelMenu from "primevue/panelmenu";
+import CascadeSelect from "primevue/cascadeselect";
+import Dropdown from "primevue/dropdown";
+import Card from "primevue/card";
+import Button from "primevue/button";
+import Toolbar from "primevue/toolbar";
+import DataView from "primevue/dataview";
+import Column from "primevue/column";
+import DataTable from "primevue/datatable";
+import Menubar from "primevue/menubar";
+import routes from "@/routes/index.js";
+import Aura from "@/Aura";
 
-createApp(App).mount('#app')
+const pinia = createPinia();
+
+const app = createApp(App);
+app.component("p-toolbar", Toolbar);
+app.component("p-panel", Panel);
+app.component("p-panelMenu", PanelMenu);
+app.component("p-card", Card);
+app.component("p-menubar", Menubar);
+app.component("p-cascadeSelect", CascadeSelect);
+app.component("p-dropdown", Dropdown);
+app.component("p-button", Button);
+app.component("p-dataTable", DataTable);
+app.component("p-dataView", DataView);
+app.component("p-toast", Toast);
+app.component("p-column", Column);
+app.use(routes);
+app.use(pinia);
+app.use(PrimeVue, { pt: Aura });
+
+app.mount("#app");
