@@ -2,17 +2,17 @@
 
 </script>
 <template>
-    <div>
-        <div class="sticky top-0 h-auto bg-slate-900 bg-opacity-70 dark:bg-slate-800 z-50">
-            <navbar class="w-full"/>
-        </div>
-        <div class="z-40 flex w-full flex-col">
-            <div class="m-2 flex-1">
-                <router-view v-slot="{ Component }">
-                    <transition mode="out-in">
-                        <component :is="Component"/>
-                    </transition>
-                </router-view>
+    <div class="h-screen">
+        <div class="dark:bg-surface-900">
+            <navbar class="sticky top-0 z-50 h-auto w-full"/>
+            <div class="z-40 h-auto w-full dark:bg-surface-900">
+                <div class="m-2 flex-1">
+                    <router-view v-slot="{ Component }">
+                        <transition mode="out-in">
+                            <component :is="Component"/>
+                        </transition>
+                    </router-view>
+                </div>
             </div>
         </div>
     </div>

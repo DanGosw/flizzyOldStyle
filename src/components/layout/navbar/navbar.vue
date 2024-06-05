@@ -1,43 +1,55 @@
 <script setup>
 import { optionsMenuStore } from "@/store/layout/optionsMenu.js";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const router = useRouter();
+const route = useRoute();
 optionsMenuStore.createOptionsMenu();
-const menu_options = ref(optionsMenuStore.options);
+const menuOptions = computed(() => { return optionsMenuStore.options;});
+
+const isDark = useDark({ disableTransition: false });
+const toggleDark = useToggle(isDark);
 
 </script>
 
 <template>
-    <div class="h-auto bg-opacity-70 pb-2 dark:bg-slate-800">
-        <p-menubar :model="menu_options" class="!border-[1.7px] !border-gray-950 text-sm dark:!bg-slate-900 py-[2px]" exact>
+    <div class="h-auto bg-blue-800">
+        <p-menubar :model="menuOptions" breakpoint="800"
+                   class="rounded-none border text-slate-900 shadow-md shadow-slate-300 text-[12.5px] font-[500] py-[1px] dark:shadow-surface-800 dark:text-slate-200">
             <template #start>
-                <img src="@/assets/vue.svg" alt="logo" class="w-8"/>
+                <img src="@/assets/logo-white.svg" alt="logo" class="max-h-10 max-w-10" v-if="isDark"/>
+                <img src="@/assets/logo-dark.svg" alt="logo" class="max-h-10 max-w-10" v-else/>
             </template>
             <template #item="{ item, props }">
-                <router-link v-if="item.route && !item.items" v-slot="{ href, navigate }" :to="item.route">
-                    <a :href="href" v-bind="props.action" @click="navigate">
-                        <div class="flex cursor-pointer items-center p-0">
-                            <component :is="item.customIcon"/>
-                            <span class="ml-2">{{ item.label }}</span>
-                        </div>
-                    </a>
-                </router-link>
-                <div v-else class="ml-2 flex cursor-pointer items-center py-1.5">
-                    <component :is="item.customIcon"/>
-                    <span class="ml-2">{{ item.label }}</span>
-                    <div class="ml-1 flex items-end" v-if="item.items">
-                        <i-material-symbols-light-play-arrow-rounded/>
+                <router-link v-if="item.route && !item.items" :to="item.route">
+                    <div v-bind="props.action" :class="`${item.route === route.path ? 'bg-indigo-500 rounded bg-opacity-80' : ''} p-0`">
+                        <component :is="item.icon"
+                                   :class="`${item.route === route.path ? 'text-white' : 'text-indigo-500'} text-indigo-500 text-[16.5px]`"/>
+                        <span :class="`${item.route === route.path ? 'text-white' : 'text-surface-900 dark:text-surface-200'} ml-2`">
+                                {{ item.label }}
+                            </span>
                     </div>
+                </router-link>
+                <div v-else class="ml-2 flex cursor-pointer items-center py-1.5" @click="item.expand = !item.expand">
+                    <component :is="item.icon" class="text-indigo-500 text-[16.5px]"/>
+                    <span class="ml-2">{{ item.label }}</span>
+                    <i-ic-outline-keyboard-arrow-right
+                            :class="`${item.expand ? 'rotate-90' : 'rotate-0'} ml-2.5 transition duration-300`"/>
                 </div>
             </template>
             <template #menubuttonicon>
-                <div>
-                    <i-material-symbols-light-menu-rounded/>
-                </div>
+                <i-solar-hamburger-menu-broken class="text-[24px]"/>
             </template>
             <template #end>
-                <p-button label="Logout" size="small" severity="danger" @click="router.push({ name: 'home' })"/>
+                <div class="flex space-x-2">
+                    <p-button size="small" severity="secondary" text raised rounded @click="toggleDark()">
+                        <template #icon>
+                            <i-ic-round-dark-mode v-if="isDark"/>
+                            <i-ic-round-light-mode v-else/>
+                        </template>
+                    </p-button>
+                    <p-button label="Logout" size="small" severity="danger" @click="router.push({ name: 'login' })"/>
+                </div>
             </template>
         </p-menubar>
     </div>

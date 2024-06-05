@@ -20,7 +20,7 @@ const navBarStore = defineStore("optionsMenu", {
         },
         valuesRoutesMenu(route) {
             if(route.meta) {
-                const objOption = {
+                let objOption = {
                     label: route.meta.label,
                     key: route.name,
                     active: route.name,
@@ -35,6 +35,7 @@ const navBarStore = defineStore("optionsMenu", {
                     delete objOption.path;
                     delete objOption.route;  // Eliminar el atributo `route` si hay `children`
                     objOption.items = this.processRoutes(route.children);
+                    objOption.expand = false;
                     if(objOption.items.length) {
                         return objOption;
                     }
@@ -49,7 +50,7 @@ const navBarStore = defineStore("optionsMenu", {
                 const routesDefines = router.resolve({ name: "home" }).matched[0].children;
                 const shouldUseIcon = route.icon && routesDefines.some(routeD => routeD.name === route.name && routeD.meta?.["icon"]);
                 if(!shouldUseIcon) {
-                    objOption.customIcon = h(icon.render());
+                    objOption.icon = h(icon.render());
                 }
             }
         }

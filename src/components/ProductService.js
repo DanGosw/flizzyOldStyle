@@ -1199,7 +1199,7 @@ export const ProductService = {
     },
     
     getProductsMini() {
-        return Promise.resolve(this.getProductsData().slice(0, 25));
+        return Promise.resolve(this.getProductsData().slice(0, 40));
     },
     
     getProductsSmall() {

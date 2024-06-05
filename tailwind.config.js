@@ -8,7 +8,7 @@ export default {
     theme: {
         screens: {
             sm: "480px",
-            md: "802px",
+            md: "810px",
             lg: "976px",
             xl: "1440px"
         },

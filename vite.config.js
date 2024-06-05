@@ -43,9 +43,11 @@ export default defineConfig({
                     // qrcode: [["default", "qr"]],
                     "crypto-js": [["default", "CryptoJS"]],
                     pinia: ["createPinia", "defineStore"],
-                    "@vueuse/core": ["watchDebounced", "useDebounceFn", "useWindowSize"],
+                    "@vueuse/core": ["watchDebounced", "useDebounceFn", "useWindowSize", "useDark", "useToggle"],
                     "@vueuse/integrations/useCookies": ["useCookies"],
                     "primevue": ["useConfirm", "useConfirmDialog", "Dialog"],
+                    "vee-validate": ["useForm"],
+                    "yup": "*",
                     "@vueuse/integrations/useAxios": ["useAxios"],
                     // "dom-to-image": ["toPng"],
                     "vue-cookies": [["default", "VueCookies"]]

@@ -18,9 +18,11 @@
     "unplugin-auto-import": "^0.17.2",
     "unplugin-icons": "^0.18.1",
     "unplugin-vue-components": "^0.26.0",
+    "vee-validate": "^4.13.0",
     "vue": "^3.4.21",
     "vue-cookies": "^1.8.3",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@iconify-json/bx": "^1.1.10",
@@ -28,6 +30,7 @@
     "@iconify-json/fluent": "^1.1.48",
     "@iconify-json/ic": "^1.1.17",
     "@iconify-json/iconoir": "^1.1.41",
+    "@iconify-json/lucide": "^1.1.189",
     "@iconify-json/majesticons": "^1.1.11",
     "@iconify-json/material-symbols": "^1.1.73",
     "@iconify-json/material-symbols-light": "^1.1.13",
