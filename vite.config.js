@@ -8,11 +8,21 @@ import IconsResolver from "unplugin-icons/resolver";
 import { PrimeVueResolver, VueUseComponentsResolver, VueUseDirectiveResolver } from "unplugin-vue-components/resolvers";
 import vitePluginSocketIO from "vite-plugin-socket-io";
 
+const socketEvents = (io, socket) => {
+    console.log("socket.io - connection");
+    socket.on("disconnect", () => {
+        console.log(`socket.io - socket.id \`${socket.id}\` disconnected`);
+    });
+    socket.on("signIn", () => {
+        console.log("socket.io - signIn");
+    });
+};
+
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [
         vue(),
-        vitePluginSocketIO(),
+        vitePluginSocketIO({ socketEvents }),
         Icons({
             compiler: "vue3",
             autoInstall: true
@@ -46,8 +56,7 @@ export default defineConfig({
                     "@vueuse/core": ["watchDebounced", "useDebounceFn", "useWindowSize", "useDark", "useToggle"],
                     "@vueuse/integrations/useCookies": ["useCookies"],
                     "primevue": ["useConfirm", "useConfirmDialog", "Dialog"],
-                    "vee-validate": ["useForm"],
-                    "yup": "*",
+                    "vee-validate": ["useForm", "defineRule", "useField"],
                     "@vueuse/integrations/useAxios": ["useAxios"],
                     // "dom-to-image": ["toPng"],
                     "vue-cookies": [["default", "VueCookies"]]

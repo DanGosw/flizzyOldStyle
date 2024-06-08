@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref } from "vue";
-import { ProductService } from "@/components/ProductService.js";
+import { ProductService } from "@/modules/ProductService.js";
 
 onMounted(() => {
     ProductService.getProductsMini().then((data) => (products.value = data));

@@ -37,7 +37,7 @@ export default {
             "w-[98%] md:w-auto",
             
             // Spacing
-            "m-1",
+            "ml-2 md:ml-0",
             "p-1 md:py-0 md:p-0",
             "list-none",
             

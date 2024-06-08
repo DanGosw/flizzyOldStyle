@@ -14,13 +14,13 @@ export default {
                 "text-xl py-3 px-4": props.size === "large"
             },
             {
-                "w-10 px-0 py-2": props.label == null && props.icon !== null
+                "w-10 px-0 py-2": props.label === null && props.icon !== null
             },
             
             // Shapes
             { "shadow-lg": true },
             { "rounded-md": !props.rounded, "rounded-full": props.rounded },
-            { "rounded-none first:rounded-l-md last:rounded-r-md": parent.instance.$name == "InputGroup" },
+            { "rounded-none first:rounded-l-md last:rounded-r-md": parent.instance.$name === "InputGroup" },
             
             // Link Button
             { "text-primary-600 bg-transparent border-transparent": props.link },
@@ -251,17 +251,17 @@ export default {
             {
                 "hover:underline": props.link
             },
-            { "flex-1": props.label !== null, "invisible w-0": props.label == null }
+            { "flex-1": props.label !== null, "invisible w-0": props.label === null }
         ]
     }),
     icon: ({ props }) => ({
         class: [
             "mx-0",
             {
-                "mr-2": props.iconPos == "left" && props.label != null,
-                "ml-2 order-1": props.iconPos == "right" && props.label != null,
-                "mb-2": props.iconPos == "top" && props.label != null,
-                "mt-2": props.iconPos == "bottom" && props.label != null
+                "mr-2": props.iconPos === "left" && props.label !== null,
+                "ml-2 order-1": props.iconPos === "right" && props.label !== null,
+                "mb-2": props.iconPos === "top" && props.label !== null,
+                "mt-2": props.iconPos === "bottom" && props.label !== null
             }
         ]
     }),
@@ -270,10 +270,10 @@ export default {
             "h-4 w-4",
             "mx-0",
             {
-                "mr-2": props.iconPos == "left" && props.label != null,
-                "ml-2 order-1": props.iconPos == "right" && props.label != null,
-                "mb-2": props.iconPos == "top" && props.label != null,
-                "mt-2": props.iconPos == "bottom" && props.label != null
+                "mr-2": props.iconPos === "left" && props.label !== null,
+                "ml-2 order-1": props.iconPos === "right" && props.label !== null,
+                "mb-2": props.iconPos === "top" && props.label !== null,
+                "mt-2": props.iconPos === "bottom" && props.label !== null
             },
             "animate-spin"
         ]

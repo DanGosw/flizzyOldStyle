@@ -38,7 +38,7 @@ const onReset = () => {
             </div>
             <p-card class="h-auto w-full border border-gray-400" style="max-width: 400px;">
                 <template #content>
-                    <h2 class="text-center text-3xl font-extrabold text-slate-900">
+                    <h2 class="text-center text-3xl font-extrabold text-slate-900 dark:text-slate-200">
                         Welcome Flizzy 2.0
                     </h2>
                     <p class="mt-4 text-center font-semibold text-gray-500 text-md">Sign in to continue</p>
@@ -67,7 +67,7 @@ const onReset = () => {
                                 class="group relative w-full flex justify-center py-3 px-4 border !border-indigo-400 text-sm font-medium rounded-md !bg-indigo-600 hover:bg-indigo-500"
                                 label="Iniciar Sesión" @click="onSubmit()"/>
                         <p-button
-                                class="group relative w-full flex justify-center py-3 px-4 border !border-indigo-400 text-sm font-medium rounded-md !bg-surface-900 hover:bg-indigo-500"
+                                class="group relative w-full flex justify-center py-3 px-4 border !border-indigo-400 text-indigo-100 text-sm font-medium rounded-md !bg-surface-900 hover:bg-indigo-500"
                                 label="Restablecer validación" @click="onReset()"/>
                     </div>
                 </template>
