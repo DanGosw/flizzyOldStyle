@@ -3,8 +3,8 @@ import * as yup from "yup";
 import { useField, useForm } from "vee-validate";
 
 const schemaValidate = yup.object({
-    username: yup.string().required("Ingrese su usuario").label("username"),
-    password: yup.string().required("Ingrese su contraseña").label("password")
+    username: yup.string().required("Ingrese su usuario").label("username").min(5, "Ingresa al menos 5 caracteres"),
+    password: yup.string().required("Ingrese su contraseña").label("password").min(5, "Ingresa al menos 5 caracteres")
 });
 
 const fields = ref({
@@ -12,7 +12,7 @@ const fields = ref({
     password: ""
 });
 
-const { handleSubmit, resetForm, errors, defineField, submitForm } = useForm({
+const { handleSubmit, resetForm, errors } = useForm({
     validationSchema: schemaValidate,
     initialValues: fields.value
 });
@@ -31,12 +31,12 @@ const onReset = () => {
 </script>
 
 <template>
-    <div class="flex h-screen w-screen justify-center bg-gradient-to-b from-indigo-200 to-indigo-600">
-        <div class="z-40 m-auto p-2">
+    <div class="flex min-h-screen w-screen justify-center bg-gradient-to-b from-indigo-200 to-indigo-600">
+        <div class="z-10 m-auto p-2">
             <div class="mx-10 flex justify-center">
                 <img class="h-64" draggable="false" src="~@/assets/flizzy-color.png" alt="app-logo"/>
             </div>
-            <p-card class="h-auto w-full border border-gray-400" style="max-width: 400px;">
+            <Card class="h-auto w-full border border-gray-400" style="max-width: 400px;">
                 <template #content>
                     <h2 class="text-center text-3xl font-extrabold text-slate-900 dark:text-slate-200">
                         Welcome Flizzy 2.0
@@ -47,37 +47,37 @@ const onReset = () => {
                             <label for="username" :class="{ 'text-red-500': !!errors.username }">Usuario
                                 <strong class="text-red-500">*</strong>
                             </label>
-                            <p-inputText class="relative block w-full" placeholder="Ingrese su usuario" id="username"
-                                         @blur="usernameBlur(undefined, true)" :invalid="!!errors.username" v-model="username"/>
+                            <InputText class="relative block w-full" placeholder="Ingrese su usuario" id="username"
+                                       @blur="usernameBlur(undefined, true)" :invalid="!!errors.username" v-model="username"/>
                             <span class="flex h-4 text-sm text-red-500">{{ usernameError }}</span>
                         </div>
                         <div>
                             <label for="password" :class="{ 'text-red-500': !!errors.password }">Contraseña
                                 <strong class="text-red-500">*</strong>
                             </label>
-                            <p-password class="relative block w-full" :toggleMask="true" :feedback="false" :invalid="!!errors.password"
-                                        inputClass="w-full" @blur="passwordBlur(undefined,true)"
-                                        placeholder="Ingrese su contraseña" id="password" v-model="password">
-                            </p-password>
+                            <Password class="relative block w-full" :toggleMask="true" :feedback="false" :invalid="!!errors.password"
+                                      inputClass="w-full" @blur="passwordBlur(undefined,true)"
+                                      placeholder="Ingrese su contraseña" id="password" v-model="password">
+                            </Password>
                             <span class="flex h-4 text-sm text-red-500">{{ passwordError }}</span>
                         </div>
                     </div>
                     <div class="mt-2 space-y-2">
-                        <p-button
-                                class="group relative w-full flex justify-center py-3 px-4 border !border-indigo-400 text-sm font-medium rounded-md !bg-indigo-600 hover:bg-indigo-500"
-                                label="Iniciar Sesión" @click="onSubmit()"/>
-                        <p-button
-                                class="group relative w-full flex justify-center py-3 px-4 border !border-indigo-400 text-indigo-100 text-sm font-medium rounded-md !bg-surface-900 hover:bg-indigo-500"
-                                label="Restablecer validación" @click="onReset()"/>
+                        <Button class="w-full" label="Iniciar Sesión" @click="onSubmit()" icon-pos="top" icon="i-ic-baseline-login">
+                            <template #icon>
+                                <i-ic-baseline-login class=""/>
+                            </template>
+                        </Button>
+                        <Button class="w-full" label="Restablecer validación" severity="contrast" @click="onReset()"/>
                     </div>
                 </template>
-            </p-card>
+            </Card>
             <div class="px-8 py-4 text-center">
                 <span class="text-gray-400">Powered by DevRunner</span>
                 <a class="font-medium text-slate-900 hover:text-slate-800" href="#"> ACM1PT</a>
             </div>
         </div>
-        <div class="fixed right-0 bottom-0 left-0">
+        <div class="fixed right-0 bottom-0 left-0 z-0 waves-container">
             <svg
                     class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                     viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">

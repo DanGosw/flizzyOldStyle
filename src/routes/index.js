@@ -14,7 +14,7 @@ const router = createRouter({
                     meta: { label: "Caja", icon: IconIcBaselinePointOfSale }
                 },
                 {
-                    path: "/table", name: "table", component: () => import("@/modules/HelloWorld.vue"),
+                    path: "/table", name: "table", component: () => import("@/modules/tables/viewTables.vue"),
                     meta: { label: "Mesas", icon: IconMaterialSymbolsDiningOutline }
                 },
                 {
@@ -80,11 +80,18 @@ const router = createRouter({
                     meta: { label: "Cumpleaños", icon: IconIconoirBirthdayCake }
                 },
                 {
-                    path: "/settings", name: "settings", component: () => import("@/modules/HelloWorld.vue"),
+                    path: "/settings", name: "settings", component: () => import("@/modules/settings/index.vue"),
                     meta: { label: "Configuración", icon: IconMaterialSymbolsSettingsOutline }
+                },
+                
+                // Private Routes without meta
+                {
+                    path: "/users", name: "users", component: () => import("@/modules/settings/users/usersList.vue")
                 }
             ]
         },
+        
+        // Public Routes
         {
             path: "/login", name: "login", component: () => import("@/pages/public/login.vue")
             // meta: { label: "Login", icon: IconMajesticonsAnalyticsDelete }

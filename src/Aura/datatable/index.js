@@ -15,7 +15,7 @@ export default {
             // Position
             "absolute",
             "top-0 left-0",
-            "z-20",
+            "z-30",
             
             // Flex & Alignment
             "flex items-center justify-center",
@@ -24,10 +24,10 @@ export default {
             "w-full h-full",
             
             // Color
-            "bg-surface-100/40 dark:bg-surface-900/40",
+            "bg-surface-200/60 dark:bg-surface-600/20",
             
             // Transition
-            "transition duration-200"
+            "transition duration-500"
         ]
     },
     loadingicon: {
@@ -1098,7 +1098,7 @@ export default {
             leaveToClass: "opacity-0"
         }
     },
-    bodyrow: ({ context, props }) => ({
+    bodyrow: ({ context, props, parent }) => ({
         class: [
             // Color
             "dark:text-white/80",
@@ -1112,7 +1112,8 @@ export default {
             { "hover:bg-surface-300/20 dark:hover:bg-surface-800/50 hover:text-surface-600": props.selectionMode && !context.selected },
             
             // Transition
-            { "transition duration-200": (props.selectionMode && !context.selected) || props.rowHover },
+            { "transition duration-200 ease-in bg-surface-300": (props.selectionMode && !context.selected) || parent.props.rowHover },
+            { "hover:bg-surface-200/60 dark:hover:bg-surface-700/50 !ring-0": true }, // add parent.props.rowHover if needed and quit 'true'
             
             // Misc
             { "cursor-pointer": props.selectionMode }

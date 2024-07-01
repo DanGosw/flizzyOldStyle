@@ -10,7 +10,8 @@ export default {
             "leading-[normal]",
             {
                 "px-4 py-2": props.size === null,
-                "text-sm py-1.5 px-3": props.size === "small",
+                "pr-3": props.label !== null,
+                "text-sm py-1.5 px-1": props.size === "small",
                 "text-xl py-3 px-4": props.size === "large"
             },
             {
@@ -95,15 +96,15 @@ export default {
             // Warning Button
             {
                 "text-white dark:text-surface-900": props.severity === "warning" && !props.text && !props.outlined && !props.plain,
-                "bg-orange-500 dark:bg-orange-400": props.severity === "warning" && !props.text && !props.outlined && !props.plain,
-                "border border-orange-500 dark:border-orange-400": props.severity === "warning" && !props.text && !props.outlined &&
+                "bg-amber-500 dark:bg-amber-400": props.severity === "warning" && !props.text && !props.outlined && !props.plain,
+                "border border-amber-500 dark:border-amber-400": props.severity === "warning" && !props.text && !props.outlined &&
                     !props.plain
             },
             // Warning Text Button
-            { "text-orange-500 dark:text-orange-400": props.text && props.severity === "warning" && !props.plain },
+            { "text-amber-500 dark:text-amber-400": props.text && props.severity === "warning" && !props.plain },
             // Warning Outlined Button
             {
-                "text-orange-500 border border-orange-500 hover:bg-orange-300/10": props.outlined && props.severity === "warning" &&
+                "text-amber-500 border border-amber-500 hover:bg-amber-300/10": props.outlined && props.severity === "warning" &&
                     !props.plain
             },
             
@@ -197,12 +198,12 @@ export default {
             
             // Warning
             {
-                "hover:bg-orange-600 dark:hover:bg-orange-300 hover:border-orange-600 dark:hover:border-orange-300": props.severity ===
+                "hover:bg-amber-600 dark:hover:bg-amber-300 hover:border-amber-600 dark:hover:border-amber-300": props.severity ===
                     "warning" && !props.text && !props.outlined && !props.plain
             },
-            { "focus:ring-orange-500 dark:focus:ring-orange-400": props.severity === "warning" },
+            { "focus:ring-amber-500 dark:focus:ring-amber-400": props.severity === "warning" },
             // Text & Outlined Button
-            { "hover:bg-orange-300/10": (props.text || props.outlined) && props.severity === "warning" && !props.plain },
+            { "hover:bg-amber-300/10": (props.text || props.outlined) && props.severity === "warning" && !props.plain },
             
             // Help
             {
@@ -247,7 +248,7 @@ export default {
     label: ({ props }) => ({
         class: [
             "duration-200",
-            "font-medium",
+            "font-medium text-sm",
             {
                 "hover:underline": props.link
             },

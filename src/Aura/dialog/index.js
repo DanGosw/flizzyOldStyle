@@ -2,9 +2,9 @@ export default {
     root: ({ state }) => ({
         class: [
             // Shape
-            "rounded-lg",
-            "shadow-lg",
-            "border-0",
+            "rounded-xl",
+            "shadow-md",
+            "border",
             
             // Size
             "max-h-[90vh]",
@@ -14,7 +14,7 @@ export default {
             // Color
             "bg-surface-0 dark:bg-surface-900",
             "[&:last-child]:border-b",
-            "border-surface-200 dark:border-surface-700",
+            "border-[#dadaea] dark:border-[#474751]",
             
             // Transitions
             "transform",
@@ -42,13 +42,13 @@ export default {
             "p-6",
             
             // Shape
-            "rounded-tl-lg",
-            "rounded-tr-lg",
+            "rounded-tl-xl",
+            "rounded-tr-xl",
             
             // Colors
             "text-surface-700 dark:text-surface-0/80",
-            "border border-b-0",
-            "border-surface-200 dark:border-surface-700"
+            // "border border-b-0",
+            "border-surface-500 dark:border-surface-700"
         ]
     },
     title: {
@@ -78,7 +78,7 @@ export default {
             "bg-transparent",
             
             // Transitions
-            "transition duration-200 ease-in-out",
+            "transition ease-[cubic-bezier(.73,.25,.43,.88)]",
             
             // States
             "hover:text-surface-700 dark:hover:text-white/80",
@@ -111,7 +111,7 @@ export default {
             "bg-transparent",
             
             // Transitions
-            "transition duration-200 ease-in-out",
+            "transition ease-[cubic-bezier(.73,.25,.43,.88)]",
             
             // States
             "hover:text-surface-700 dark:hover:text-white/80",
@@ -153,14 +153,14 @@ export default {
             // Shape
             {
                 grow: state.maximized,
-                "rounded-bl-lg": !instance.$slots.footer,
-                "rounded-br-lg": !instance.$slots.footer
+                "rounded-bl-xl": !instance.$slots.footer,
+                "rounded-br-xl": !instance.$slots.footer
             },
             
             // Colors
             "text-surface-700 dark:text-surface-0/80",
-            "border border-t-0 border-b-0",
-            "border-surface-200 dark:border-surface-700",
+            // "border border-t-0 border-b-0",
+            "border-surface-500 dark:border-surface-700",
             
             // Misc
             "overflow-y-auto"
@@ -180,20 +180,20 @@ export default {
             
             // Shape
             "border-t-0",
-            "rounded-b-lg",
+            "rounded-b-xl",
             
             // Colors
             "bg-surface-0 dark:bg-surface-900",
             "text-surface-700 dark:text-surface-0/80",
-            "border border-t-0 border-b-0",
-            "border-surface-200 dark:border-surface-700"
+            // "border border-t-0 border-b-0",
+            "border-surface-500 dark:border-surface-700"
         ]
     },
     mask: ({ props }) => ({
         class: [
             // Transitions
             "transition-all",
-            "duration-300",
+            "",
             { "p-5": !props.position === "full" },
             
             // Background and Effects
@@ -204,35 +204,35 @@ export default {
         return props.position === "top"
             ? {
                 enterFromClass: "opacity-0 scale-75 translate-x-0 -translate-y-full translate-z-0 mask-active",
-                enterActiveClass: "transition-all duration-200 ease-out",
-                leaveActiveClass: "transition-all duration-200 ease-out",
+                enterActiveClass: "transition-all ease-[cubic-bezier(.73,.25,.43,.88)]",
+                leaveActiveClass: "transition-all ease-[cubic-bezier(.73,.25,.43,.88)]",
                 leaveToClass: "opacity-0 scale-75 translate-x-0 -translate-y-full translate-z-0 mask-active"
             }
             : props.position === "bottom"
                 ? {
                     enterFromClass: "opacity-0 scale-75 translate-y-full mask-active",
-                    enterActiveClass: "transition-all duration-200 ease-out",
-                    leaveActiveClass: "transition-all duration-200 ease-out",
+                    enterActiveClass: "transition-all ease-[cubic-bezier(.73,.25,.43,.88)]",
+                    leaveActiveClass: "transition-all ease-[cubic-bezier(.73,.25,.43,.88)]",
                     leaveToClass: "opacity-0 scale-75 translate-x-0 translate-y-full translate-z-0 mask-active"
                 }
                 : props.position === "left" || props.position === "topleft" || props.position === "bottomleft"
                     ? {
                         enterFromClass: "opacity-0 scale-75 -translate-x-full translate-y-0 translate-z-0 mask-active",
-                        enterActiveClass: "transition-all duration-200 ease-out",
-                        leaveActiveClass: "transition-all duration-200 ease-out",
+                        enterActiveClass: "transition-all ease-[cubic-bezier(.73,.25,.43,.88)]",
+                        leaveActiveClass: "transition-all ease-[cubic-bezier(.73,.25,.43,.88)]",
                         leaveToClass: "opacity-0 scale-75  -translate-x-full translate-y-0 translate-z-0 mask-active"
                     }
                     : props.position === "right" || props.position === "topright" || props.position === "bottomright"
                         ? {
                             enterFromClass: "opacity-0 scale-75 translate-x-full translate-y-0 translate-z-0 mask-active",
-                            enterActiveClass: "transition-all duration-200 ease-out",
-                            leaveActiveClass: "transition-all duration-200 ease-out",
+                            enterActiveClass: "transition-all ease-[cubic-bezier(.73,.25,.43,.88)]",
+                            leaveActiveClass: "transition-all ease-[cubic-bezier(.73,.25,.43,.88)]",
                             leaveToClass: "opacity-0 scale-75 translate-x-full translate-y-0 translate-z-0 mask-active"
                         }
                         : {
                             enterFromClass: "opacity-0 scale-75 mask-active",
-                            enterActiveClass: "transition-all duration-200 ease-out",
-                            leaveActiveClass: "transition-all duration-200 ease-out",
+                            enterActiveClass: "transition-all ease-[cubic-bezier(.73,.25,.43,.88)]",
+                            leaveActiveClass: "transition-all ease-[cubic-bezier(.73,.25,.43,.88)]",
                             leaveToClass: "opacity-0 scale-75 mask-active"
                         };
     }

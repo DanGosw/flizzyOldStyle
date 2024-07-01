@@ -56,6 +56,7 @@ export default defineConfig({
                     "@vueuse/core": ["watchDebounced", "useDebounceFn", "useWindowSize", "useDark", "useToggle"],
                     "@vueuse/integrations/useCookies": ["useCookies"],
                     "primevue": ["useConfirm", "useConfirmDialog", "Dialog"],
+                    "primevue/usetoast": ["useToast"],
                     "vee-validate": ["useForm", "defineRule", "useField"],
                     "@vueuse/integrations/useAxios": ["useAxios"],
                     // "dom-to-image": ["toPng"],

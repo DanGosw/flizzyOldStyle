@@ -48,8 +48,8 @@
     --surface-400: 161 161 170;
     --surface-500: 113 113 122;
     --surface-600: 82 82 91;
-    --surface-700: 63 63 70;
-    --surface-800: 22 22 24;
+    --surface-700: 56 58 63;
+    --surface-800: 22 24 29;
     --surface-900: 12 14 20;
     --surface-950: 9 9 11;
 
@@ -76,24 +76,27 @@
 
 /* Works on Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-    width: 8px; /* Ancho de la barra vertical */
-    height: 8px; /* Altura de la barra horizontal */
+    @apply w-2 h-2;
 }
 
 *::-webkit-scrollbar-track {
-    background: #f2f2f3;
-    border-radius: 10px; /* Radio para el rastro de la barra de desplazamiento */
+    @apply bg-primary-200 dark:bg-surface-800 rounded;
 }
 
 *::-webkit-scrollbar-thumb {
-    background: #4b62b5;
-    border-radius: 10px; /* Radio para el pulgar de la barra de desplazamiento */
+    @apply bg-primary-400 dark:bg-surface-600 rounded;
 }
 
-/* Estilos adicionales para los scrollbars horizontales */
 *::-webkit-scrollbar-thumb:horizontal {
-    background: #4b62b5;
-    border-radius: 10px; /* Radio para el pulgar de la barra de desplazamiento horizontal */
+    @apply bg-primary-400 dark:bg-surface-600 rounded h-2;
+}
+
+*::-webkit-scrollbar-corner {
+    @apply bg-transparent;
+}
+
+* {
+    @apply transition ease-[cubic-bezier(.73,.25,.43,.88)];
 }
 
 .customized-primary {

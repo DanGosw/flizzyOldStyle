@@ -4,6 +4,7 @@ export default {
             // Flex
             "inline-flex",
             "relative",
+            "m-0",
             { "flex-col": props.showButtons && props.buttonLayout === "vertical" },
             { "flex-1 w-[1%]": parent.instance.$name === "InputGroup" },
             
@@ -32,7 +33,7 @@ export default {
                 { "text-center": parent.props.showButtons && parent.props.buttonLayout === "vertical" },
                 
                 // Spacing
-                "py-2 px-3",
+                "py-1.5 px-2",
                 "m-0",
                 
                 // Shape

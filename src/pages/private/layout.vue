@@ -5,8 +5,8 @@
     <div class="h-screen">
         <div class="dark:bg-surface-900">
             <navbar class="sticky top-0 z-50 h-auto w-full"/>
-            <div class="z-40 h-auto w-full dark:bg-surface-900">
-                <div class="m-2 flex-1">
+            <div class="h-full w-full dark:bg-surface-900">
+                <div class="m-2.5">
                     <router-view v-slot="{ Component }">
                         <transition mode="out-in">
                             <component :is="Component"/>
@@ -16,7 +16,7 @@
             </div>
         </div>
     </div>
-    <p-toast/>
+    <Toast/>
 </template>
 <style>
 .v-enter-active,

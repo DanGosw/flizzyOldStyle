@@ -2,13 +2,22 @@
 export default {
     content: [
         "./index.html",
-        "./src/**/*.{vue,js,ts,jsx,tsx}"
+        "./src/**/*.{vue,js,ts,jsx,tsx}",
+        "./presets/**/*.{js,vue,ts}",
+        "./components/**/*.{js,vue,ts}",
+        "./doc/**/*.{js,vue,ts}",
+        "./layouts/**/*.vue",
+        "./pages/**/*.vue",
+        "./plugins/**/*.{js,ts}",
+        "./app.vue",
+        "./error.vue"
     ],
     darkMode: "class",
     theme: {
         screens: {
             sm: "480px",
-            md: "810px",
+            smd: "800px",
+            md: "770px",
             lg: "976px",
             xl: "1440px"
         },

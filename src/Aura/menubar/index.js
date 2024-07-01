@@ -8,7 +8,7 @@ export default {
             "items-center",
             
             // Spacing
-            "p-2",
+            "p-1",
             
             // Shape
             "rounded-md",
@@ -20,40 +20,40 @@ export default {
     menu: ({ props }) => ({
         class: [
             // Flexbox
-            "md:flex",
+            "smd:flex",
             "items-center",
             "flex-wrap",
             // "overflow-x-auto",
-            "flex-col md:flex-row",
+            "flex-col smd:flex-row",
             { hidden: !props?.mobileActive, flex: props?.mobileActive },
-            "border border-surface-500 md:border-0 rounded",
+            "rounded border border-[#dadaea] dark:border-[#474751] smd:border-0 rounded",
             
             // Position
-            "absolute md:relative",
+            "absolute smd:relative",
             "top-full left-0",
-            "md:top-auto md:left-auto",
+            "smd:top-auto smd:left-auto",
             
             // Size
-            "w-[98%] md:w-auto",
+            "w-[96%] smd:w-auto",
             
             // Spacing
-            "ml-2 md:ml-0",
-            "p-1 md:py-0 md:p-0",
+            "ml-2 smd:ml-0",
+            "p-1 smd:py-0 smd:p-0",
             "list-none",
             
             // Shape
-            "shadow-md md:shadow-none",
+            "shadow-md smd:shadow-none",
             // "border-0",
             
             // Color
-            "bg-surface-0 dark:bg-surface-900 md:bg-transparent",
+            "bg-surface-0 dark:bg-surface-900 smd:bg-transparent",
             
             // Misc
             "outline-none"
         ]
     }),
     menuitem: {
-        class: "md:relative md:w-auto w-full static my-[1px] [&:first-child]:mt-0"
+        class: "smd:relative smd:w-auto w-full static [&:first-child]:mt-0"
     },
     content: ({ context }) => ({
         class: [
@@ -70,7 +70,7 @@ export default {
                     context.active ||
                     (!context.focused && context.active)
             },
-            // "md:m-2 md:border md:border-surface-200",
+            // "smd:m-2 smd:border smd:border-surface-200",
             // States
             {
                 "hover:bg-[#E5E9F5] dark:hover:bg-[rgba(255,255,255,0.10)]": !context.active,
@@ -96,8 +96,8 @@ export default {
             
             // Size
             {
-                "pl-9 md:pl-5": context.level === 1,
-                "pl-14 md:pl-5": context.level === 2
+                "pl-9 smd:pl-5": context.level === 1,
+                "pl-14 smd:pl-5": context.level === 2
             },
             "leading-none",
             
@@ -114,7 +114,7 @@ export default {
     submenuicon: ({ props }) => ({
         class: [
             {
-                "ml-auto md:ml-2": props.root,
+                "ml-auto smd:ml-2": props.root,
                 "ml-auto": !props.root
             }
         ]
@@ -131,13 +131,13 @@ export default {
             "list-none",
             
             // Shape
-            "shadow-none md:shadow-md",
+            "shadow-none smd:shadow-md",
             "border border-surface-200 dark:border-surface-700",
             
             // Position
-            "static md:absolute",
+            "static smd:absolute",
             "z-10",
-            { "md:absolute md:left-full md:top-0": props.level > 1 },
+            { "smd:absolute smd:left-full smd:top-0": props.level > 1 },
             
             // Color
             "bg-surface-0 dark:bg-surface-900"
@@ -149,7 +149,7 @@ export default {
     button: {
         class: [
             // Flexbox
-            "flex md:hidden",
+            "flex smd:hidden",
             "items-center justify-center",
             
             // Size
@@ -176,7 +176,7 @@ export default {
         ]
     },
     start: {
-        class: "px-1"
+        class: "self-center"
     },
     end: {
         class: "ml-auto self-center"
