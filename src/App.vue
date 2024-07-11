@@ -1,10 +1,6 @@
-<script setup></script>
-
+<script setup>
+ 
+</script>
 <template>
-    <router-view/>
+    <load-page/>
 </template>
-
-<style scoped>
-
-
-</style>

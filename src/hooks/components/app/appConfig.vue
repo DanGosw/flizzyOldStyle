@@ -3,7 +3,7 @@
 const selectedPrimaryColor = ref({ type: "primary", name: "indigo" });
 const selectedSurfaceColor = ref({ type: "surface", name: "stone" });
 const visible = ref(false);
-const useCookie = useCookies(["primary", "surface"]);
+const useCookie = useCookies(["primary", "surface"], { autoUpdateDependencies: true });
 const onConfigButtonClick = () => visible.value = !visible.value;
 
 const primaryColors = [
@@ -12,18 +12,6 @@ const primaryColors = [
             "236 253 245", "209 250 229", "167 243 208", "110 231 183",
             "52 211 153", "16 185 129", "5 150 105", "4 120 87",
             "6 95 70", "4 78 56", "2 44 34"]
-    },
-    {
-        name: "green", palette: [
-            "240 253 244", "220 252 231", "187 247 208", "134 239 172",
-            "78 222 128", "34 197 94", "22 163 74", "21 128 61",
-            "22 101 52", "20 83 45", "23 78 22"]
-    },
-    {
-        name: "lime", palette: [
-            "247 254 231", "236 252 203", "217 249 157", "190 242 100",
-            "163 230 53", "132 204 22", "101 163 13", "77 124 15",
-            "63 98 18", "54 83 20", "26 46 5"]
     },
     {
         name: "red", palette: [

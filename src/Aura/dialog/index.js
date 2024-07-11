@@ -35,19 +35,19 @@ export default {
     header: {
         class: [
             // Flexbox and Alignment
-            "flex items-center justify-between",
+            "flex items-center justify-between w-full",
             "shrink-0",
             
             // Spacing
-            "p-6",
+            "p-4",
             
             // Shape
             "rounded-tl-xl",
             "rounded-tr-xl",
             
             // Colors
-            "text-surface-700 dark:text-surface-0/80",
-            // "border border-b-0",
+            "text-surface-50 dark:text-surface-0/80 font-semibold",
+            "bg-primary-600/90 dark:bg-surface-800",
             "border-surface-500 dark:border-surface-700"
         ]
     },
@@ -74,7 +74,7 @@ export default {
             "rounded-full",
             
             // Colors
-            "text-surface-500",
+            "text-surface-50",
             "bg-transparent",
             
             // Transitions

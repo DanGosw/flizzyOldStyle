@@ -3,6 +3,10 @@ import { ref } from "vue";
 import * as yup from "yup";
 import { useField, useForm } from "vee-validate";
 
+const props = defineProps({
+    closeModal: { type: Function, default: () => {}, required: true }
+});
+
 const dropdownItems = ref([
     { name: "Option 1", value: "1" },
     { name: "Option 2", value: "2" },
@@ -59,6 +63,7 @@ const onSubmit = handleSubmit((values) => {
 
 const onReset = () => {
     resetForm();
+    props.closeModal();
 };
 
 </script>

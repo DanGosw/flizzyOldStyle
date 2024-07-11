@@ -1,15 +1,13 @@
 <script setup>
-
 /* Imports */
 import addUsers from "@/modules/settings/users/addUsers.vue";
 import changeSecurityCode from "@/modules/settings/users/changeSecurityCode.vue";
-
 /* Defaults Variables */
 const data = ref();
 const toast = useToast();
 const totalLength = ref(0);
 const page = ref(1);
-const loading = ref(false);
+const loading = ref(true);
 const pageSize = ref(10);
 
 /* Methods */
@@ -17,6 +15,14 @@ const showMessage = (info) => {
     console.log(info);
     /* Toast  @params {severity: 'success|info|warn|error', summary: 'string', detail: 'string', life: 'number'}*/
     toast.add({ severity: "info", summary: "Title xd", detail: info.type, life: 5000 });
+};
+
+/**
+ * @params {Function} closeModal - Function that returns visible of the modal.
+ * @returns {void} - Change the visibility of the modal
+ */
+const closeModal = () => {
+    parametersModal.value.visible = false;
 };
 
 /**
@@ -83,13 +89,15 @@ const parametersModal = ref({
     component: () => {}
 });
 
-const componentAddUserModal = h(addUsers);
+const componentAddUserModal = h(addUsers, {
+    closeModal
+});
 
 const addParametersUserModal = () => {
     parametersModal.value = {
         visible: true,
         header: "Nuevo usuario",
-        width: "60vw",
+        width: "70vw",
         content: "content",
         footer: "",
         component: componentAddUserModal
@@ -97,13 +105,7 @@ const addParametersUserModal = () => {
 };
 
 const componentCodeModal = h(changeSecurityCode, {
-    /**
-     * @params {Function} closeModal - Function that returns visible of the modal.
-     * @returns {void} - Change the visibility of the modal
-     */
-    closeModal: () => {
-        parametersModal.value.visible = false;
-    }
+    closeModal
 });
 
 const addParametersCodeModal = () => {
@@ -156,14 +158,16 @@ onMounted(() => {
                 </div>
                 <DataTable size="small" striped-rows show-gridlines :value="data" scroll-direction="horizontal" scroll-height="65vh"
                            :row-class="()=>{'text-center'}" :rowsPerPageOptions="[10,20,50]" :total-records="totalLength" lazy scrollable
-                           @page="onPageChange" :loading="loading" dataKey="code" tableStyle="min-width: 80rem; font-size: 0.72rem;"
-                           class="mt-4" paginator :rows="pageSize"
+                           @page="onPageChange" :loading="loading" dataKey="code" tableStyle="min-width: 110rem;" class="mt-4" paginator
+                           :rows="pageSize"
                            :paginatorTemplate="{
                                         '640px': 'PrevPageLink PageLinks NextPageLink RowsPerPageDropdown',
                                         '960px': 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown',
                                         '1300px': 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown',
                                         default: 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown' }">
-                    <template #empty> No se encontraron datos.</template>
+                    <template #empty>
+                        <empty-table/>
+                    </template>
                     <template #loading>
                         <loading-data/>
                     </template>

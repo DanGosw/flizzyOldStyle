@@ -1,19 +1,19 @@
 <template>
-    <div class="cube-loader select-none">
-        <div class="cube-top"></div>
+    <div class="cube-loader z-20">
+        <div class="cube-top"/>
         <div class="cube-wrapper">
-    <span class="cube-span" style="--i:0">
-      <span style="text-align: center; font-size: 50px;" class="taco-container">🍕</span>
-    </span>
+                <span class="cube-span" style="--i:0">
+                  <span class="taco-container text-center text-5xl">🍕</span>
+                </span>
             <span class="cube-span" style="--i:1">
-      <span style="text-align: center; font-size: 50px;" class="taco-container">🍔</span>
-    </span>
+                  <span class="taco-container text-center text-5xl">🍔</span>
+                </span>
             <span class="cube-span" style="--i:2">
-      <span style="text-align: center; font-size: 50px;" class="taco-container">🍗</span>
-    </span>
+                  <span class="taco-container text-center text-5xl">🍗</span>
+                </span>
             <span class="cube-span" style="--i:3">
-      <span style="text-align: center; font-size: 50px;" class="taco-container">🍩</span>
-    </span>
+                  <span class="taco-container text-center text-5xl">🍩</span>
+                </span>
         </div>
     </div>
 </template>
@@ -21,7 +21,6 @@
 <style>
 
 .cube-loader {
-    position: relative;
     width: 77px;
     height: 76px;
     transform-style: preserve-3d;

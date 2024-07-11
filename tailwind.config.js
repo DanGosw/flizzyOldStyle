@@ -3,6 +3,7 @@ export default {
     content: [
         "./index.html",
         "./src/**/*.{vue,js,ts,jsx,tsx}",
+        "./src/components/**/*.{vue,js,ts,jsx,tsx}",
         "./presets/**/*.{js,vue,ts}",
         "./components/**/*.{js,vue,ts}",
         "./doc/**/*.{js,vue,ts}",

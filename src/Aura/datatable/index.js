@@ -1,7 +1,7 @@
 export default {
     root: ({ props }) => ({
         class: [
-            "relative",
+            "relative min-h-48",
             
             // Flex & Alignment
             { "flex flex-col": props.scrollable && props.scrollHeight === "flex" },
@@ -117,7 +117,8 @@ export default {
                 "border-0 border-b border-solid",
                 
                 // Spacing
-                context?.size === "small" ? "py-[0.375rem] px-2" : context?.size === "large" ? "py-[0.9375rem] px-5" : "py-3 px-4",
+                context?.size === "small" ? "py-[0.375rem] px-2 text-[0.72rem]" : context?.size === "large" ?
+                    "py-[0.9375rem] px-5" : "py-3 px-4",
                 
                 // Color
                 (props.sortable === "" || props.sortable) && context.sorted
@@ -157,7 +158,7 @@ export default {
                 { "sticky box-border border-b z-20": props.frozen || props.frozen === "" },
                 
                 // Alignment
-                "text-left",
+                "text-left text-[0.74rem]",
                 
                 // Shape
                 "border-0 border-b border-solid",

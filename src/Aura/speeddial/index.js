@@ -13,7 +13,7 @@ export default {
                 
                 // Sizes & Spacing
                 "leading-[normal]",
-                "w-10 h-10 p-0 py-2",
+                "w-8 h-8 p-0 py-2",
                 
                 // Shapes
                 "rounded-full",
@@ -39,7 +39,8 @@ export default {
                 // Primary Button
                 {
                     "text-primary-inverse": !props.link && props.severity === null && !props.text && !props.outlined && !props.plain,
-                    "bg-primary": !props.link && props.severity === null && !props.text && !props.outlined && !props.plain,
+                    "bg-primary-500 dark:bg-primary": !props.link && props.severity === null && !props.text && !props.outlined &&
+                        !props.plain,
                     "border border-primary": !props.link && props.severity === null && !props.text && !props.outlined && !props.plain
                 },
                 // Primary Text Button
@@ -260,10 +261,10 @@ export default {
             class: [
                 "mx-0",
                 {
-                    "mr-2": props.iconPos === "left" && props.label != null,
-                    "ml-2 order-1": props.iconPos === "right" && props.label != null,
-                    "mb-2": props.iconPos === "top" && props.label != null,
-                    "mt-2": props.iconPos === "bottom" && props.label != null
+                    "mr-1.5": props.iconPos === "left" && props.label != null,
+                    "ml-1.5 order-1": props.iconPos === "right" && props.label != null,
+                    "mb-1.5": props.iconPos === "top" && props.label != null,
+                    "mt-1.5": props.iconPos === "bottom" && props.label != null
                 }
             ]
         }),

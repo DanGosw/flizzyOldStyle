@@ -2,6 +2,7 @@
 import { ref } from "vue";
 
 const data = ref();
+const loading = ref(false);
 // const isSticky = ref(false);
 // const stickyStyle = ref(null);
 //
@@ -25,7 +26,11 @@ const data = ref();
 // });
 
 const getData = async() => {
-    return await axios.get("https://retoolapi.dev/5boF6b/data").then(results => data.value = results.data);
+    loading.value = true;
+    return await axios.get("https://retoolapi.dev/5boF6b/data").then(results => {
+        data.value = results.data;
+        loading.value = false;
+    });
 };
 
 getData();
@@ -65,10 +70,15 @@ const countries = ref([
                               @update:model-value="()=>console.log(selectedCity?.name)" placeholder="Select"/>
                 </div>
             </div>
-            <DataTable size="small" striped-rows show-gridlines :value="data" scroll-direction="horizontal" scroll-height="666px"
-                       dataKey="code" tableStyle="min-width: 110rem; font-size: 13px;" class="mt-4" scrollable>
-                <template #empty> No se encontraron datos.</template>
-                <template #loading> Cargando datos. Por favor espere.</template>
+            <DataTable size="small" striped-rows show-gridlines :value="data" scroll-direction="horizontal" scroll-height="65vh"
+                       :row-class="()=>{'text-center'}" lazy scrollable :rowsPerPageOptions="[10,20,50]"
+                       dataKey="code" tableStyle="min-width: 110rem;" class="mt-4" :loading="loading">
+                <template #empty>
+                    <empty-table/>
+                </template>
+                <template #loading>
+                    <loading-data/>
+                </template>
                 <Column class="border border-[#474751]" style="width: 1%" field="id" header="ID"/>
                 <Column class="border border-[#474751]" style="width: 10%" field="Names" header="Names"/>
                 <Column class="border border-[#474751]" style="width: 10%" field="mail" header="E-Mail"/>
@@ -82,9 +92,9 @@ const countries = ref([
                 <Column class="border border-[#474751]" style="width: 4%" header="Date">
                     <template #body>
                         <div class="flex justify-center">
-                            <Button size="small" severity="info" class="">
+                            <Button size="small" severity="info" class="!p-1">
                                 <template #icon>
-                                    <i-ic-sharp-access-time class="text-[16px] !mx-1"/>
+                                    <i-ic-sharp-access-time class="!mx-1"/>
                                 </template>
                             </Button>
                         </div>

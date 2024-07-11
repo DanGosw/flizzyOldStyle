@@ -51,8 +51,40 @@ const tableSchema = ref([
                         is_disabled: false,
                         order_amount: 66,
                         orders: []
+                    },
+                    {
+                        id: 3,
+                        modified: "28/06/2024 09:44:57",
+                        code: "ME-03",
+                        description: "MESA 2",
+                        area: 1,
+                        status: "3",
+                        is_disabled: false,
+                        order_amount: 66,
+                        orders: []
+                    },
+                    {
+                        id: 4,
+                        modified: "28/06/2024 09:44:57",
+                        code: "ME-04",
+                        description: "MESA 2",
+                        area: 1,
+                        status: "3",
+                        is_disabled: false,
+                        order_amount: 66,
+                        orders: []
+                    },
+                    {
+                        id: 5,
+                        modified: "28/06/2024 09:44:57",
+                        code: "ME-05",
+                        description: "MESA 2",
+                        area: 1,
+                        status: "3",
+                        is_disabled: false,
+                        order_amount: 66,
+                        orders: []
                     }
-
                 ]
             },
             {
@@ -61,9 +93,9 @@ const tableSchema = ref([
                 code: "ME-03",
                 description: "MESA 3",
                 area: 1,
-                status: "1",
+                status: "3",
                 is_disabled: false,
-                order_amount: "",
+                order_amount: 52,
                 orders: []
             },
             {
@@ -290,41 +322,23 @@ const items = ref([
         </template>
         <template #content>
             <div v-for="(branch, index) in tableSchema" :key="index" class="my-2">
-                <div class="flex h-full w-full flex-col rounded-lg p-2 bg-primary-400/20 dark:bg-surface-700/70">
+                <div class="flex h-full w-full flex-col rounded-lg p-2 bg-surface-200 dark:bg-surface-700/70 border border-surface-300 dark:border-surface-600">
                     <p class="m-3">{{ branch.description }}</p>
                     <div class="grid grid-cols-1 flex-wrap items-center justify-start gap-2 sm:grid-cols-4 md:grid-cols-9 lg:grid-cols-10 xl:grid-cols-12">
-                        <div v-for="(table, index) in branch.tables" :key="index" @click="() => { table.order_amount = 666 }"
-                             :class="`${table.order_amount ? 'bg-primary-300 dark:bg-primary-500' : 'bg-surface-300 dark:bg-surface-800'} border border-surface-300 dark:border-surface-700`"
-                             class="relative col-span-2 flex h-44 z-10 flex-col justify-between rounded-lg sm:col-span-2 md:col-span-3 lg:col-span-2">
-
-                            <SpeedDial :model="items" :radius="120" type="quarter-circle" direction="down-left"
-                                       class="top-1.5 right-1.5 z-50" :tooltipOptions="{ position: 'left', event: 'hover' }"
-                                       v-if="table.order_amount">
-                                <template #button="{ onClick: toggleCallback }">
-                                    <Button class="!p-1.5" rounded @click.stop="toggleCallback">
-                                        <i-material-symbols-add/>
-                                    </Button>
+                        <tableDesign v-for="table in branch.tables" :key="table.id" :table="table">
+                            <SpeedDial :model="items" :radius="100" type="quarter-circle" direction="down-left" mask-class="rounded-lg xd"
+                                       v-if="table.status === '3'" mask class="rounded-full shadow top-0.5 right-0.5 xd">
+                                <template #icon>
+                                    <i-material-symbols-add/>
                                 </template>
                                 <template #item="{ item, onClick: toggleCallback }">
-                                    <div class="flex cursor-pointer items-center justify-center rounded-full p-1.5 z-50 bg-primary-500 dark:bg-primary-400 "
-                                         @click.stop="toggleCallback">
-                                        <component :is="item.class"/>
+                                    <div class="flex cursor-pointer items-center justify-center rounded-full p-1.5 bg-primary-500 hover:bg-primary-500/90 dark:bg-primary-400 dark:hover:bg-primary-500/90"
+                                         @click="toggleCallback" v-tooltip.bottom="item.label">
+                                        <component :is="item.class" class="text-primary-50 dark:text-surface-900"/>
                                     </div>
                                 </template>
                             </SpeedDial>
-                            <div class="flex h-20 w-full items-center justify-center rounded-t-lg text-xl font-semibold top-">
-                                {{ table.description }}
-                            </div>
-                            <div class="flex h-20 w-full items-center justify-center rounded-b-lg" v-if="table.order_amount">
-                                S/. {{ table.order_amount.toFixed(2) }}
-                            </div>
-                            <div class="flex h-6 w-full flex-col items-center justify-center rounded-b-lg bg-red-400 text-sm font-semibold"
-                                 v-if="table.order_amount">
-                                <p class="animate-pulse">
-                                    {{ table.modified }}
-                                </p>
-                            </div>
-                        </div>
+                        </tableDesign>
                     </div>
                 </div>
             </div>
