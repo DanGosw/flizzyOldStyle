@@ -22,6 +22,7 @@ export default {
             { "shadow-lg": true },
             { "rounded-md": !props.rounded, "rounded-full": props.rounded },
             { "rounded-none first:rounded-l-md last:rounded-r-md": parent.instance.$name === "InputGroup" },
+            { "rounded-none first:rounded-l-md last:rounded-r-md": parent.instance.$name === "ButtonGroup" },
             
             // Link Button
             { "text-primary-600 bg-transparent border-transparent": props.link },
@@ -56,7 +57,7 @@ export default {
             {
                 "text-surface-900 dark:text-white": props.severity === "secondary" && !props.text && !props.outlined && !props.plain,
                 "bg-surface-100 dark:bg-surface-700": props.severity === "secondary" && !props.text && !props.outlined && !props.plain,
-                "border border-surface-100 dark:border-surface-700": props.severity === "secondary" && !props.text && !props.outlined &&
+                "border dark:border-surface-500 border-surface-300": props.severity === "secondary" && !props.text && !props.outlined &&
                     !props.plain
             },
             // Secondary Text Button

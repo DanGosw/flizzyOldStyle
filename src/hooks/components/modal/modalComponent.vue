@@ -9,10 +9,6 @@ const propsModal = defineProps({
             type: String,
             default: ""
         },
-        content: {
-            type: String,
-            default: ""
-        },
         footer: {
             type: String,
             default: ""

@@ -49,36 +49,35 @@ const onReset = () => {
 </script>
 
 <template>
-    <div class="w-auto">
-        <div class="p-2">
-            <div class="grid grid-cols-1 gap-3 space-y-1 md:grid-cols-6">
-                <div class="col-span-1 md:col-span-6">
-                    <label for="code" class="mb-2 block text-sm">Clave Actual <span class="ml-1 text-red-500">*</span></label>
-                    <InputText v-model="code" id="code" class="w-full" size="small" @blur="codeBlur(null, true)" maxlength="10"/>
-                    <span class="flex h-2 text-sm text-red-500">{{ errors.code }}</span>
-                </div>
-                <div class="col-span-1 md:col-span-6">
-                    <label for="lastnames" class="mb-2 block text-sm">Nueva Clave <span class="ml-1 text-red-500">*</span></label>
-                    <InputText v-model="newCode" id="lastnames" class="w-full" size="small" @blur="newCodeBlur(null, true)"/>
-                    <span class="flex h-2 text-sm text-red-500">{{ errors.newCode }}</span>
-                </div>
-                <div class="col-span-1 md:col-span-6">
-                    <label for="address" class="mb-2 block text-sm">Confirmar Clave <span class="ml-1 text-red-500">*</span></label>
-                    <InputText v-model="newCodeConfirm" id="address" class="w-full" size="small" @blur="newCodeConfirmBlur(null, true)"/>
-                    <span class="flex h-2 text-sm text-red-500">{{ errors.newCodeConfirm }}</span>
-                </div>
-                <div class="col-span-1 mt-4 flex w-full justify-center space-x-2 md:col-span-6">
-                    <Button label="Cancelar" severity="secondary" class="w-full border border-surface-300" @click="onReset">
-                        <template #icon>
-                            <i-ri-close-line class="mx-1"/>
-                        </template>
-                    </Button>
-                    <Button label="Modificar" severity="info" class="w-full" @click="onSubmit">
-                        <template #icon>
-                            <i-fluent-save-24-regular class="mx-1"/>
-                        </template>
-                    </Button>
-                </div>
+    <div class="w-full py-2">
+        <div class="grid grid-cols-1 gap-3 space-y-1 md:grid-cols-6">
+            <div class="col-span-1 md:col-span-6">
+                <label-required for="code" label="Clave Actual" :mark="true"/>
+                <InputText v-model="code" id="code" size="small" @blur="codeBlur(null, true)" maxlength="10"/>
+                <span class="markRequired">{{ errors.code }}</span>
+            </div>
+            <div class="col-span-1 md:col-span-6">
+                <label-required for="newCode" label="Nueva Clave" :mark="true"/>
+                <InputText v-model="newCode" id="newCode" size="small" @blur="newCodeBlur(null, true)"/>
+                <span class="markRequired">{{ errors.newCode }}</span>
+            </div>
+            <div class="col-span-1 md:col-span-6">
+                <label-required for="confirmCode" label="Confirmar Clave" :mark="true"/>
+                <InputText v-model="newCodeConfirm" id="confirmCode" size="small"
+                           @blur="newCodeConfirmBlur(null, true)"/>
+                <span class="markRequired">{{ errors.newCodeConfirm }}</span>
+            </div>
+            <div class="col-span-1 mt-4 flex w-full justify-center space-x-2 md:col-span-6">
+                <Button label="Cancelar" severity="secondary" class="w-full border border-surface-300" @click="onReset">
+                    <template #icon>
+                        <i-ri-close-line class="mx-1"/>
+                    </template>
+                </Button>
+                <Button label="Modificar" severity="info" class="w-full" @click="onSubmit">
+                    <template #icon>
+                        <i-fluent-save-24-regular class="mx-1"/>
+                    </template>
+                </Button>
             </div>
         </div>
     </div>

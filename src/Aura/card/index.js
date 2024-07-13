@@ -34,6 +34,9 @@ export default {
     title: {
         class: "text-xl font-semibold mb-0"
     },
+    header: {
+        class: "text-xl font-semibold mb-0"
+    },
     subtitle: {
         class: [
             //Font

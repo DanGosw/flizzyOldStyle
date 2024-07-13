@@ -69,19 +69,15 @@ const parametersModal = ref({
     header: "",
     /**
      *  @params {string} - default value.
-     *  @description Content of the modal.
-     */
-    content: "",
-    /**
-     *  @params {string} - default value.
+     *  @default default width is 50vh.
      *  @description Width of the modal.
      */
     width: "30vw",
     /**
-     *  @params {string} - default value.
+     *  @params {Component} - Returns a component in footer modal.
      *  @description Footer of the modal.
      */
-    footer: "",
+    footer: () => {},
     /**
      * @params {Component} - Function that returns a component
      * @description Component of the modal.
@@ -98,7 +94,6 @@ const addParametersUserModal = () => {
         visible: true,
         header: "Nuevo usuario",
         width: "70vw",
-        content: "content",
         footer: "",
         component: componentAddUserModal
     };
@@ -132,7 +127,7 @@ onMounted(() => {
     <div>
         <Card>
             <template #title>
-                <div class="flex sm:justify-between flex-wrap">
+                <div class="alignHeader">
                     <div>
                         <p>Configuración de Usuarios</p>
                     </div>

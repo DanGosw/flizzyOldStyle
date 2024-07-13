@@ -72,7 +72,7 @@ const router = createRouter({
                     meta: { label: "Kardex", icon: IconMaterialSymbolsLightBarChart4BarsRounded, expand: "kardex" }
                 },
                 {
-                    path: "/customers", name: "customers", component: () => import("@/modules/HelloWorld.vue"),
+                    path: "/customers", name: "customers", component: () => import("@/modules/customer/customer.vue"),
                     meta: { label: "Clientes", icon: IconSolarUsersGroupRoundedLinear }
                 },
                 {

@@ -82,7 +82,7 @@ const countries = ref([
                 <Column class="border border-[#474751]" style="width: 1%" field="id" header="ID"/>
                 <Column class="border border-[#474751]" style="width: 10%" field="Names" header="Names"/>
                 <Column class="border border-[#474751]" style="width: 10%" field="mail" header="E-Mail"/>
-                <Column class="border border-[#474751]" style="width: 16%" field="ubication" header="Ubication"/>
+                <Column class="border border-[#474751]" style="width: 16%" field="ubication" header="Location"/>
                 <Column class="border border-[#474751]" style="width: 5%" field="ip" header="IP Address"/>
                 <Column class="border border-[#474751]" style="width: 10%" field="industry" header="Industry"/>
                 <Column class="border border-[#474751]" style="width: 10%" field="interests" header="Interests"/>

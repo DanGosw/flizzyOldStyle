@@ -14,14 +14,14 @@ export default {
             { "bg-surface-0 dark:bg-surface-950": !props.disabled },
             
             "border",
-            { "dark:border-surface-700": parent.instance.$name != "InputGroup" },
+            { "dark:border-surface-700": parent.instance.$name !== "InputGroup" },
             { "dark:border-surface-600": parent.instance.$name === "InputGroup" },
             { "border-surface-300 dark:border-surface-600": !props.invalid },
             
             // Invalid State
             "invalid:focus:ring-red-200",
             "invalid:hover:border-red-500",
-            { "border-red-500 dark:border-red-400": props.invalid },
+            { "border border-red-500 dark:border-red-500": props.invalid },
             
             // Transitions
             "transition-all",
@@ -29,7 +29,8 @@ export default {
             
             // States
             { "hover:border-surface-400 dark:hover:border-surface-600": !props.invalid },
-            { "outline-none outline-offset-0 ring-1 ring-primary-500 dark:ring-primary-400 z-10": state.focused },
+            { "outline-none outline-offset-0 ring-1 ring-red-500 dark:ring-red-400 z-10": state.focused && props.invalid },
+            { "outline-none outline-offset-0 ring-1 ring-primary-500 dark:ring-primary-400 z-10": state.focused && !props.invalid },
             
             // Misc
             "cursor-pointer",

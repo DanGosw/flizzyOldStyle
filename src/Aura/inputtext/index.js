@@ -11,7 +11,7 @@ export default {
             "m-0",
             {
                 "py-3 px-3.5": props.size === "large",
-                "py-1.5 px-2": props.size === "small",
+                "py-1.5 px-2 w-full": props.size === "small",
                 "py-2 px-3": props.size === null
             },
             
@@ -30,13 +30,15 @@ export default {
             
             // Invalid State
             "invalid:focus:ring-red-200",
-            "invalid:hover:border-red-500",
-            { "border-red-500 dark:border-red-400": props.invalid },
+            "invalid:hover:border-red-400",
+            { "border-red-500 dark:border-red-500": props.invalid },
+            { "focus:outline-none focus:outline-offset-0 focus:ring-1 focus:ring-red-500 focus:z-10": props.invalid },
             
             // States
             {
                 "hover:border-surface-400 dark:hover:border-surface-600": !context.disabled && !props.invalid,
-                "focus:outline-none focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400 focus:z-10": !context.disabled,
+                "focus:outline-none focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400 focus:z-10": !context.disabled &&
+                    !props.invalid,
                 "bg-surface-200 dark:bg-surface-700 select-none pointer-events-none cursor-default": context.disabled
             },
             
