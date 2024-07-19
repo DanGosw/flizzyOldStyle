@@ -27,10 +27,10 @@ const loading = ref(false);
 
 const getData = async() => {
     loading.value = true;
-    return await axios.get("https://retoolapi.dev/5boF6b/data").then(results => {
-        data.value = results.data;
-        loading.value = false;
-    });
+    // return await axios.get("https://retoolapi.dev/5boF6b/data").then(results => {
+    //     data.value = results.data;
+    //     loading.value = false;
+    // });
 };
 
 getData();

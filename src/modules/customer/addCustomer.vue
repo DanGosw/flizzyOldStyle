@@ -1,7 +1,10 @@
 <script setup>
+import { useNumericInput } from "@/hooks/inputMethods.js";
 import { ref } from "vue";
 import * as yup from "yup";
-import { useField, useFieldArray, useForm, useSetFieldTouched } from "vee-validate";
+import { useField, useFieldArray, useForm } from "vee-validate";
+
+const toast = useToast();
 
 const props = defineProps({
     closeModal: { type: Function, default: () => { }, required: true },
@@ -23,61 +26,134 @@ const optionsGenere = ref([
 ]);
 
 const schemaValidate = ref(yup.object().shape({
-    docType: yup.string().required("Seleccione un documento").label("Documento"),
-    docNumber: yup.string().required("DNI no valido").min(8, "Ingresa al menos 8 caracteres").label("DNI"),
-    names: yup.string().required("Ingrese un nombre").label("Nombre"),
-    lastnames: yup.string().required("Ingrese su apellido").label("Apellidos"),
-    genere: yup.string().required("Seleccione un genero").label("Dirección"),
     address: yup.array().of(
         yup.object().shape({
-            location: yup.string().required("Ingrese una dirección").label("location"),
-            ubigeo: yup.string().required("Seleccione un ubigeo").label("ubigeo")
+            location: yup.string().trim("No se permiten espacios en blanco").required("Ingrese una dirección").label("Dirección"),
+            ubigeo: yup.string().trim("No se permiten espacios en blanco").required("Seleccione un ubigeo").label("Ubigeo")
         })
-    ).required("Ingrese al menos una dirección").label("Dirección")
+    ).required("Ingrese al menos una dirección").label("Dirección").strict(),
+    docType: yup.string().required("Seleccione un documento").label("Documento"),
+    docNumber: yup.string().trim().required("DNI no valido").min(8, "Ingresa al menos 8 caracteres").label("DNI"),
+    names: yup.string().trim().required("Ingrese un nombre").label("Nombre"),
+    lastnames: yup.string().trim().required("Ingrese su apellido").label("Apellidos"),
+    genere: yup.string().required("Seleccione un genero").label("Dirección")
 }));
 
-const fields = reactive({
+const fields = ref({
     docType: "",
     docNumber: "",
     names: "",
     lastnames: "",
-    address: [{ location: "", ubigeo: "" }],
+    address: [{ location: null, ubigeo: null }],
     email: "",
     genere: "",
     birthday: "",
     phone: ""
 });
 
-const { handleSubmit, resetForm, errors } = useForm(
-    { validationSchema: schemaValidate, initialValues: fields });
+const { handleSubmit, resetForm, errors } = useForm({ validationSchema: schemaValidate, initialValues: fields.value });
 
 const { value: docNumber, handleBlur: docNumberBlur } = useField("docNumber");
 const { value: names, handleBlur: namesBlur } = useField("names");
-const { value: lastnames, errorMessage: ErrorLastname, handleBlur: lastnamesBlur } = useField("lastnames");
-// const { value: address, errorMessage: addressError } = useField("address");
+const { value: lastnames, handleBlur: lastnamesBlur } = useField("lastnames");
 const { value: genere, handleBlur: genereBlur } = useField("genere");
-// const { value: address.ubigeo, handleBlur: ubigeoBlur } = useField("address");
-const { fields: valueFields, push: addDirection } = useFieldArray("address");
 const { value: docType, handleBlur: docTypeBlur } = useField("docType");
-// const { value: username, handleBlur: usernameBlur } = useField("username");
-// const { value: password, handleBlur: passwordBlur } = useField("password");
-// const { value: passwordConfirm, handleBlur: passwordConfirmBlur } = useField("passwordConfirm");
+const { fields: valueFields, push: addDirection, remove: removeAddress } = useFieldArray("address");
+
+const { handleInput: handleInputDocNumber } = useNumericInput(docNumber);
+
+const ubigeoOptions = ref([
+    {
+        name: "Australia",
+        code: "AU",
+        states: [
+            {
+                name: "New South Wales",
+                cities: [
+                    { cname: "Sydney", code: "A-SY" },
+                    { cname: "Newcastle", code: "A-NE" },
+                    { cname: "Wollongong", code: "A-WO" }
+                ]
+            },
+            {
+                name: "Queensland",
+                cities: [
+                    { cname: "Brisbane", code: "A-BR" },
+                    { cname: "Townsville", code: "A-TO" }
+                ]
+            }
+        ]
+    },
+    {
+        name: "Canada",
+        code: "CA",
+        states: [
+            {
+                name: "Quebec",
+                cities: [
+                    { cname: "Montreal", code: "C-MO" },
+                    { cname: "Quebec City", code: "C-QU" }
+                ]
+            },
+            {
+                name: "Ontario",
+                cities: [
+                    { cname: "Ottawa", code: "C-OT" },
+                    { cname: "Toronto", code: "C-TO" }
+                ]
+            }
+        ]
+    },
+    {
+        name: "United States",
+        code: "US",
+        states: [
+            {
+                name: "California",
+                cities: [
+                    { cname: "Los Angeles", code: "US-LA" },
+                    { cname: "San Diego", code: "US-SD" },
+                    { cname: "San Francisco", code: "US-SF" }
+                ]
+            },
+            {
+                name: "Florida",
+                cities: [
+                    { cname: "Jacksonville", code: "US-JA" },
+                    { cname: "Miami", code: "US-MI" },
+                    { cname: "Tampa", code: "US-TA" },
+                    { cname: "Orlando", code: "US-OR" }
+                ]
+            },
+            {
+                name: "Texas",
+                cities: [
+                    { cname: "Austin", code: "US-AU" },
+                    { cname: "Dallas", code: "US-DA" },
+                    { cname: "Houston", code: "US-HO" }
+                ]
+            }
+        ]
+    }
+]);
 
 const onSubmit = handleSubmit((values) => {
     console.log("Submitted with", values);
+    props.refreshData();
+    toast.add({ severity: "info", summary: "Title xd", detail: values, life: 10000 });
 });
-
-const validateInput = (value) => useSetFieldTouched({ value: value });
-
-const clearAddress = (index) => {
-    valueFields.value.splice(index, 1);
-};
 
 const onReset = () => {
     resetForm();
     props.closeModal();
     props.refreshData();
 };
+
+function handleInput(event) {
+    const newValue = event.target.value.replace(/\D/g, "");
+    fields.value.phone = newValue;
+    event.target.value = newValue;
+}
 
 </script>
 
@@ -87,16 +163,15 @@ const onReset = () => {
             <div class="alignItemsForm">
                 <div class="col-span-1 md:col-span-4">
                     <label-required for="docType" label="Documento" :mark="true"/>
-                    <Dropdown v-model="docType" id="docType" size="small" :options="optionsDocument" optionLabel="name"
-                              :invalid="!!errors.docType" optionValue="value" @blur="docTypeBlur(null, true)"
-                              class="w-full"/>
+                    <Dropdown v-model="docType" input-id="docType" size="small" :options="optionsDocument" optionLabel="name" show-clear
+                              :invalid="!!errors.docType" optionValue="value" @blur="docTypeBlur($event, true)" class="w-full"/>
                     <span class="markRequired">{{ errors.docType }}</span>
                 </div>
                 <div class="col-span-1 md:col-span-4">
                     <label-required for="docNumber" label="DNI" :mark="true"/>
                     <InputGroup class="w-full">
-                        <InputText v-model.trim="docNumber" id="docNumber" maxlength="8" :invalid="!!errors.docNumber"
-                                   size="small" @blur="docNumberBlur(null, true)"/>
+                        <InputText v-model.number="docNumber" id="docNumber" maxlength="8" :invalid="!!errors.docNumber"
+                                   size="small" @blur="docNumberBlur($event, true)" @input="handleInputDocNumber"/>
                         <Button size="small" severity="info">
                             <template #icon>
                                 <i-material-symbols-manage-search-rounded class="!mx-1"/>
@@ -106,30 +181,30 @@ const onReset = () => {
                     <span class="markRequired">{{ errors.docNumber }}</span>
                 </div>
                 <div class="col-span-1 md:col-span-4">
-                    <label-required for="genere" label="Documento" :mark="true"/>
-                    <Dropdown v-model="genere" id="genere" size="small" :options="optionsGenere" optionLabel="name"
-                              :invalid="!!errors.genere" optionValue="value" @blur="genereBlur(null, true)" class="w-full"/>
+                    <label-required for="genere" label="Genero" :mark="true"/>
+                    <Dropdown v-model="genere" input-id="genere" size="small" :options="optionsGenere" optionLabel="name"
+                              :invalid="!!errors.genere" optionValue="value" @blur="genereBlur($event, true)" class="w-full"/>
                     <span class="markRequired">{{ errors.genere }}</span>
                 </div>
                 <div class="col-span-1 md:col-span-6">
                     <label-required for="names" label="Nombres" :mark="true"/>
                     <InputText v-model="names" id="names" size="small" :invalid="!!errors.names"
-                               @blur="namesBlur(null, true)"/>
+                               @blur="namesBlur($event, true)"/>
                     <span class="markRequired">{{ errors.names }}</span>
                 </div>
                 <div class="col-span-1 md:col-span-6">
                     <label-required for="lastnames" label="Apellidos" :mark="true"/>
                     <InputText v-model="lastnames" id="lastnames" size="small" :invalid="!!errors.lastnames"
-                               @blur="lastnamesBlur(null, true)"/>
-                    <span class="markRequired">{{ ErrorLastname }}</span>
+                               @blur="lastnamesBlur($event, true)"/>
+                    <span class="markRequired">{{ errors.lastnames }}</span>
                 </div>
                 <div class="col-span-1 md:col-span-3">
                     <label-required for="birthday" label="F. Nacimiento" :mark="false"/>
-                    <InputText v-model="fields.birthday" id="birthday" size="small"/>
+                    <Calendar v-model="fields.birthday" class="w-full" input-id="birthday" date-format="dd-mm-yy" show-icon/>
                 </div>
                 <div class="col-span-1 md:col-span-4">
                     <label-required for="phone" label="Teléfono" :mark="false"/>
-                    <InputText v-model="fields.phone" id="phone" size="small"/>
+                    <InputText v-model="fields.phone" id="phone" size="small" @input="handleInput"/>
                 </div>
                 <div class="col-span-1 md:col-span-5">
                     <label-required for="email" label="Correo" :mark="false"/>
@@ -151,21 +226,22 @@ const onReset = () => {
                     </Divider>
                 </div>
             </div>
-            <div v-for="(data, index) in valueFields" :key="index" class="alignItemsForm mb-8">
+
+            <div class="alignItemsForm mb-8" v-for="(data, index) in valueFields" :key="data.key">
                 <div class="col-span-1 flex-col md:col-span-5">
-                    <label-required :for="`ubigeo-${index}`" label="Ubigeo" :mark="true"/>
-                    <InputText v-model="data.value.ubigeo" :id="`ubigeo-${index}`" :name="`ubigeo[${index}]`"
-                               size="small" @blur="validateInput(`address[${index}].ubigeo`)"/>
-                    <span class="markRequired">{{ errors[`address[${index}].ubigeo`] }}</span>
+                    <cascade-select-array :options="ubigeoOptions" :name="`address[${index}].ubigeo`" label="Ubigeo" option-value="code"
+                                          :value="data.value.ubigeo" option-group-label="name" option-label="cname"
+                                          :option-group-children="['states', 'cities']"/>
                 </div>
                 <div class="col-span-1 flex-col md:col-span-5">
-                    <label-required :for="`location-${index}`" label="Dirección" :mark="true"/>
-                    <InputText v-model="data.value.location" :id="`location-${index}`" :name="`location[${index}]`"
-                               size="small" @blur="validateInput(`address[${index}].location`)"/>
-                    <span class="markRequired">{{ errors[`address[${index}].location`] }}</span>
+                    <input-validate-array :name="`address[${index}].location`" label="Dirección" :value="data.value.location"/>
                 </div>
                 <div class="col-span-1 flex-col md:col-span-2 flex items-center justify-center">
-                    <Button label="Remove" @click="clearAddress(index)"/>
+                    <Button label="Remove" @click="removeAddress(index)" v-if="index !== 0" size="small" class="mt-3">
+                        <template #icon>
+                            <i-mdi-delete-empty-outline class="mx-1"/>
+                        </template>
+                    </Button>
                 </div>
             </div>
 
@@ -182,6 +258,5 @@ const onReset = () => {
                 </Button>
             </div>
         </div>
-        <Button @click="() => { console.log(valueFields); }"/>
     </div>
 </template>

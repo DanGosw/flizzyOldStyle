@@ -13,7 +13,7 @@ export default {
             "flex flex-auto",
             
             // Font
-            "leading-none",
+            "leading-none text-[14px]",
             
             // Colors
             "text-surface-600 dark:text-surface-200",
@@ -33,8 +33,8 @@ export default {
             // Shape
             "appearance-none",
             { "rounded-md": !props.showIcon || props.iconDisplay === "input" },
-            { "rounded-l-md  flex-1 pr-9": props.showIcon && props.iconDisplay !== "input" },
-            { "rounded-md flex-1 pr-9": props.showIcon && props.iconDisplay === "input" },
+            { "rounded-l-md flex-1 w-8": props.showIcon && props.iconDisplay !== "input" },
+            { "rounded-md flex-1 w-8": props.showIcon && props.iconDisplay === "input" },
             
             // Transitions
             "transition-colors",
@@ -52,7 +52,7 @@ export default {
         ]
     }),
     inputicon: {
-        class: ["absolute top-[50%] -mt-2", "text-surface-600 dark:text-surface-200", "right-[.75rem]"]
+        class: ["absolute", "text-surface-600 dark:text-surface-200"]
     },
     dropdownbutton: {
         root: {
@@ -66,9 +66,9 @@ export default {
                 "rounded-r-md",
                 
                 // Size
-                "py-2 px-0",
+                "py-1.5 px-0",
                 "w-10",
-                "leading-[normal]",
+                "leading-[normal] text-[14px]",
                 
                 // Colors
                 "text-primary-inverse",
@@ -121,7 +121,7 @@ export default {
             "flex items-center justify-between",
             
             // Spacing
-            "p-0 pb-2",
+            "p-0 pb-0.5",
             "m-0",
             
             // Shape
@@ -158,7 +158,8 @@ export default {
             
             // States
             "hover:text-surface-700 dark:hover:text-white/80",
-            "hover:bg-surface-100 dark:hover:bg-surface-500/10  ",
+            "!bg-surface-100 dark:!bg-surface-500/10",
+            "hover:!bg-surface-200 dark:hover:!bg-surface-600/10  ",
             "focus:outline-none focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400 focus:z-10",
             
             // Misc
@@ -176,7 +177,7 @@ export default {
         class: [
             // Font
             "text-base leading-[normal]",
-            "font-medium",
+            "font-medium text-[14px]",
             
             //shape
             "rounded-md",
@@ -203,7 +204,7 @@ export default {
         class: [
             // Font
             "text-base leading-[normal]",
-            "font-medium",
+            "font-medium text-[14px]",
             
             //shape
             "rounded-md",
@@ -250,7 +251,8 @@ export default {
             
             // States
             "hover:text-surface-700 dark:hover:text-white/80",
-            "hover:bg-surface-100 dark:hover:bg-surface-500/10  ",
+            "!bg-surface-100 dark:!bg-surface-500/10",
+            "hover:!bg-surface-200 dark:hover:!bg-surface-600/10  ",
             "focus:outline-none focus:outline-offset-0 focus:ring-1 focus:ring-primary-500 dark:focus:ring-primary-400 focus:z-10",
             
             // Misc
@@ -260,7 +262,7 @@ export default {
     table: {
         class: [
             // Font
-            "text-base leading-[normal]",
+            "text-base leading-[normal] text-[14px]",
             // Size & Shape
             "border-collapse",
             "w-full",
@@ -272,7 +274,7 @@ export default {
     tableheadercell: {
         class: [
             // Spacing
-            "p-1",
+            "p-0.5",
             "font-medium"
         ]
     },
@@ -285,8 +287,8 @@ export default {
     weekday: {
         class: [
             // Colors
-            "text-surface-500 dark:text-white/60",
-            "p-1"
+            "text-[14px] text-surface-500 dark:text-white/60",
+            "p-0.5"
         ]
     },
     day: {
@@ -329,20 +331,20 @@ export default {
         class: [
             // Flexbox and Alignment
             "flex items-center justify-center",
-            "mx-auto",
+            "mx-auto my-auto text-[14px]",
             
             // Shape & Size
-            "w-8 h-8",
+            "w-7 h-7",
             "rounded-full",
             "border-transparent border",
             "leading-[normal]",
             
             // Colors
             {
-                "bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-white/70": context.date.today && !context.selected &&
+                "bg-surface-200 dark:bg-surface-800 text-surface-600 dark:text-white/70": context.date.today && !context.selected &&
                     !context.disabled,
                 "bg-transparent text-surface-600 dark:text-white/70": !context.selected && !context.disabled && !context.date.today,
-                "text-primary-highlight-inverse bg-primary-highlight": context.selected && !context.disabled
+                "text-primary-highlight-inverse bg-primary-300": context.selected && !context.disabled
             },
             
             // States

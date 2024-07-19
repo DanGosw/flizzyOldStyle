@@ -30,7 +30,7 @@ export default {
                 "flex flex-auto",
                 
                 //Text
-                { "text-center": parent.props.showButtons && parent.props.buttonLayout === "vertical" },
+                { "text-center text-[14px]": parent.props.showButtons && parent.props.buttonLayout === "vertical" },
                 
                 // Spacing
                 "py-1.5 px-2",

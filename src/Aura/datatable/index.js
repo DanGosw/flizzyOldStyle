@@ -10,25 +10,26 @@ export default {
             { "h-full": props.scrollable && props.scrollHeight === "flex" }
         ]
     }),
-    loadingoverlay: {
-        class: [
-            // Position
-            "absolute",
-            "top-0 left-0",
-            "z-30",
-            
-            // Flex & Alignment
-            "flex items-center justify-center",
-            
-            // Size
-            "w-full h-full",
-            
-            // Color
-            "bg-surface-200/60 dark:bg-surface-600/20",
-            
-            // Transition
-            "transition duration-500"
-        ]
+    loadingoverlay: ({ props }) => {
+        console.log(props);
+        // class: [
+        //     // Position
+        //     "absolute",
+        //     "top-0 left-0",
+        //     "z-40",
+        //
+        //     // Flex & Alignment
+        //     "flex items-center justify-center",
+        //
+        //     // Size
+        //     "w-full h-full",
+        //
+        //     // Color
+        //     "bg-surface-200/60 dark:bg-surface-600/20",
+        //
+        //     // Transition
+        //     "transition duration-500"
+        // ]
     },
     loadingicon: {
         class: "w-8 h-8 animate-spin"
@@ -151,7 +152,7 @@ export default {
         bodycell: ({ props, context, state, parent }) => ({
             class: [
                 // Font
-                "leading-[normal]",
+                "leading-[normal] !bg-red-500",
                 
                 //Position
                 { "sticky box-border border-b": parent.instance.frozenRow },

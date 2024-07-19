@@ -13,7 +13,7 @@ function handleTableClick(event) {
 
 <template>
     <div @click="handleTableClick"
-         class="relative z-10 col-span-2 flex h-48 max-h-48 cursor-pointer flex-col justify-between rounded-lg font-semibold shadow-lg sm:col-span-2 md:col-span-3 lg:col-span-2">
+         class="relative z-10 col-span-2 flex h-48 max-h-48 cursor-pointer flex-col justify-between rounded-lg font-semibold shadow-lg sm:col-span-2 md:col-span-3 lg:col-span-2 transition">
         <div :class="`${table?.status === '3' ? 'bg-primary-400/60 dark:bg-primary-500/70' : 'bg-surface-400/70 dark:bg-surface-800/60'} border border-surface-400 dark:border-surface-600 rounded-lg h-full max-h-48`">
             <div class="flex h-32 w-full select-none flex-wrap gap-1 overflow-x-auto rounded-t-lg p-1.5" v-if="table.orders.length > 0">
                 <div v-for="moreTable in table.orders" :key="moreTable.code" v-tooltip.top="moreTable.description"

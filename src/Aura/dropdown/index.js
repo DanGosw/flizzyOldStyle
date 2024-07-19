@@ -21,7 +21,7 @@ export default {
             // Invalid State
             "invalid:focus:ring-red-200",
             "invalid:hover:border-red-500",
-            { "border border-red-500 dark:border-red-500": props.invalid },
+            { "border border-red-400 dark:!border-red-500": props.invalid },
             
             // Transitions
             "transition-all",
@@ -41,7 +41,7 @@ export default {
     input: ({ props, parent }) => ({
         class: [
             //Font
-            "leading-[normal]",
+            "leading-[normal] text-[14px]",
             
             // Display
             "block",
@@ -93,7 +93,7 @@ export default {
             "text-surface-500",
             
             // Size
-            "w-12",
+            "w-10 text-[14px]",
             
             // Shape
             "rounded-r-md"
@@ -103,7 +103,7 @@ export default {
         class: [
             // Colors
             "bg-surface-0 dark:bg-surface-900",
-            "text-surface-700 dark:text-white/80",
+            "text-surface-700 dark:text-white/80 text-[14px]",
             
             // Shape
             "border border-surface-300 dark:border-surface-700",
@@ -247,12 +247,12 @@ export default {
     clearicon: {
         class: [
             // Color
-            "text-surface-400 dark:text-surface-500",
+            "text-surface-500 dark:text-surface-500 text-[14px]",
             
             // Position
             "absolute",
             "top-1/2",
-            "right-12",
+            "right-8",
             
             // Spacing
             "-mt-2"
