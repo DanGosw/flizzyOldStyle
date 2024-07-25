@@ -1,6 +1,10 @@
 <script setup>
 // const props = defineProps({ refreshData: { type: Function, default: () => {} } });
 
+import EmptyTable from "@/hooks/components/empty/emptyTable.vue";
+import LoadingData from "@/hooks/components/loading/loadingData.vue";
+
+const toast = useToast();
 const data = ref();
 const totalLength = ref(0);
 const page = ref(1);
@@ -58,9 +62,8 @@ defineExpose({ loadCustomer });
 <template>
     <div>
         <DataTable size="small" striped-rows show-gridlines :value="data" scroll-direction="horizontal" scroll-height="65vh"
-                   :row-class="()=>{'text-center'}" :rowsPerPageOptions="[10,20,50]" :total-records="totalLength" lazy scrollable
-                   @page="onPageChange" :loading="loading" dataKey="code" tableStyle="min-width: 110rem;" class="mt-4" paginator
-                   :rows="pageSize"
+                   :rowsPerPageOptions="[10,20,50]" :total-records="totalLength" lazy scrollable @page="onPageChange" :loading="loading"
+                   dataKey="code" tableStyle="min-width: 70rem;" paginator :rows="pageSize"
                    :paginatorTemplate="{
                                         '640px': 'PrevPageLink PageLinks NextPageLink RowsPerPageDropdown',
                                         '960px': 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown',
@@ -72,13 +75,13 @@ defineExpose({ loadCustomer });
             <template #loading>
                 <loading-data/>
             </template>
-            <Column style="width: 5%" field="dni" header="DNI"/>
+            <Column style="width: 10%" field="dni" header="DNI"/>
             <Column style="width: 10%" field="name" header="Nombres"/>
             <Column style="width: 10%" field="url" header="Correo"/>
             <Column style="width: 10%" field="id" header="Perfil"/>
             <Column style="width: 10%" field="id" header="Sucursal"/>
             <Column style="width: 10%" field="id" header="Estado"/>
-            <Column style="width: 5%" header="Acciones">
+            <Column style="width: 10%" header="Acciones">
                 <template #body>
                     <div class="flex items-center justify-center space-x-1">
                         <Button size="small" severity="warning" v-tooltip.top="'Editar Usuario'" @click="showMessage"

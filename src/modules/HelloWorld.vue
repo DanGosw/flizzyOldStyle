@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from "vue";
+import EmptyTable from "@/hooks/components/empty/emptyTable.vue";
+import LoadingData from "@/hooks/components/loading/loadingData.vue";
 
 const data = ref();
 const loading = ref(false);
@@ -27,10 +29,10 @@ const loading = ref(false);
 
 const getData = async() => {
     loading.value = true;
-    // return await axios.get("https://retoolapi.dev/5boF6b/data").then(results => {
-    //     data.value = results.data;
-    //     loading.value = false;
-    // });
+    return await axios.get("https://retoolapi.dev/5boF6b/data").then(results => {
+        data.value = results.data;
+        loading.value = false;
+    });
 };
 
 getData();
@@ -88,7 +90,7 @@ const countries = ref([
                 <Column class="border border-[#474751]" style="width: 10%" field="interests" header="Interests"/>
                 <Column class="border border-[#474751]" style="width: 10%" field="url" header="URL"/>
                 <Column class="border border-[#474751]" style="width: 10%" field="job" header="Job"/>
-                <Column class="border border-[#474751]" sortable style="width: 9%" field="date" header="Date"/>
+                <Column class="border border-[#474751]" style="width: 9%" field="date" header="Date"/>
                 <Column class="border border-[#474751]" style="width: 4%" header="Date">
                     <template #body>
                         <div class="flex justify-center">

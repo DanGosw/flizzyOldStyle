@@ -1,5 +1,7 @@
 <script setup>
 import addCustomer from "@/modules/customer/addCustomer.vue";
+import CustomerList from "@/modules/customer/customerList.vue";
+import ModalComponent from "@/hooks/components/modal/modalComponent.vue";
 
 const refListCustomer = ref();
 
@@ -55,7 +57,6 @@ const addParametersCustomerModal = () => {
         component: componentAddClientModal
     };
 };
-
 
 </script>
 

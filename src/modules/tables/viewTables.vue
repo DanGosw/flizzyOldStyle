@@ -1,5 +1,7 @@
 <script setup>
 
+import TableDesign from "@/hooks/components/tableDesign/tableDesign.vue";
+
 const toast = useToast();
 
 const tableSchema = ref([
@@ -326,15 +328,15 @@ const items = ref([
                     <p class="m-3">{{ branch.description }}</p>
                     <div class="grid grid-cols-1 flex-wrap items-center justify-start gap-2 sm:grid-cols-4 md:grid-cols-9 lg:grid-cols-10 xl:grid-cols-12">
                         <tableDesign v-for="table in branch.tables" :key="table.id" :table="table">
-                            <SpeedDial :model="items" :radius="100" type="quarter-circle" direction="down-left" mask-class="rounded-lg xd"
-                                       v-if="table.status === '3'" mask class="rounded-full shadow top-0.5 right-0.5 xd">
+                            <SpeedDial :model="items" :radius="125" type="quarter-circle" direction="down-left" v-if="table.status === '3'"
+                                       mask mask-class="rounded-lg xd cursor-default" class="rounded-full top-0.5 right-0.5 xd">
                                 <template #icon>
-                                    <i-material-symbols-add/>
+                                    <i-material-symbols-add class="text-primary-800 dark:text-primary-50"/>
                                 </template>
                                 <template #item="{ item, onClick: toggleCallback }">
-                                    <div class="flex cursor-pointer items-center justify-center rounded-full p-1.5 bg-primary-500 hover:bg-primary-500/90 dark:bg-primary-400 dark:hover:bg-primary-500/90"
+                                    <div class="flex cursor-pointer items-center justify-center rounded-full p-2.5 bg-primary-500 hover:bg-primary-500/90 dark:hover:bg-primary-500/90"
                                          @click="toggleCallback" v-tooltip.bottom="item.label">
-                                        <component :is="item.class" class="text-primary-50 dark:text-surface-900"/>
+                                        <component :is="item.class" class="text-primary-50"/>
                                     </div>
                                 </template>
                             </SpeedDial>

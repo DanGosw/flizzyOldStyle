@@ -3,6 +3,9 @@ import { useNumericInput } from "@/hooks/inputMethods.js";
 import { ref } from "vue";
 import * as yup from "yup";
 import { useField, useFieldArray, useForm } from "vee-validate";
+import LabelRequired from "@/hooks/components/labelRequired/labelRequired.vue";
+import CascadeSelectArray from "@/hooks/components/cascadeSelectArray.vue";
+import InputValidateArray from "@/hooks/components/inputValidateArray.vue";
 
 const toast = useToast();
 
@@ -22,7 +25,7 @@ const optionsGenere = ref([
     { name: "MASCULINO", value: "MASCULINO" },
     { name: "FEMENINO", value: "FEMENINO" },
     { name: "MACHETE", value: "MACHETE" },
-    { name: "TRAKA", value: "TRAKA" }
+    { name: "SEMI AUTOMÁTICO", value: "SEMI AUTOMÁTICO" }
 ]);
 
 const schemaValidate = ref(yup.object().shape({
@@ -32,7 +35,7 @@ const schemaValidate = ref(yup.object().shape({
             ubigeo: yup.string().trim("No se permiten espacios en blanco").required("Seleccione un ubigeo").label("Ubigeo")
         })
     ).required("Ingrese al menos una dirección").label("Dirección").strict(),
-    docType: yup.string().required("Seleccione un documento").label("Documento"),
+    docType: yup.string().nullable().required("Seleccione un documento").label("Documento"),
     docNumber: yup.string().trim().required("DNI no valido").min(8, "Ingresa al menos 8 caracteres").label("DNI"),
     names: yup.string().trim().required("Ingrese un nombre").label("Nombre"),
     lastnames: yup.string().trim().required("Ingrese su apellido").label("Apellidos"),
@@ -40,7 +43,7 @@ const schemaValidate = ref(yup.object().shape({
 }));
 
 const fields = ref({
-    docType: "",
+    docType: null,
     docNumber: "",
     names: "",
     lastnames: "",

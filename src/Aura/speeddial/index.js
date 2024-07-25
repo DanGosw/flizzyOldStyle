@@ -39,9 +39,9 @@ export default {
                 // Primary Button
                 {
                     "text-primary-inverse": !props.link && props.severity === null && !props.text && !props.outlined && !props.plain,
-                    "bg-primary-500 dark:bg-primary": !props.link && props.severity === null && !props.text && !props.outlined &&
+                    "bg-primary-400 dark:bg-primary": !props.link && props.severity === null && !props.text && !props.outlined &&
                         !props.plain,
-                    "border border-primary": !props.link && props.severity === null && !props.text && !props.outlined && !props.plain
+                    "border border-primary-300": !props.link && props.severity === null && !props.text && !props.outlined && !props.plain
                 },
                 // Primary Text Button
                 { "text-primary": props.text && props.severity === null && !props.plain },
@@ -163,7 +163,7 @@ export default {
                 
                 // Primary
                 {
-                    "hover:bg-primary-hover hover:border-primary-hover": !props.link && props.severity === null && !props.text &&
+                    "hover:bg-primary-300 hover:border-primary-hover": !props.link && props.severity === null && !props.text &&
                         !props.outlined && !props.plain
                 },
                 { "focus:ring-primary": props.severity === null },
