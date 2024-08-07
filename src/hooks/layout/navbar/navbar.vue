@@ -2,6 +2,7 @@
 import { useFullscreen } from "@vueuse/core";
 import { optionsMenuStore } from "@/store/layout/optionsMenu.js";
 import { useRoute, useRouter } from "vue-router";
+import AppConfig from "@/hooks/components/app/appConfig.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -18,8 +19,7 @@ const { toggle, isFullscreen } = useFullscreen();
 </script>
 
 <template>
-    <!--    <div class="h-auto">-->
-    <Menubar popup :model="menuOptions" class="border shadow-md shadow-slate-300 text-[12px] font-[550] py-[2px] dark:shadow-[#22242B] ">
+    <Menubar :model="menuOptions" class="border shadow-md shadow-slate-300 text-[12px] font-medium py-0.5 dark:shadow-[#22242B]">
         <template #start>
             <div class="flex h-9 w-14 items-center justify-center rounded-md border p-0.5 bg-surface-200 border-surface-300 dark:bg-surface-900 dark:border-surface-600">
                 <img src="@/assets/logo-white.svg" alt="logo" class="max-h-10 max-w-10" v-if="isDark"/>
@@ -49,20 +49,19 @@ const { toggle, isFullscreen } = useFullscreen();
         </template>
         <template #end>
             <div class="flex space-x-1">
-                <Button size="small" severity="secondary" class="!px-1.5 border border-surface-300" @click="toggle">
+                <Button size="small" severity="secondary" class="border border-surface-300" @click="toggle">
                     <template #icon>
                         <i-material-symbols-fullscreen v-if="isFullscreen"/>
                         <i-material-symbols-fullscreen-exit v-else/>
                     </template>
                 </Button>
-                <Button size="small" severity="secondary" class="!px-1.5 border border-surface-300" @click="toggleDark">
+                <Button size="small" severity="secondary" class="border border-surface-300" @click="toggleDark">
                     <template #icon>
                         <i-ic-round-dark-mode v-if="isDark"/>
                         <i-ic-round-light-mode v-else/>
                     </template>
                 </Button>
-                <Button size="small" severity="secondary" class="!px-1.5 border border-surface-300"
-                        @click="router.push({ name: 'login' })">
+                <Button size="small" severity="secondary" class="border border-surface-300" @click="router.push({ name: 'login' })">
                     <template #icon>
                         <i-material-symbols-person-outline-rounded/>
                     </template>
@@ -71,5 +70,4 @@ const { toggle, isFullscreen } = useFullscreen();
             </div>
         </template>
     </Menubar>
-    <!--    </div>-->
 </template>

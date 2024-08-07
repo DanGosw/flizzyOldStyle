@@ -3,6 +3,7 @@
 import { ref } from "vue";
 import * as yup from "yup";
 import { useField, useForm } from "vee-validate";
+import LabelRequired from "@/hooks/components/labelRequired/labelRequired.vue";
 
 const props = defineProps({
     // defaultOptions: { type: Object, default: () => {} },
@@ -51,17 +52,17 @@ const onReset = () => {
 <template>
     <div class="w-full py-2">
         <div class="grid grid-cols-1 gap-3 space-y-1 md:grid-cols-6">
-            <div class="col-span-1 md:col-span-6">
+            <div class="max-cols-6">
                 <label-required for="code" label="Clave Actual" :mark="true"/>
                 <InputText v-model="code" id="code" size="small" @blur="codeBlur(null, true)" maxlength="10"/>
                 <span class="markRequired">{{ errors.code }}</span>
             </div>
-            <div class="col-span-1 md:col-span-6">
+            <div class="max-cols-6">
                 <label-required for="newCode" label="Nueva Clave" :mark="true"/>
                 <InputText v-model="newCode" id="newCode" size="small" @blur="newCodeBlur(null, true)"/>
                 <span class="markRequired">{{ errors.newCode }}</span>
             </div>
-            <div class="col-span-1 md:col-span-6">
+            <div class="max-cols-6">
                 <label-required for="confirmCode" label="Confirmar Clave" :mark="true"/>
                 <InputText v-model="newCodeConfirm" id="confirmCode" size="small"
                            @blur="newCodeConfirmBlur(null, true)"/>

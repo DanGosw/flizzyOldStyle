@@ -63,7 +63,7 @@ export default {
             "text-surface-500",
             
             // Size
-            "w-12",
+            "w-10",
             
             // Shape
             "rounded-r-md"

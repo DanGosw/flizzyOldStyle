@@ -1,16 +1,20 @@
 export default {
     root: ({ props, state }) => ({
         class: [
-            // Display and Position
-            "inline-flex",
             "relative",
+            
+            // Flex
+            {
+                flex: props.fluid,
+                "inline-flex": !props.fluid
+            },
             
             // Shape
             "rounded-md",
             
             // Color and Background
             { "bg-surface-0 dark:bg-surface-950": !props.disabled },
-            "border",
+            "border !min-w-[8rem]",
             { "border-surface-300 dark:border-surface-600": !props.invalid },
             
             // Invalid State
@@ -24,7 +28,7 @@ export default {
             
             // States
             { "hover:border-surface-400 dark:hover:border-surface-600": !props.invalid },
-            { "outline-none outline-offset-0 ring-1 ring-red-500 dark:ring-red-400 z-10": state.focused && props.invalid },
+            { "outline-none outline-offset-0 ring-1 ring-red-500 dark:ring-red-500 z-10": state.focused && props.invalid },
             { "outline-none outline-offset-0 ring-1 ring-primary-500 dark:ring-primary-400 z-10": state.focused && !props.invalid },
             
             // Misc
@@ -36,14 +40,14 @@ export default {
     label: ({ props }) => ({
         class: [
             // Font
-            "leading-none",
+            "leading-none text-[14px]",
             
             // Flex & Alignment
             "flex flex-auto",
             
             // Sizing and Spacing
             "w-[1%]",
-            "py-2 px-3",
+            "py-2 px-2",
             
             //Shape
             "rounded-none",
@@ -69,7 +73,7 @@ export default {
             "appearance-none"
         ]
     }),
-    dropdownbutton: {
+    dropdown: {
         class: [
             // Flexbox
             "flex items-center justify-center",
@@ -80,13 +84,13 @@ export default {
             "text-surface-500",
             
             // Size
-            "w-12",
+            "w-10",
             
             // Shape
             "rounded-r-md"
         ]
     },
-    panel: {
+    overlay: {
         class: [
             // Colors
             "bg-surface-0 dark:bg-surface-900",
@@ -98,19 +102,10 @@ export default {
             "shadow-md"
         ]
     },
-    wrapper: {
-        class: [
-            // Sizing
-            "max-h-[200px]",
-            
-            // Misc
-            "overflow-auto"
-        ]
-    },
     list: {
-        class: "p-1 list-none m-0"
+        class: "flex flex-col list-none p-0 m-0 gap-[2px] min-w-[10rem]"
     },
-    item: ({ context }) => ({
+    option: ({ context }) => ({
         class: [
             //Shape
             "rounded-[4px]",
@@ -140,7 +135,7 @@ export default {
             { "opacity-60 pointer-events-none cursor-default": context.disabled }
         ]
     }),
-    content: {
+    optionContent: {
         class: [
             "relative",
             "leading-[normal]",
@@ -154,7 +149,7 @@ export default {
             "px-3",
             
             // Color
-            "text-surface-700 dark:text-white/80",
+            "text-surface-700 dark:text-white/80 text-[14px]",
             
             // Misc
             "no-underline",
@@ -163,19 +158,21 @@ export default {
             "select-none"
         ]
     },
-    groupicon: {
+    groupIcon: {
         class: [
             // Alignment
             "ml-auto"
         ]
     },
-    sublist: {
+    optionList: {
         class: [
+            "min-w-full",
+            
             // Spacing
             "p-1",
             "m-0",
             "list-none",
-            "min-w-[12.5rem]",
+            "min-w-[10rem]",
             
             // Shape
             "shadow-none sm:shadow-md",
@@ -187,11 +184,8 @@ export default {
             "z-10",
             
             // Color
-            "bg-surface-0 dark:bg-surface-900"
+            "bg-surface-0 dark:bg-surface-900 text-[14px]"
         ]
-    },
-    separator: {
-        class: "border-t border-surface-200 dark:border-surface-600 my-1"
     },
     transition: {
         enterFromClass: "opacity-0 scale-y-[0.8]",

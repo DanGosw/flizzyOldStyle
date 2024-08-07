@@ -1,9 +1,11 @@
 <script setup>
-// const props = defineProps({ refreshData: { type: Function, default: () => {} } });
 
 import EmptyTable from "@/hooks/components/empty/emptyTable.vue";
 import LoadingData from "@/hooks/components/loading/loadingData.vue";
+import ModalComponent from "@/hooks/components/modal/modalComponent.vue";
+import addCustomer from "@/modules/customer/addCustomer.vue";
 
+const props = defineProps({ filters: { type: Object, default: {}, required: false } });
 const toast = useToast();
 const data = ref();
 const totalLength = ref(0);
@@ -11,11 +13,59 @@ const page = ref(1);
 const loading = ref(true);
 const pageSize = ref(10);
 
+const parametersModal = ref({
+    visible: false,
+    header: "",
+    width: "65vw",
+    footer: () => {},
+    component: () => {}
+});
+
+const closeModal = () => { parametersModal.value.visible = false; };
+
+const componentAddClientModal = h(addCustomer, {
+    /**
+     * Function to close de modal
+     */
+    closeModal,
+    /**
+     * Function to reload data when customer is added
+     */
+    refreshData: () => {loadCustomer();},
+    /**
+     * initial data to form
+     */
+    formData: {
+        id: 1,
+        docType: "DNI",
+        docNumber: "76541515",
+        names: "tetalover",
+        lastnames: "tetas",
+        address: [{ location: "por ai", ubigeo: "A-WO" }],
+        email: "tetalover@gmail.com",
+        genere: "MACHETE",
+        birthday: "07-04-2001",
+        phone: "912117645"
+    }
+});
+
+const addParametersCustomerModal = () => {
+    parametersModal.value = {
+        visible: true,
+        header: "Editar Cliente",
+        width: "80vw",
+        footer: null,
+        component: componentAddClientModal
+    };
+};
+
 /* Methods */
-const showMessage = (info) => {
-    console.log(info);
-    /* Toast  @params {severity: 'success|info|warn|error', summary: 'string', detail: 'string', life: 'number'}*/
-    toast.add({ severity: "info", summary: "Title xd", detail: info.type, life: 5000 });
+const deleteClient = (info, idx) => {
+    console.log(idx);
+    data.value.filter((_, index) => index !== idx);
+    data.value = data.value.filter((_, ind) => ind !== idx);
+    console.log(data.value);
+    toast.add({ severity: "error", summary: "Title xd", detail: info.type, life: 5000 });
 };
 
 /**
@@ -26,7 +76,7 @@ const showMessage = (info) => {
  * @description Realiza una llamada a la API de Pokémon para obtener una lista de Pokémon basada en la paginación.
  * @params {Object} options - Opciones para la solicitud de la API.
  * @params {number} options.limit - El límite de Pokémon a retornar.
- * @params {number} options.offset - El desplazamiento de inicio para la consulta de Pokémon.
+ * @params {number} options. offset - El desplazamiento de inicio para la consulta de Pokémon.
  * @returns {Promise<void>} - La promesa que representa el proceso de carga de datos.
  */
 const loadCustomer = async() => {
@@ -60,56 +110,45 @@ defineExpose({ loadCustomer });
 </script>
 
 <template>
-    <div>
-        <DataTable size="small" striped-rows show-gridlines :value="data" scroll-direction="horizontal" scroll-height="65vh"
-                   :rowsPerPageOptions="[10,20,50]" :total-records="totalLength" lazy scrollable @page="onPageChange" :loading="loading"
-                   dataKey="code" tableStyle="min-width: 70rem;" paginator :rows="pageSize"
-                   :paginatorTemplate="{
-                                        '640px': 'PrevPageLink PageLinks NextPageLink RowsPerPageDropdown',
-                                        '960px': 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown',
-                                        '1300px': 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown',
-                                        default: 'FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown' }">
-            <template #empty>
-                <empty-table/>
+    <DataTable size="small" striped-rows show-gridlines :value="data" scroll-direction="horizontal" scroll-height="65vh"
+               :rowsPerPageOptions="[10,20,50]" :total-records="totalLength" lazy scrollable @page="onPageChange" :loading="loading"
+               dataKey="code" tableStyle="min-width: 70rem;" paginator :rows="pageSize">
+        <template #empty>
+            <empty-table/>
+        </template>
+        <template #loading>
+            <loading-data/>
+        </template>
+        <Column style="width: 10%" field="dni" header="Documento">
+            <template #body="{data}">
+                {{ data.docType || "DNI" }}: {{ data.docNumber || "71111459" }}
             </template>
-            <template #loading>
-                <loading-data/>
+        </Column>
+        <Column style="width: 10%" field="name" header="Nombres"/>
+        <Column style="width: 10%" field="address" header="Dirección"/>
+        <Column style="width: 10%" field="birthday" header="F. Nacimiento"/>
+        <Column style="width: 10%" field="phone" header="Teléfono"/>
+        <Column style="width: 10%" field="email" header="Correo"/>
+        <Column style="width: 10%" field="status" header="Estado"/>
+        <Column style="width: 2%" header="Acciones">
+            <template #body="{index}">
+                <div class="flex items-center justify-center space-x-1">
+                    <Button size="small" severity="warn" v-tooltip.top="'Editar Cliente'" @click="addParametersCustomerModal"
+                            class="!p-0.5">
+                        <template #icon>
+                            <i-tabler-user-edit class="mx-0.5"/>
+                        </template>
+                    </Button>
+                    <Button size="small" severity="danger" v-tooltip.top="'Bloquear cliente'" @click="deleteClient($event, index)"
+                            class="!p-0.5">
+                        <template #icon>
+                            <i-solar-user-block-outline class="mx-0.5"/>
+                        </template>
+                    </Button>
+                </div>
             </template>
-            <Column style="width: 10%" field="dni" header="DNI"/>
-            <Column style="width: 10%" field="name" header="Nombres"/>
-            <Column style="width: 10%" field="url" header="Correo"/>
-            <Column style="width: 10%" field="id" header="Perfil"/>
-            <Column style="width: 10%" field="id" header="Sucursal"/>
-            <Column style="width: 10%" field="id" header="Estado"/>
-            <Column style="width: 10%" header="Acciones">
-                <template #body>
-                    <div class="flex items-center justify-center space-x-1">
-                        <Button size="small" severity="warning" v-tooltip.top="'Editar Usuario'" @click="showMessage"
-                                class="!p-0.5">
-                            <template #icon>
-                                <i-tabler-user-edit class="mx-0.5"/>
-                            </template>
-                        </Button>
-                        <Button size="small" v-tooltip.top="'Editar Permisos'" @click="showMessage" class="!p-0.5">
-                            <template #icon>
-                                <i-material-symbols-list-alt-add-outline class="mx-0.5"/>
-                            </template>
-                        </Button>
-                        <Button size="small" severity="info" v-tooltip.top="'Cambiar Contraseña'" @click="showMessage"
-                                class="!p-0.5">
-                            <template #icon>
-                                <i-material-symbols-lock class="mx-0.5"/>
-                            </template>
-                        </Button>
-                        <Button size="small" severity="danger" v-tooltip.top="'Bloquear usuario'" @click="showMessage"
-                                class="!p-0.5">
-                            <template #icon>
-                                <i-solar-user-block-outline class="mx-0.5"/>
-                            </template>
-                        </Button>
-                    </div>
-                </template>
-            </Column>
-        </DataTable>
-    </div>
+        </Column>
+    </DataTable>
+    <modal-component ref="modal" :parameters="parametersModal"/>
+
 </template>

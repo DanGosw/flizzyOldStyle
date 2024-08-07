@@ -17,7 +17,7 @@ export default {
             "text-surface-600 dark:text-white/60"
         ]
     },
-    firstpagebutton: ({ context }) => ({
+    first: ({ context }) => ({
         class: [
             "relative",
             
@@ -48,7 +48,7 @@ export default {
             { "cursor-not-allowed opacity-60": context.disabled }
         ]
     }),
-    previouspagebutton: ({ context }) => ({
+    prev: ({ context }) => ({
         class: [
             "relative",
             
@@ -79,7 +79,7 @@ export default {
             { "cursor-not-allowed opacity-60": context.disabled }
         ]
     }),
-    nextpagebutton: ({ context }) => ({
+    next: ({ context }) => ({
         class: [
             "relative",
             
@@ -111,7 +111,7 @@ export default {
             // { "pointer-events-none": context.disabled }
         ]
     }),
-    lastpagebutton: ({ context }) => ({
+    last: ({ context }) => ({
         class: [
             "relative",
             
@@ -142,7 +142,9 @@ export default {
             { "cursor-not-allowed opacity-60": context.disabled }
         ]
     }),
-    pagebutton: ({ context }) => ({
+    
+    content: "inline-flex items-center justify-center flex-wrap",
+    page: ({ context }) => ({
         class: [
             "relative",
             
@@ -150,7 +152,7 @@ export default {
             "inline-flex items-center justify-center",
             
             // Background color
-            { "!bg-primary-600 dark:!bg-primary-600 text-white hover:bg-primary-600 dark:hover:!bg-primary-500": context.active },
+            { "bg-primary-600 dark:bg-primary-600 text-white hover:bg-primary-600 dark:hover:bg-primary-500": context.active },
             { "bg-surface-200/80 dark:bg-surface-800/80": !context.active },
             
             // Shape
@@ -177,17 +179,15 @@ export default {
             { "cursor-not-allowed pointer-events-none": context.active }
         ]
     }),
-    rowperpagedropdown: {
-        root: ({ props, state, parent }) => ({
-            // console.log(props.modelValue);
-            // console.log(parent.state.d_rows === props.modelValue);
+    pcrowperpagedropdown: {
+        root: ({ props, state /* parent */ }) => ({
             class: [
                 // Display and Position
                 "inline-flex items-center justify-center",
                 "relative",
                 
                 // Shape
-                "h-7",
+                "h-7 max-w-24",
                 "rounded-md",
                 
                 // Spacing
@@ -288,52 +288,7 @@ export default {
         },
         list: {
             class: "p-1 list-none m-0"
-        },
-        item: ({ context }) => ({
-            class: [
-                "relative",
-                
-                // Font
-                "leading-none select-none",
-                //font size
-                "text-sm",
-                
-                // Spacing
-                "m-0 p-1.5",
-                "first:mt-0 mt-[2px]",
-                
-                // Shape
-                "border-0 rounded",
-                
-                // Colors
-                {
-                    "text-surface-700 dark:text-white/80": !context.focused && !context.selected,
-                    "bg-surface-200 dark:bg-surface-600/60": context.focused && !context.selected,
-                    "text-surface-700 dark:text-white/80 ": context.focused && !context.selected,
-                    
-                    "text-primary-highlight-inverse": context.selected,
-                    "bg-primary-highlight": context.selected
-                },
-                
-                //States
-                { "hover:bg-surface-100 dark:hover:bg-[rgba(255,255,255,0.03)]": !context.focused && !context.selected },
-                { "hover:bg-primary-highlight-hover": context.selected },
-                {
-                    "hover:text-surface-700 hover:bg-surface-100 dark:hover:text-white dark:hover:bg-[rgba(255,255,255,0.03)]": context.focused &&
-                        !context.selected
-                },
-                
-                // Transitions
-                "transition-shadow",
-                "duration-200",
-                
-                // Misc
-                "cursor-pointer",
-                { "pointer-events-none": context.selected },
-                "overflow-hidden",
-                "whitespace-nowrap"
-            ]
-        })
+        }
     },
     jumptopageinput: {
         root: {
@@ -382,7 +337,7 @@ export default {
             }
         }
     },
-    jumptopagedropdown: {
+    pcjumptopagedropdown: {
         root: ({ props, state }) => ({
             class: [
                 // Display and Position
@@ -490,50 +445,8 @@ export default {
             ]
         },
         list: {
-            class: "p-1 list-none m-0"
-        },
-        item: ({ context }) => ({
-            class: [
-                "relative",
-                
-                // Font
-                "leading-none text-sm",
-                
-                // Spacing
-                "m-0 px-3 py-1.5",
-                "first:mt-0 mt-[2px]",
-                
-                // Shape
-                "border-0 rounded",
-                
-                // Colors
-                {
-                    "text-surface-700 dark:text-white/80": !context.focused && !context.selected,
-                    "bg-surface-200 dark:bg-surface-600/60": context.focused && !context.selected,
-                    "text-surface-700 dark:text-white/80 ": context.focused && !context.selected,
-                    
-                    "text-primary-highlight-inverse": context.selected,
-                    "bg-primary-highlight": context.selected
-                },
-                
-                //States
-                { "hover:bg-surface-100 dark:hover:bg-[rgba(255,255,255,0.03)]": !context.focused && !context.selected },
-                { "hover:bg-primary-highlight-hover": context.selected },
-                {
-                    "hover:text-surface-700 hover:bg-surface-100 dark:hover:text-white dark:hover:bg-[rgba(255,255,255,0.03)]": context.focused &&
-                        !context.selected
-                },
-                
-                // Transitions
-                "transition-shadow",
-                "duration-200",
-                
-                // Misc
-                "cursor-pointer",
-                "overflow-hidden",
-                "whitespace-nowrap"
-            ]
-        })
+            class: "p-1 list-none m-0 text-red-500"
+        }
     },
     start: {
         class: "mr-auto"

@@ -1,7 +1,6 @@
 <script setup>
 const props = defineProps({
-    table: { type: Object, required: true },
-    showSpeed: { type: Boolean, default: false }
+    table: { type: Object, required: true }
 });
 
 function handleTableClick(event) {
@@ -13,10 +12,9 @@ function handleTableClick(event) {
 
 <template>
     <div @click="handleTableClick"
-         class="relative z-10 col-span-2 flex h-48 max-h-48 cursor-pointer flex-col justify-between rounded-lg font-semibold shadow-lg sm:col-span-2 md:col-span-3 lg:col-span-2 transition">
+         class="relative z-10 col-span-2 flex h-48 max-h-48 cursor-pointer flex-col justify-between rounded-lg font-semibold shadow-md sm:col-span-2 md:col-span-3 lg:col-span-2 transition">
         <div :class="`${table?.['status'] === '3' ? 'bg-primary-400/60 dark:bg-primary-500/70' : 'bg-surface-400/70 dark:bg-surface-800/60'} border border-surface-400 dark:border-surface-600 rounded-lg h-full max-h-48`">
-            <div class="flex h-32 w-full select-none flex-wrap gap-1 overflow-y -auto rounded-t-lg p-1.5"
-                 v-if="table?.['orders'].length > 0">
+            <div class="flex h-32 w-full select-none flex-wrap gap-1 overflow-y p-1.5" v-if="table?.['orders'].length > 0">
                 <div v-for="moreTable in table?.['orders']" :key="moreTable.code" v-tooltip.top="moreTable.description"
                      class="flex w-auto flex-grow items-center justify-center rounded-lg border p-1.5 text-white bg-primary-600 dark:bg-primary-800/60">
                     {{ moreTable.description }}
@@ -36,7 +34,7 @@ function handleTableClick(event) {
             </div>
         </div>
         <slot/>
-        <img draggable="false" src="~@/assets/animatedFood.gif" alt=""
+        <img draggable="false" src="~@/assets/animatedFood.gif" alt="image of table's"
              class="absolute top-0 left-0 -z-10 h-full w-full rounded-lg opacity-50"/>
     </div>
 </template>

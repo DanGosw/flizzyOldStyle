@@ -1,5 +1,5 @@
 <script setup>
-
+import Navbar from "@/hooks/layout/navbar/navbar.vue";
 </script>
 <template>
     <div class="h-screen flex flex-col dark:bg-surface-950">
@@ -9,7 +9,7 @@
         </div>
         <!-- Main content area -->
         <div class="flex-1 w-full overflow-auto">
-            <div class="m-2">
+            <div class="m-2 mt-3">
                 <router-view v-slot="{ Component }">
                     <transition mode="out-in">
                         <component :is="Component"/>

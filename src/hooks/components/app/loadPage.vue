@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from "vue";
+import LoadingData from "@/hooks/components/loading/loadingData.vue";
 
 const loadingPage = ref(true);
 const isDark = useDark({ disableTransition: false, initialValue: "auto" });

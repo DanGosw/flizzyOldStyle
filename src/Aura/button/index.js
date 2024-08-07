@@ -1,28 +1,36 @@
 export default {
-    root: ({ props, context, parent }) => ({
+    root: ({ props, context, parent /* instance*/ }) => ({
         class: [
             "relative",
             
             // Alignments
             "items-center inline-flex text-center align-bottom justify-center",
+            { "flex-col": (props.iconPos === "top" || props.iconPos === "bottom") && props.label },
             
             // Sizes & Spacing
             "leading-[normal]",
             {
-                "px-2 py-2": props.size === null,
+                "px-1.5 py-1.5": props.size === null,
                 "pr-3": props.label !== null,
-                "text-sm py-1.5 px-1": props.size === "small",
+                "text-sm py-1.5 px-1.5": props.size === "small",
                 "text-xl py-3 px-4": props.size === "large"
             },
+            { "gap-1": props.label !== null },
             {
                 "w-10 px-0 py-2": props.label === null && props.icon !== null
             },
+            // {
+            //     "w-7 h-7 px-0 gap-0": instance.hasIcon && !props.label && !props.badge,
+            //     "rounded-[50%] h-10 [&>[data-pc-section=label]]:w-0 [&>[data-pc-section=label]]:invisible": instance.hasIcon &&
+            //         !props.label && !props.badge && props.rounded
+            // },
             
             // Shapes
-            { "shadow-lg": true },
+            { "shadow-lg": props.raised },
             { "rounded-md": !props.rounded, "rounded-full": props.rounded },
             { "rounded-none first:rounded-l-md last:rounded-r-md": parent.instance.$name === "InputGroup" },
-            { "rounded-none first:rounded-l-md last:rounded-r-md": parent.instance.$name === "ButtonGroup" },
+            { "rounded-none first:rounded-l-md last:rounded-r-md": parent.instance.$name === "ButtonGroup" && !props.rounded },
+            { "rounded-none first:rounded-l-full last:rounded-r-full": parent.instance.$name === "ButtonGroup" && props.rounded },
             
             // Link Button
             { "text-primary-600 bg-transparent border-transparent": props.link },
@@ -57,7 +65,7 @@ export default {
             {
                 "text-surface-900 dark:text-white": props.severity === "secondary" && !props.text && !props.outlined && !props.plain,
                 "bg-surface-100 dark:bg-surface-700": props.severity === "secondary" && !props.text && !props.outlined && !props.plain,
-                "border dark:border-surface-500 border-surface-300": props.severity === "secondary" && !props.text && !props.outlined &&
+                "border border-surface-100 dark:border-surface-700": props.severity === "secondary" && !props.text && !props.outlined &&
                     !props.plain
             },
             // Secondary Text Button
@@ -96,16 +104,16 @@ export default {
             
             // Warning Button
             {
-                "text-white dark:text-surface-900": props.severity === "warning" && !props.text && !props.outlined && !props.plain,
-                "bg-amber-500 dark:bg-amber-400": props.severity === "warning" && !props.text && !props.outlined && !props.plain,
-                "border border-amber-500 dark:border-amber-400": props.severity === "warning" && !props.text && !props.outlined &&
+                "text-white dark:text-surface-900": props.severity === "warn" && !props.text && !props.outlined && !props.plain,
+                "bg-amber-500 dark:bg-amber-400": props.severity === "warn" && !props.text && !props.outlined && !props.plain,
+                "border border-amber-500 dark:border-amber-400": props.severity === "warn" && !props.text && !props.outlined &&
                     !props.plain
             },
             // Warning Text Button
-            { "text-amber-500 dark:text-amber-400": props.text && props.severity === "warning" && !props.plain },
+            { "text-amber-500 dark:text-amber-400": props.text && props.severity === "warn" && !props.plain },
             // Warning Outlined Button
             {
-                "text-amber-500 border border-amber-500 hover:bg-amber-300/10": props.outlined && props.severity === "warning" &&
+                "text-amber-500 border border-amber-500 hover:bg-amber-300/10": props.outlined && props.severity === "warn" &&
                     !props.plain
             },
             
@@ -151,7 +159,7 @@ export default {
             },
             
             // --- Severity Button States ---
-            // 'focus:outline-none focus:outline-offset-0 focus:ring-1',
+            // "focus:outline-none focus:outline-offset-0 focus:ring-1",
             
             // Link
             { "focus:ring-primary": props.link },
@@ -200,11 +208,11 @@ export default {
             // Warning
             {
                 "hover:bg-amber-600 dark:hover:bg-amber-300 hover:border-amber-600 dark:hover:border-amber-300": props.severity ===
-                    "warning" && !props.text && !props.outlined && !props.plain
+                    "warn" && !props.text && !props.outlined && !props.plain
             },
-            { "focus:ring-amber-500 dark:focus:ring-amber-400": props.severity === "warning" },
+            { "focus:ring-amber-500 dark:focus:ring-amber-400": props.severity === "warn" },
             // Text & Outlined Button
-            { "hover:bg-amber-300/10": (props.text || props.outlined) && props.severity === "warning" && !props.plain },
+            { "hover:bg-amber-300/10": (props.text || props.outlined) && props.severity === "warn" && !props.plain },
             
             // Help
             {
@@ -243,7 +251,10 @@ export default {
             "transition duration-200 ease-in-out",
             
             // Misc
-            "cursor-pointer overflow-hidden select-none"
+            "cursor-pointer overflow-hidden select-none",
+            
+            // Badge
+            "[&>[data-pc-name=badge]]:min-w-5 [&>[data-pc-name=badge]]:h-5 [&>[data-pc-name=badge]]:leading-5"
         ]
     }),
     label: ({ props }) => ({
@@ -258,6 +269,7 @@ export default {
     }),
     icon: ({ props }) => ({
         class: [
+            "text-xl leading-4",
             "mx-0",
             {
                 "mr-2": props.iconPos === "left" && props.label !== null,
@@ -267,7 +279,7 @@ export default {
             }
         ]
     }),
-    loadingicon: ({ props }) => ({
+    loadingIcon: ({ props }) => ({
         class: [
             "h-4 w-4",
             "mx-0",

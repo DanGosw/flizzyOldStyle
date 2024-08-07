@@ -329,9 +329,9 @@ const items = ref([
                     <div class="grid grid-cols-1 flex-wrap items-center justify-start gap-2 sm:grid-cols-4 md:grid-cols-9 lg:grid-cols-10 xl:grid-cols-12">
                         <tableDesign v-for="table in branch.tables" :key="table.id" :table="table">
                             <SpeedDial :model="items" :radius="125" type="quarter-circle" direction="down-left" v-if="table.status === '3'"
-                                       mask mask-class="rounded-lg xd cursor-default" class="rounded-full top-0.5 right-0.5 xd">
+                                       mask mask-class="rounded-lg xd cursor-default" class="rounded-full absolute top-1 -right-1 xd">
                                 <template #icon>
-                                    <i-material-symbols-add class="text-primary-800 dark:text-primary-50"/>
+                                    <i-material-symbols-add class="text-primary-100"/>
                                 </template>
                                 <template #item="{ item, onClick: toggleCallback }">
                                     <div class="flex cursor-pointer items-center justify-center rounded-full p-2.5 bg-primary-500 hover:bg-primary-500/90 dark:hover:bg-primary-500/90"

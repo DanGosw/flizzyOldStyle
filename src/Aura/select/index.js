@@ -48,17 +48,17 @@ export default {
             "flex-auto",
             
             // Color and Background
-            "bg-transparent",
+            "bg-red-500",
             "border-0",
             {
-                "text-surface-800 dark:text-white/80": props.modelValue !==
-                    undefined, "text-surface-400 dark:text-surface-500": props.modelValue === undefined
+                "text-surface-800 dark:text-white/80": props.modelValue !== undefined,
+                "text-surface-400 dark:text-surface-500": props.modelValue === undefined
             },
             "placeholder:text-surface-400 dark:placeholder:text-surface-500",
             
             // Sizing and Spacing
-            "w-[1%]",
-            "py-2 px-3",
+            "w-[1%] mb-10",
+            "py-1.5 px-3",
             { "pr-7": props.showClear },
             
             //Shape
@@ -99,11 +99,72 @@ export default {
             "rounded-r-md"
         ]
     },
-    panel: {
+    label: ({ props, parent }) => ({
+        class: [
+            //Font
+            "leading-[normal] text-[14px]",
+            
+            // Display
+            "block",
+            "flex-auto",
+            
+            // Color and Background
+            "bg-transparent",
+            "border-0",
+            {
+                "text-surface-800 dark:text-white/80": props.modelValue !==
+                    undefined, "text-surface-400 dark:text-surface-500": props.modelValue === undefined
+            },
+            "placeholder:text-surface-400 dark:placeholder:text-surface-500",
+            
+            // Sizing and Spacing
+            "w-[1%]",
+            "py-1.5 px-2",
+            { "pr-7": props.showClear },
+            
+            //Shape
+            "rounded-none",
+            
+            // Transitions
+            "transition",
+            "duration-200",
+            
+            // States
+            "focus:outline-none focus:shadow-none",
+            
+            // Filled State *for FloatLabel
+            { filled: parent.instance?.$name === "FloatLabel" && props.modelValue !== null },
+            
+            // Misc
+            "relative",
+            "cursor-pointer",
+            "overflow-hidden overflow-ellipsis",
+            "whitespace-nowrap",
+            "appearance-none"
+        ]
+    }),
+    dropdown: {
+        class: [
+            // Flexbox
+            "flex items-center justify-center",
+            "shrink-0",
+            
+            // Color and Background
+            "bg-transparent",
+            "text-surface-500",
+            
+            // Size
+            "w-8",
+            
+            // Shape
+            "rounded-r-md"
+        ]
+    },
+    overlay: {
         class: [
             // Colors
             "bg-surface-0 dark:bg-surface-900",
-            "text-surface-700 dark:text-white/80 text-[14px]",
+            "text-surface-700 dark:text-white/80",
             
             // Shape
             "border border-surface-300 dark:border-surface-700",
@@ -111,7 +172,7 @@ export default {
             "shadow-md"
         ]
     },
-    wrapper: {
+    listContainer: {
         class: [
             // Sizing
             "max-h-[200px]",
@@ -123,9 +184,10 @@ export default {
     list: {
         class: "p-1 list-none m-0"
     },
-    item: ({ context }) => ({
+    option: ({ context }) => ({
         class: [
             "relative",
+            "flex items-center text-[14px]",
             
             // Font
             "leading-none",
@@ -142,14 +204,12 @@ export default {
                 "text-surface-700 dark:text-white/80": !context.focused && !context.selected,
                 "bg-surface-200 dark:bg-surface-600/60": context.focused && !context.selected,
                 "text-surface-700 dark:text-white/80 ": context.focused && !context.selected,
-                
-                "text-primary-highlight-inverse": context.selected,
-                "bg-primary-highlight": context.selected
+                "bg-primary-200 dark:bg-primary-800": context.selected
             },
             
             //States
             { "hover:bg-surface-100 dark:hover:bg-[rgba(255,255,255,0.03)]": !context.focused && !context.selected },
-            { "hover:bg-primary-highlight-hover": context.selected },
+            { "hover:bg-highlight-hover": context.selected },
             {
                 "hover:text-surface-700 hover:bg-surface-100 dark:hover:text-white dark:hover:bg-[rgba(255,255,255,0.03)]": context.focused &&
                     !context.selected
@@ -162,7 +222,7 @@ export default {
             "cursor-pointer overflow-hidden whitespace-nowrap"
         ]
     }),
-    itemgroup: {
+    optionGroup: {
         class: [
             "font-semibold",
             
@@ -176,10 +236,12 @@ export default {
             "cursor-auto"
         ]
     },
-    emptymessage: {
+    optionCheckIcon: "relative -ms-1.5 me-1.5 text-surface-700 dark:text-white/80 w-4 h-4",
+    optionBlankIcon: "w-4 h-4",
+    emptyMessage: {
         class: [
             // Font
-            "leading-none",
+            "leading-none text-[14px]",
             
             // Spacing
             "py-2 px-3",
@@ -192,8 +254,8 @@ export default {
     header: {
         class: [
             // Spacing
-            "pt-2 px-2 pb-0",
-            "m-0",
+            "pt-2",
+            "m-1 mb-8",
             
             //Shape
             "border-b-0",
@@ -215,13 +277,13 @@ export default {
             "leading-[normal]",
             
             // Sizing
-            "py-2 pl-3 pr-7",
-            "-mr-7",
+            "py-1.5 px-1",
+            "m-1",
             "w-full",
             
             //Color
             "text-surface-700 dark:text-white/80",
-            "bg-surface-0 dark:bg-surface-950",
+            "bg-surface-500 dark:bg-surface-950",
             "border-surface-200 dark:border-surface-700",
             
             // Shape
@@ -242,7 +304,7 @@ export default {
         ]
     },
     filtericon: {
-        class: ["absolute", "top-1/2 right-3", "-mt-2"]
+        class: ["absolute", "top-1/2 right-3 mt-0.5"]
     },
     clearicon: {
         class: [
@@ -258,7 +320,7 @@ export default {
             "-mt-2"
         ]
     },
-    loadingicon: {
+    loadingIcon: {
         class: "text-surface-400 dark:text-surface-500 animate-spin"
     },
     transition: {

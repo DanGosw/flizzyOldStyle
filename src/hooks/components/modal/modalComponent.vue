@@ -1,18 +1,46 @@
 <script setup>
 const propsModal = defineProps({
+    /**
+     * @param visible, header title, width, footer, component
+     */
     parameters: {
+        /**
+         * @params {boolean} false - default value.
+         * @description Visible of the modal.
+         */
         visible: {
             type: Boolean,
             default: false
         },
+        /**
+         *  @params {string} - default value.
+         *  @description Title of the modal.
+         */
         header: {
             type: String,
             default: ""
         },
+        /**
+         *  @params {string} - default value.
+         *  @default default width is 50vh.
+         *  @description Width of the modal.
+         */
+        width: {
+            type: String,
+            default: "50vh"
+        },
+        /**
+         *  @params {Component} - Returns a component in footer modal.
+         *  @description Footer of the modal.
+         */
         footer: {
             type: String,
             default: ""
         },
+        /**
+         * @params {Component} - Function that returns a component
+         * @description Component of the modal.
+         */
         component: {
             type: Object,
             default: () => {}
@@ -26,8 +54,10 @@ defineExpose({ propsModal });
 
 <template>
     <Dialog :breakpoints="{'960px': '75vw', '640px': '90vw'}" v-model:visible="parameters.visible" modal
-            :style="{'width': parameters.width ? parameters.width : '50vw'}"
-            @keyup.esc="parameters.visible = false" closable>
+            :style="{'width': parameters.width}" @keyup.esc="parameters.visible = false" closable>
+        <template #closeicon>
+            <i-material-symbols-close-rounded class="text-surface-100"/>
+        </template>
         <template #header>
             {{ parameters.header }}
         </template>

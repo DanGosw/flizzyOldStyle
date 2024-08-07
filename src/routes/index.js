@@ -3,7 +3,7 @@ const router = createRouter({
     routes: [
         {
             path: "/", name: "home", component: () => import("@/pages/private/layout.vue"),
-            meta: { prefetch: true },
+            meta: { prefetch: true }, redirect: "dashboard",
             children: [
                 {
                     path: "/dashboard", name: "dashboard", component: () => import("@/modules/HelloWorld.vue"),
@@ -54,7 +54,7 @@ const router = createRouter({
                     meta: { label: "Proveedores", icon: IconFluentBuildingPeople16Filled, expand: "suppliers" },
                     children: [
                         {
-                            path: "/add/customer", name: "newSupplier", component: () => import("@/modules/HelloWorld.vue"),
+                            path: "/add/provider", name: "newSupplier", component: () => import("@/modules/HelloWorld.vue"),
                             meta: { label: "Crear Proveedor", icon: IconTablerUsersPlus }
                         },
                         {
@@ -72,21 +72,32 @@ const router = createRouter({
                     meta: { label: "Kardex", icon: IconMaterialSymbolsLightBarChart4BarsRounded, expand: "kardex" }
                 },
                 {
-                    path: "/customers", name: "customers", component: () => import("@/modules/customer/customer.vue"),
-                    meta: { label: "Clientes", icon: IconSolarUsersGroupRoundedLinear }
-                },
-                {
-                    path: "/birthdays", name: "birthdays", component: () => import("@/modules/HelloWorld.vue"),
-                    meta: { label: "Cumpleaños", icon: IconIconoirBirthdayCake }
+                    path: "/people", name: "people", component: () => import("@/modules/index.vue"),
+                    meta: { label: "Personas", icon: IconSolarUsersGroupRoundedLinear, expand: "people" },
+                    children: [
+                        {
+                            path: "/customer", name: "customer", component: () => import("@/modules/customer/customer.vue"),
+                            meta: { label: "Clientes", icon: IconSolarUsersGroupRoundedLinear }
+                        },
+                        {
+                            path: "/birthdays", name: "birthdays", component: () => import("@/modules/HelloWorld.vue"),
+                            meta: { label: "Cumpleaños", icon: IconIconoirBirthdayCake }
+                        }
+                    ]
                 },
                 {
                     path: "/settings", name: "settings", component: () => import("@/modules/settings/index.vue"),
                     meta: { label: "Configuración", icon: IconMaterialSymbolsSettingsOutline }
                 },
-                
                 // Private Routes without meta
                 {
-                    path: "/users", name: "users", component: () => import("@/modules/settings/users/usersList.vue")
+                    path: "/users", name: "users", component: () => import("@/modules/settings/users/users.vue")
+                },
+                {
+                    path: "/business", name: "business", component: () => import("@/modules/settings/business/business.vue")
+                },
+                {
+                    path: "/branch", name: "branch", component: () => import("@/modules/settings/branchs/branchs.vue")
                 }
             ]
         },

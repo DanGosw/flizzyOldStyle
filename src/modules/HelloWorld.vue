@@ -58,7 +58,7 @@ const countries = ref([
                         @click="count++"/>
                 <Button size="small" label="count is" color="rgb(241, 245, 249)" :badge="count.toString()" severity="info"
                         @click="count++"/>
-                <Button size="small" label="count is" color="rgb(241, 245, 249)" :badge="count.toString()" severity="warning"
+                <Button size="small" label="count is" color="rgb(241, 245, 249)" :badge="count.toString()" severity="warn"
                         @click="count++"/>
                 <Button size="small" label="count is" color="rgb(241, 245, 249)" :badge="count.toString()" severity="help"
                         @click="count++"/>
@@ -68,8 +68,8 @@ const countries = ref([
                         @click="count++" class="border border-violet-500" severity="contrast"/>
 
                 <div class="flex card justify-content-center">
-                    <Dropdown v-model="selectedCity" :options="countries" optionLabel="name" class="w-full" filter show-clear
-                              @update:model-value="()=>console.log(selectedCity?.name)" placeholder="Select"/>
+                    <Select v-model="selectedCity" :options="countries" optionLabel="name" class="w-full" filter show-clear
+                            @update:model-value="()=>console.log(selectedCity?.name)" placeholder="Select"/>
                 </div>
             </div>
             <DataTable size="small" striped-rows show-gridlines :value="data" scroll-direction="horizontal" scroll-height="65vh"

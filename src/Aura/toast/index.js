@@ -8,11 +8,11 @@ export default {
             { "-translate-x-2/4": props.position === "top-center" || props.position === "bottom-center" }
         ]
     }),
-    container: ({ props }) => ({
+    message: ({ props }) => ({
         class: [
             "mb-4 rounded-md w-full",
-            "border border-transparent",
-            "backdrop-blur-[10px] shadow-md",
+            "border border-l-8",
+            "backdrop-blur-md shadow-md",
             
             // Colors
             {
@@ -23,6 +23,7 @@ export default {
                 "bg-red-50/90 dark:bg-red-500/20": props.message.severity === "error",
                 "bg-surface-950 dark:bg-surface-0": props.message.severity === "contrast"
             },
+            // border of message
             {
                 "border-blue-200 dark:border-blue-500/20": props.message.severity === "info",
                 "border-green-200 dark:border-green-500/20": props.message.severity === "success",
@@ -30,6 +31,15 @@ export default {
                 "border-orange-200 dark:border-orange-500/20": props.message.severity === "warn",
                 "border-red-200 dark:border-red-500/20": props.message.severity === "error",
                 "border-surface-950 dark:border-surface-0": props.message.severity === "contrast"
+            },
+            // border of left message
+            {
+                "border-l-blue-400 dark:border-l-blue-500": props.message.severity === "info",
+                "border-l-green-400 dark:border-l-green-500": props.message.severity === "success",
+                "border-l-surface-400 dark:border-l-surface-500": props.message.severity === "secondary",
+                "border-l-orange-400 dark:border-l-orange-500": props.message.severity === "warn",
+                "border-l-red-400 dark:border-l-red-500": props.message.severity === "error",
+                "border-l-surface-500 dark:border-l-surface-500": props.message.severity === "contrast"
             },
             {
                 "text-blue-700 dark:text-blue-300": props.message.severity === "info",
@@ -41,7 +51,7 @@ export default {
             }
         ]
     }),
-    content: ({ props }) => ({
+    messageContent: ({ props }) => ({
         class: [
             "flex p-3",
             {
@@ -50,14 +60,14 @@ export default {
             }
         ]
     }),
-    icon: ({ props }) => ({
+    messageIcon: ({ props }) => ({
         class: [
             // Sizing and Spacing
             props.message.severity === "contrast" || props.message.severity === "secondary" ? "w-0" : "w-[1.125rem] h-[1.125rem] mr-2",
             "text-lg leading-[normal]"
         ]
     }),
-    text: {
+    messageText: {
         class: [
             // Font and Text
             "text-base leading-[normal]",
@@ -75,7 +85,7 @@ export default {
             props.message.severity === "contrast" ? "text-surface-0 dark:text-surface-950" : "text-surface-700 dark:text-surface-0",
             { "mt-2": props.message.summary }]
     }),
-    closebutton: ({ props }) => ({
+    closeButton: ({ props }) => ({
         class: [
             // Flexbox
             "flex items-center justify-center",

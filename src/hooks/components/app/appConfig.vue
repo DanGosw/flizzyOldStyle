@@ -352,10 +352,10 @@ function applyTheme(type, colors) {
 
 </script>
 <template>
-    <Button size="small" @click="onConfigButtonClick()">
+    <Button size="small" @click="onConfigButtonClick()" class="border border-surface-300 !p-1">
         <i-carbon-color-palette/>
     </Button>
-    <Sidebar v-model:visible="visible" position="right" class="layout-config-sidebar w-26rem" pt:closeButton="ml-auto">
+    <Drawer v-model:visible="visible" position="right" class="w-28">
         <div class="inline-flex flex-col items-start justify-start gap-2 pr-2">
             <span class="text-sm font-medium text-black dark:text-surface-0">Primary Colors</span>
             <div class="inline-flex flex-wrap items-start justify-start gap-2 self-stretch">
@@ -367,7 +367,7 @@ function applyTheme(type, colors) {
                         class="flex h-5 !w-12 cursor-pointer rounded-full bg-transparent p-2 transition-all border-1 align-items-center justify-content-center transition-duration-200"
                         :class="{ 'ring-2 ring-offset-2 ring-offset-surface-0 dark:ring-offset-surface-800 ring-primary-500': selectedPrimaryColor.name === primaryColor.name }"
                         :style="{ backgroundColor: `rgb(${primaryColor.palette[5]})` }"
-                ></button>
+                />
             </div>
         </div>
         <div class="inline-flex flex-col items-start justify-start gap-2 pr-2">
@@ -381,8 +381,8 @@ function applyTheme(type, colors) {
                         class="flex h-5 !w-12 cursor-pointer rounded-full bg-transparent p-2 transition-all border-1 align-items-center justify-content-center transition-duration-200"
                         :class="{ 'ring-2 ring-offset-2 ring-offset-surface-0 dark:ring-offset-surface-800 ring-surface-500': selectedSurfaceColor.name === surface.name }"
                         :style="{ backgroundColor: `rgb(${surface.palette[6]})` }"
-                ></button>
+                />
             </div>
         </div>
-    </Sidebar>
+    </Drawer>
 </template>
