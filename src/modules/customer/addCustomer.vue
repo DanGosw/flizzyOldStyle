@@ -4,8 +4,8 @@ import { ref } from "vue";
 import * as yup from "yup";
 import { useField, useFieldArray, useForm } from "vee-validate";
 import LabelRequired from "@/hooks/components/labelRequired/labelRequired.vue";
-import CascadeSelectArray from "@/hooks/components/cascadeSelectArray.vue";
-import InputValidateArray from "@/hooks/components/inputValidateArray.vue";
+import CascadeSelectArray from "@/hooks/components/inputsRequired/cascadeSelectArray.vue";
+import InputValidateArray from "@/hooks/components/inputsRequired/inputValidateArray.vue";
 
 const toast = useToast();
 

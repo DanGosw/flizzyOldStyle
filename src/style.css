@@ -84,7 +84,7 @@
 }
 
 .alignItemsForm {
-    @apply grid grid-cols-1 items-start justify-start gap-x-2 gap-y-1 md:grid-cols-12;
+    @apply grid grid-cols-1 items-start justify-start gap-x-3.5 gap-y-1 md:grid-cols-12;
 }
 
 .alignHeader {

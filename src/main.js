@@ -1,6 +1,6 @@
 import { createApp } from "vue";
 import "./style.css";
-import App from "./App.vue";
+import App from "@/App.vue";
 import PrimeVue from "primevue/config";
 import AutoComplete from "primevue/autocomplete";
 import Accordion from "primevue/accordion";
@@ -115,7 +115,7 @@ import { useCookies } from "@vueuse/integrations/useCookies";
 
 const pinia = createPinia();
 
-const app = createApp(App);
+const app = createApp(App, undefined);
 
 app.directive("tooltip", Tooltip);
 app.directive("badge", BadgeDirective);

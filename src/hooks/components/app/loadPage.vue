@@ -13,7 +13,7 @@ onBeforeMount(() => {
 
 onMounted(() => {
     window.addEventListener("load", () => {
-        setTimeout(() => { loadingPage.value = false; }, 800);
+        setTimeout(() => { loadingPage.value = false; }, 1000);
     });
 });
 

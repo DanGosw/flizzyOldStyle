@@ -1,9 +1,12 @@
 <script setup>
 
+import { useCookies } from "@vueuse/integrations/useCookies";
+
 const selectedPrimaryColor = ref({ type: "primary", name: "indigo" });
 const selectedSurfaceColor = ref({ type: "surface", name: "stone" });
+const scales = ref([12, 13, 14, 15, 16, 17]);
 const visible = ref(false);
-const useCookie = useCookies(["primary", "surface"], { autoUpdateDependencies: true });
+const textSize = ref(16);
 const onConfigButtonClick = () => visible.value = !visible.value;
 
 const primaryColors = [
@@ -299,7 +302,7 @@ const updateColors = (type, colorName) => {
         selectedColor = primaryColors.find((color) => color.name === colorName);
         selectedPrimaryColor.value = selectedColor;
 
-        useCookie.set("primary", { type, name: colorName }, { path: "/" });
+        useCookies().set("primary", { type, name: colorName }, { path: "/" });
         if(colorName === "noir") {
             root.classList.add("customized-primary");
         } else {
@@ -308,7 +311,7 @@ const updateColors = (type, colorName) => {
     } else if(type === "surface") {
         selectedColor = surfaces.find((color) => color.name === colorName);
         selectedSurfaceColor.value = selectedColor;
-        useCookie.set("surface", { type, name: colorName }, { path: "/" });
+        useCookies().set("surface", { type, name: colorName }, { path: "/" });
     }
     if(!document?.["startViewTransition"]) {
         applyTheme(type, selectedColor.palette);
@@ -317,9 +320,28 @@ const updateColors = (type, colorName) => {
     document?.["startViewTransition"](() => applyTheme(type, selectedColor.palette));
 };
 
+const decrementScale = () => {
+    textSize.value -= 1;
+    applyScale();
+};
+const incrementScale = () => {
+    textSize.value += 1;
+    applyScale();
+};
+const applyScale = () => {
+    document.documentElement.style.fontSize = textSize.value + "px";
+    useCookies().set("font-size", textSize.value, { path: "/" });
+};
+
 onMounted(() => {
-    const savedPrimaryColorName = useCookie.get("primary");
-    const savedSurfaceColorName = useCookie.get("surface");
+    const savedPrimaryColorName = useCookies().get("primary");
+    const savedSurfaceColorName = useCookies().get("surface");
+    const savedFontSize = useCookies().get("font-size");
+    if(savedFontSize) {
+        console.log(savedFontSize);
+        textSize.value = savedFontSize;
+        document.documentElement.style.fontSize = savedFontSize + "px";
+    }
     if(savedPrimaryColorName) {
         const selectedColor = primaryColors.find((color) => color.name === savedPrimaryColorName.name);
         if(selectedColor) {
@@ -352,36 +374,45 @@ function applyTheme(type, colors) {
 
 </script>
 <template>
-    <Button size="small" @click="onConfigButtonClick()" class="border border-surface-300 !p-1">
+    <Button size="small" @click="onConfigButtonClick()" class="border border-surface-300">
         <i-carbon-color-palette/>
     </Button>
     <Drawer v-model:visible="visible" position="right" class="w-28">
         <div class="inline-flex flex-col items-start justify-start gap-2 pr-2">
-            <span class="text-sm font-medium text-black dark:text-surface-0">Primary Colors</span>
-            <div class="inline-flex flex-wrap items-start justify-start gap-2 self-stretch">
-                <button
-                        v-for="primaryColor of primaryColors"
-                        :key="primaryColor.name"
-                        type="button"
-                        @click="updateColors('primary', primaryColor.name)"
-                        class="flex h-5 !w-12 cursor-pointer rounded-full bg-transparent p-2 transition-all border-1 align-items-center justify-content-center transition-duration-200"
-                        :class="{ 'ring-2 ring-offset-2 ring-offset-surface-0 dark:ring-offset-surface-800 ring-primary-500': selectedPrimaryColor.name === primaryColor.name }"
-                        :style="{ backgroundColor: `rgb(${primaryColor.palette[5]})` }"
-                />
+            <span class="text-black text-xl font-semibold">Escala</span>
+            <div class="inline-flex items-center gap-2 border-1 surface-border py-1 px-2 rounded-2xl">
+                <Button @click="decrementScale" text rounded :disabled="textSize === scales[0]">
+                    <template #icon>
+                        <i-ic-twotone-text-decrease/>
+                    </template>
+                </Button>
+                <i v-for="s in scales" :key="s" :class="['text-sm text-200', { 'text-lg text-primary': s === textSize }]">
+                    <i-material-symbols-circle/>
+                </i>
+                <Button @click="incrementScale" text rounded :disabled="textSize === scales[scales.length - 1]">
+                    <template #icon>
+                        <i-ic-baseline-text-increase/>
+                    </template>
+                </Button>
             </div>
         </div>
         <div class="inline-flex flex-col items-start justify-start gap-2 pr-2">
-            <span class="text-sm font-medium text-black dark:text-surface-0">Surface Colors</span>
+            <span class="text-black dark:text-surface-0 text-xl font-semibold">Colores Primarios</span>
             <div class="inline-flex flex-wrap items-start justify-start gap-2 self-stretch">
-                <button
-                        v-for="surface of surfaces"
-                        :key="surface.name"
-                        type="button"
-                        @click="updateColors('surface', surface.name)"
+                <button v-for="primaryColor of primaryColors" :key="primaryColor.name" type="button"
+                        @click="updateColors('primary', primaryColor.name)"
+                        class="flex h-5 !w-12 cursor-pointer rounded-full bg-transparent p-2 transition-all border-1 align-items-center justify-content-center transition-duration-200"
+                        :class="{ 'ring-2 ring-offset-2 ring-offset-surface-0 dark:ring-offset-surface-800 ring-primary-500': selectedPrimaryColor.name === primaryColor.name }"
+                        :style="{ backgroundColor: `rgb(${primaryColor.palette[5]})` }"/>
+            </div>
+        </div>
+        <div class="inline-flex flex-col items-start justify-start gap-2 pr-2">
+            <span class="text-black dark:text-surface-0 text-xl font-semibold">Modo Oscuro</span>
+            <div class="inline-flex flex-wrap items-start justify-start gap-2 self-stretch">
+                <button v-for="surface of surfaces" :key="surface.name" type="button" @click="updateColors('surface', surface.name)"
                         class="flex h-5 !w-12 cursor-pointer rounded-full bg-transparent p-2 transition-all border-1 align-items-center justify-content-center transition-duration-200"
                         :class="{ 'ring-2 ring-offset-2 ring-offset-surface-0 dark:ring-offset-surface-800 ring-surface-500': selectedSurfaceColor.name === surface.name }"
-                        :style="{ backgroundColor: `rgb(${surface.palette[6]})` }"
-                />
+                        :style="{ backgroundColor: `rgb(${surface.palette[6]})` }"/>
             </div>
         </div>
     </Drawer>
