@@ -43,8 +43,8 @@ const onSubmit = handleSubmit((values) => {
                         <div class="col-span-4">
                             <label-required for="password" label="Contraseña" mark/>
                             <Password class="w-full" inputClass="w-full" :toggleMask="true" :feedback="false" :invalid="!!errors.password"
-                                      v-model="password"
-                                      @blur="passwordBlur($event,true)" placeholder="Ingrese su contraseña" id="password"/>
+                                      v-model="password" @blur="passwordBlur($event,true)" placeholder="Ingrese su contraseña"
+                                      input-id="password"/>
                             <span class="markRequired">{{ passwordError }}</span>
                         </div>
                     </div>

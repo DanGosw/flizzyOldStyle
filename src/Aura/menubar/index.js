@@ -8,7 +8,7 @@ export default {
             "items-center",
             
             // Spacing
-            "p-2",
+            "p-0.5",
             
             // Shape
             "rounded-md",
@@ -52,7 +52,7 @@ export default {
         ]
     }),
     item: {
-        class: "smd:relative smd:w-auto w-full static my-[2px] [&:first-child]:mt-0"
+        class: "smd:relative smd:w-auto w-full static [&:first-child]:mt-0"
     },
     itemContent: ({ context }) => ({
         class: [
@@ -63,14 +63,14 @@ export default {
             "text-surface-700 dark:text-white/80",
             {
                 "text-surface-500 dark:text-white/70": !context.focused && !context.active,
-                "text-surface-500 dark:text-white/70 bg-surface-200": context.focused && !context.active,
+                "text-surface-500 dark:text-white/70 ": context.focused && !context.active,
                 "bg-highlight": (context.focused && context.active) || context.active || (!context.focused && context.active)
             },
             
             // States
             {
                 "hover:bg-surface-100 dark:hover:bg-[rgba(255,255,255,0.03)]": !context.active,
-                "hover:bg-highlight-emphasis": context.active
+                "hover:bg-highlight-hover": context.active
             },
             
             // Transitions
@@ -87,7 +87,7 @@ export default {
             "items-center",
             
             // Spacing
-            "py-2",
+            "py-1.5",
             "px-3",
             
             // Size

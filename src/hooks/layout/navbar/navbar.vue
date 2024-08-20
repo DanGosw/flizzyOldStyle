@@ -19,19 +19,17 @@ const { toggle, isFullscreen } = useFullscreen();
 </script>
 
 <template>
-    <Menubar :model="menuOptions" class="border shadow-md shadow-slate-300 text-[12px] font-medium py-0.5 dark:shadow-[#22242B]">
+    <Menubar :model="menuOptions" class="border shadow-md shadow-slate-300 font-medium text-[12px] dark:shadow-[#22242B] p-1">
         <template #start>
-            <div class="flex h-9 w-14 items-center justify-center rounded-md border p-0.5 bg-surface-200 border-surface-300 dark:bg-surface-900 dark:border-surface-600">
+            <div class="flex h-9 mr-1 w-14 items-center justify-center rounded-md border bg-surface-200 border-surface-300 dark:bg-surface-900 dark:border-surface-600">
                 <img src="@/assets/logo-white.svg" alt="logo" class="max-h-10 max-w-10" v-if="isDark"/>
                 <img src="@/assets/logo-dark.svg" alt="logo" class="max-h-10 max-w-10" v-else/>
             </div>
         </template>
         <template #item="{ item, props }">
             <router-link v-if="item.route && !item.items" :to="item.route">
-                <div v-bind="props.action"
-                     :class="`${item.route === route.path ? 'bg-primary-500 rounded bg-opacity-80' : ''} p-0 select-none`">
-                    <component :is="item.icon"
-                               :class="`${item.route === route.path ? 'text-white' : 'text-primary-500'} text-[16px]`"/>
+                <div v-bind="props.action" :class="`${item.route === route.path ? 'bg-primary-500 rounded' : ''} select-none`">
+                    <component :is="item.icon" :class="`${item.route === route.path ? 'text-white' : 'text-primary-500'} text-[16px]`"/>
                     <span :class="`${item.route === route.path ? 'text-white' : 'text-surface-900 dark:text-surface-200'} ml-1.5`">
                                 {{ item.label }}
                             </span>
@@ -41,11 +39,11 @@ const { toggle, isFullscreen } = useFullscreen();
                 <component :is="item.icon" class="text-primary-500 text-[16px]"/>
                 <span class="ml-1.5 text-surface-900 dark:text-surface-200">{{ item.label }}</span>
                 <i-ic-outline-keyboard-arrow-right
-                        :class="`${item.expand ? 'rotate-90' : 'rotate-0'} text-primary-500 mx-1.5 transition duration-300`"/>
+                        :class="`${item.expand ? 'rotate-90' : 'rotate-0'} text-primary-500 mx-1 transition duration-300`"/>
             </div>
         </template>
         <template #submenuicon>
-            <i-solar-hamburger-menu-broken class="text-[24px]"/>
+            <i-solar-hamburger-menu-broken/>
         </template>
         <template #end>
             <div class="flex space-x-1">

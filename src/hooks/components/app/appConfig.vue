@@ -338,7 +338,6 @@ onMounted(() => {
     const savedSurfaceColorName = useCookies().get("surface");
     const savedFontSize = useCookies().get("font-size");
     if(savedFontSize) {
-        console.log(savedFontSize);
         textSize.value = savedFontSize;
         document.documentElement.style.fontSize = savedFontSize + "px";
     }
@@ -379,7 +378,7 @@ function applyTheme(type, colors) {
     </Button>
     <Drawer v-model:visible="visible" position="right" class="w-28">
         <div class="inline-flex flex-col items-start justify-start gap-2 pr-2">
-            <span class="text-black text-xl font-semibold">Escala</span>
+            <span class="text-black dark:text-surface-0 text-xl font-semibold">Escala</span>
             <div class="inline-flex items-center gap-2 border-1 surface-border py-1 px-2 rounded-2xl">
                 <Button @click="decrementScale" text rounded :disabled="textSize === scales[0]">
                     <template #icon>

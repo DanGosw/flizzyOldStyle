@@ -17,7 +17,7 @@ export default {
             },
             { "gap-1": props.label !== null },
             {
-                "w-10 px-0 py-2": props.label === null && props.icon !== null
+                "w-10 px-0 py-1.5": props.label === null && props.icon !== null
             },
             // {
             //     "w-7 h-7 px-0 gap-0": instance.hasIcon && !props.label && !props.badge,

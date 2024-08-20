@@ -5,8 +5,10 @@ import addUsers from "@/modules/settings/users/addUsers.vue";
 import EmptyTable from "@/hooks/components/empty/emptyTable.vue";
 import LoadingData from "@/hooks/components/loading/loadingData.vue";
 import ModalComponent from "@/hooks/components/modal/modalComponent.vue";
+import { io } from "socket.io-client";
 
 /* Defaults Variables */
+const socket = io("http://192.168.18.111:5180");
 const data = ref();
 const totalLength = ref(0);
 const page = ref(1);
@@ -32,14 +34,22 @@ const closeModal = () => {
  * @params {number} options. Offset - El desplazamiento de inicio para la consulta de usuarios.
  * @returns {Promise<void>} - La promesa que representa el proceso de carga de datos.
  */
-const loadUserList = async() => {
+const loadUserList = () => {
     loading.value = true;
-    const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/`,
-        { params: { limit: pageSize.value, offset: (page.value - 1) * pageSize.value } });
-    data.value = response.data.results;
-    totalLength.value = response.data.count;
-    loading.value = false;
+    socket.emit("getAnyData", { limit: 10, offset: 0 });
 };
+
+socket.on("anyData", (response) => {
+    console.log("Received pokemonData event with response:", response);
+    data.value = response;
+    totalLength.value = response.length;
+    loading.value = false;
+});
+
+socket.on("anyDataError", (error) => {
+    console.error("Error received from server:", error);
+    loading.value = false;
+});
 
 /**
  * Change the pagination.
@@ -114,8 +124,23 @@ const addParametersUserModal = () => {
  * Carga la lista de usuarios.
  */
 onMounted(() => {
-    loadUserList();
+    socket.on("connect", () => {
+        console.log("Connected to WebSocket server with id:", socket.id);
+        loadUserList(); // Ejecuta la consulta al conectarse
+    });
+
+    // Escuchar el evento de actualización de datos
+    socket.on("dataUpdated", (updatedData) => {
+        console.log("Data updated:", updatedData);
+        loadUserList(); // Recargar los datos después de una actualización
+    });
 });
+
+const deleteUSER = async(id) => {
+    const response = await axios.delete(`https://api-generator.retool.com/2KgZIV/data/${id}`);
+    console.log(response);
+    await loadUserList();
+};
 
 defineExpose({ loadUserList });
 </script>
@@ -141,7 +166,7 @@ defineExpose({ loadUserList });
         <Column style="width: 10%" field="id" header="Sucursal"/>
         <Column style="width: 10%" field="id" header="Estado"/>
         <Column style="width: 5%" header="Acciones">
-            <template #body>
+            <template #body="{data}">
                 <div class="flex items-center justify-center space-x-1">
                     <Button size="small" severity="warn" v-tooltip.top="'Editar Usuario'" @click="addParametersUserModal"
                             class="!p-0.5">
@@ -149,7 +174,7 @@ defineExpose({ loadUserList });
                             <i-tabler-user-edit class="mx-0.5"/>
                         </template>
                     </Button>
-                    <Button size="small" v-tooltip.top="'Editar Permisos'" @click="addParametersUserModal" class="!p-0.5">
+                    <Button size="small" v-tooltip.top="'Editar Permisos'" @click="deleteUSER(data.id)" class="!p-0.5">
                         <template #icon>
                             <i-material-symbols-list-alt-add-outline class="mx-0.5"/>
                         </template>

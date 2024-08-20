@@ -2,6 +2,8 @@ import { createApp } from "vue";
 import "./style.css";
 import App from "@/App.vue";
 import PrimeVue from "primevue/config";
+import { io } from "socket.io-client";
+
 import AutoComplete from "primevue/autocomplete";
 import Accordion from "primevue/accordion";
 import AccordionPanel from "primevue/accordionpanel";
@@ -237,5 +239,6 @@ app.use(ConfirmationService);
 app.use(ToastService);
 app.use(DialogService);
 app.use(routes);
+io.connect("http://192.168.18.111:5180");
 
 app.mount("#app");

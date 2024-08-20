@@ -2,6 +2,10 @@
 
 import EmptyTable from "@/hooks/components/empty/emptyTable.vue";
 import LoadingData from "@/hooks/components/loading/loadingData.vue";
+import { io } from "socket.io-client";
+
+const socket = io("http://192.168.18.111:5180");
+// Define eventos del socket
 
 const props = defineProps({ filters: { type: Object, default: {}, required: false } });
 const toast = useToast();
@@ -34,14 +38,22 @@ const showMessage = (info) => {
  * @params {number} options. offset - El desplazamiento de inicio para la consulta de Pokémon.
  * @returns {Promise<void>} - La promesa que representa el proceso de carga de datos.
  */
-const loadBusiness = async() => {
+const loadBusiness = () => {
     loading.value = true;
-    const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/`,
-        { params: { limit: pageSize.value, offset: (page.value - 1) * pageSize.value } });
-    data.value = response.data.results;
-    totalLength.value = response.data.count;
-    loading.value = false;
+    socket.emit("getPokemonData", { limit: 10, offset: 0 });
 };
+
+socket.on("pokemonData", (response) => {
+    console.log("Received pokemonData event with response:", response);
+    data.value = response.results;
+    totalLength.value = response.count;
+    loading.value = false;
+});
+
+socket.on("pokemonDataError", (error) => {
+    console.error("Error received from server:", error);
+    loading.value = false;
+});
 
 /**
  * Change the pagination.
@@ -58,7 +70,10 @@ const onPageChange = async(event) => {
  * Carga la lista de usuarios.
  */
 onMounted(() => {
-    loadBusiness();
+    socket.on("connect", () => {
+        console.log("Connected to WebSocket server with id:", socket.id);
+        loadBusiness(); // Ejecuta la consulta al conectarse
+    });
 });
 
 defineExpose({ loadBusiness });

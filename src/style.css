@@ -76,7 +76,7 @@
 }
 
 .markRequired {
-    @apply flex h-4 text-sm text-red-500 items-center;
+    @apply flex h-4 text-sm text-red-500 items-center mt-0.5;
 }
 
 .labelSize {
@@ -121,6 +121,22 @@
 
 .max-cols-8 {
     @apply col-span-1 md:col-span-8;
+}
+
+.max-cols-9 {
+    @apply col-span-1 md:col-span-9;
+}
+
+.max-cols-10 {
+    @apply col-span-1 md:col-span-10;
+}
+
+.max-cols-11 {
+    @apply col-span-1 md:col-span-11;
+}
+
+.max-cols-12 {
+    @apply col-span-1 md:col-span-12;
 }
 
 /* Works on Chrome, Edge, and Safari */

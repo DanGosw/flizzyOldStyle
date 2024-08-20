@@ -7,22 +7,20 @@ import Components from "unplugin-vue-components/vite";
 import IconsResolver from "unplugin-icons/resolver";
 import { PrimeVueResolver, VueUseComponentsResolver, VueUseDirectiveResolver } from "unplugin-vue-components/resolvers";
 import vitePluginSocketIO from "vite-plugin-socket-io";
+import { socketEvents } from "./src/modules/socket/socket.js";
 
-const socketEvents = (io, socket) => {
-    console.log("socket.io - connection");
-    socket.on("disconnect", () => {
-        console.log(`socket.io - socket.id \`${socket.id}\` disconnected`);
-    });
-    socket.on("signIn", () => {
-        console.log("socket.io - signIn");
-    });
-};
-
-// https://vitejs.dev/config/
 export default defineConfig({
     plugins: [
         vue(),
-        vitePluginSocketIO({ socketEvents }),
+        vitePluginSocketIO({
+            socketEvents, // Usar la lógica separada socketEvents
+            ioOptions: {
+                cors: {
+                    origin: "*",
+                    methods: ["GET", "POST", "PUT", "DELETE"]
+                }
+            }
+        }),
         Icons({
             compiler: "vue3",
             autoInstall: true
@@ -55,7 +53,7 @@ export default defineConfig({
                     pinia: ["createPinia", "defineStore"],
                     "@vueuse/core": ["watchDebounced", "useDebounceFn", "useWindowSize", "useDark", "useToggle"],
                     "@vueuse/integrations/useCookies": ["useCookies"],
-                    "primevue": ["useConfirm", "useConfirmDialog", "Dialog"],
+                    "primevue": ["useConfirm", "useConfirmDialog", "Dialog", "Button", "Menubar", "Card"],
                     "primevue/usetoast": ["useToast"],
                     "vee-validate": ["useForm", "defineRule", "useField"],
                     "@vueuse/integrations/useAxios": ["useAxios"],
