@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import * as yup from "yup";
 import { useField, useForm } from "vee-validate";
-import LabelRequired from "@/hooks/components/labelRequired/labelRequired.vue";
+import FormItem from "@/hooks/components/formItem/formItem.vue";
 import { useNumericInput } from "@/hooks/inputMethods.js";
 
 const props = defineProps({
@@ -26,8 +26,9 @@ const schemaValidate = ref(yup.object({
     branch: yup.string().trim().required("Seleccione una sucursal").label("Sucursal"),
     profile: yup.string().trim().required("Seleccione un perfil").label("Perfil"),
     username: yup.string().trim().required("Ingrese su usuario").label("Usuario").min(5, "Ingresa al menos 5 caracteres"),
-    code: yup.string().trim().required("Ingrese su contraseña").label("Contraseña").min(5, "Ingresa al menos 5 caracteres"),
-    codeConfirm: yup.string().trim().required("La confirmación es requerida").oneOf([yup?.ref("code")], "La contraseña no coincide").
+    password: yup.string().trim().required("Ingrese su contraseña").label("Contraseña").min(5, "Ingresa al menos 5 caracteres"),
+    passwordConfirm: yup.string().trim().required("La confirmación es requerida").
+        oneOf([yup?.ref("password")], "La contraseña no coincide").
         label("Confirm. Contraseña").min(5, "Ingresa al menos 5 caracteres")
 }));
 
@@ -41,8 +42,8 @@ const fields = ref({
     email: "",
     profile: "",
     username: "",
-    code: "",
-    codeConfirm: ""
+    password: "",
+    passwordConfirm: ""
 });
 
 // Watch for changes in formData prop
@@ -64,8 +65,8 @@ const { value: branch, handleBlur: branchBlur } = useField("branch");
 const { value: email } = useField("email");
 const { value: profile, handleBlur: profileBlur } = useField("profile");
 const { value: username, handleBlur: usernameBlur } = useField("username");
-const { value: code, handleBlur: codeBlur } = useField("code");
-const { value: codeConfirm, handleBlur: codeConfirmBlur } = useField("codeConfirm");
+const { value: password, handleBlur: passwordBlur } = useField("password");
+const { value: passwordConfirm, handleBlur: passwordConfirmBlur } = useField("passwordConfirm");
 /**
  * validation input
  */
@@ -88,72 +89,71 @@ const reloadData = () => {
 </script>
 
 <template>
-    <div class="alignItemsForm">
+    <div class="align-items-form">
         <div class="max-cols-4">
-            <label-required for="docNumber" label="DNI" mark/>
-            <InputGroup class="w-full">
-                <InputText v-model.trim="docNumber" id="docNumber" maxlength="8" :invalid="!!errors.docNumber" size="small"
-                           @blur="docNumberBlur(null, true)" @input="handleInputDocNumber"/>
-                <Button size="small" severity="info">
-                    <template #icon>
-                        <i-material-symbols-manage-search-rounded class="!mx-1"/>
-                    </template>
-                </Button>
-            </InputGroup>
-            <span class="markRequired">{{ errors.docNumber }}</span>
+            <form-item for="docNumber" label="DNI" mark :error="errors.docNumber">
+                <InputGroup class="w-full">
+                    <InputText v-model.trim="docNumber" id="docNumber" maxlength="8" :invalid="!!errors.docNumber" size="small"
+                               @blur="docNumberBlur($event, true)" @input="handleInputDocNumber"/>
+                    <Button size="small">
+                        <template #icon>
+                            <i-material-symbols-manage-search-rounded class="!mx-1"/>
+                        </template>
+                    </Button>
+                </InputGroup>
+            </form-item>
         </div>
         <div class="max-cols-4">
-            <label-required for="names" label="Nombres" mark/>
-            <InputText v-model="names" id="names" :invalid="!!errors.names" size="small" @blur="namesBlur(null, true)"/>
-            <span class="markRequired">{{ errors.names }}</span>
+            <form-item for="names" label="Nombres" mark :error="errors.names">
+                <InputText v-model="names" id="names" :invalid="!!errors.names" size="small" @blur="namesBlur($event, true)"/>
+            </form-item>
         </div>
         <div class="max-cols-4">
-            <label-required for="lastnames" label="Apellidos" mark/>
-            <InputText v-model="lastnames" id="lastnames" :invalid="!!errors.lastnames" size="small" @blur="lastnamesBlur(null, true)"/>
-            <span class="markRequired">{{ errors.lastnames }}</span>
+            <form-item for="lastnames" label="Apellidos" mark :error="errors.lastnames">
+                <InputText v-model="lastnames" id="lastnames" :invalid="!!errors.lastnames" size="small"
+                           @blur="lastnamesBlur($event, true)"/>
+            </form-item>
         </div>
         <div class="max-cols-6">
-            <label-required for="email" label="Correo"/>
-            <InputText v-model="email" id="email" size="small"/>
+            <form-item for="email" label="Correo">
+                <InputText v-model="email" id="email" size="small"/>
+            </form-item>
         </div>
         <div class="max-cols-6">
-            <label-required for="address" label="Dirección" mark/>
-            <InputText v-model="address" id="address" :invalid="!!errors.address" size="small" @blur="addressBlur(null, true)"/>
-            <span class="markRequired">{{ errors.address }}</span>
+            <form-item for="address" label="Dirección" mark :error="errors.address">
+                <InputText v-model="address" id="address" :invalid="!!errors.address" size="small" @blur="addressBlur($event, true)"/>
+            </form-item>
         </div>
         <div class="max-cols-6">
-            <label-required for="company" label="Empresa / Sucursal" mark/>
-            <InputGroup>
-                <InputText v-model="company" id="company" :invalid="!!errors.company" size="small" @blur="companyBlur(null, true)"/>
-                <InputText v-model="branch" id="branch" :invalid="!!errors.branch" size="small" @blur="branchBlur(null, true)"/>
-            </InputGroup>
-            <div class="flex space-x-2">
-                <span class="markRequired">{{ errors.company }}</span>
-                <span class="markRequired">{{ errors.branch }}</span>
-            </div>
+            <form-item for="company" label="Empresa / Sucursal" mark :error="`${errors.company || ''} ${errors.branch || ''}`.trim()">
+                <InputGroup>
+                    <InputText v-model="company" id="company" :invalid="!!errors.company" size="small" @blur="companyBlur($event, true)"/>
+                    <InputText v-model="branch" id="branch" :invalid="!!errors.branch" size="small" @blur="branchBlur($event, true)"/>
+                </InputGroup>
+            </form-item>
         </div>
         <div class="max-cols-6">
-            <label-required for="profile" label="Perfil" mark/>
-            <Select v-model="profile" id="profile" :invalid="!!errors.profile" size="small" :options="dropdownItems"
-                    optionLabel="name" optionValue="value" @blur="profileBlur(null, true)" class="w-full"/>
-            <span class="markRequired">{{ errors.profile }}</span>
+            <form-item for="profile" label="Perfil" mark :error="errors.profile">
+                <Select v-model="profile" id="profile" :invalid="!!errors.profile" size="small" :options="dropdownItems"
+                        optionLabel="name" optionValue="value" @blur="profileBlur($event, true)" class="w-full"/>
+            </form-item>
         </div>
         <div class="max-cols-4">
-            <label-required for="username" label="Usuario" mark/>
-            <InputText v-model="username" id="username" :invalid="!!errors.username" size="small" @blur="usernameBlur(null, true)"/>
-            <span class="markRequired">{{ errors.username }}</span>
+            <form-item for="username" label="Usuario" mark :error="errors.username">
+                <InputText v-model="username" id="username" :invalid="!!errors.username" size="small" @blur="usernameBlur($event, true)"/>
+            </form-item>
         </div>
         <div class="max-cols-4">
-            <label-required for="code" label="Contraseña" mark/>
-            <Password v-model="code" input-id="code" :invalid="!!errors.code" class="w-full" :toggleMask="true" :feedback="false"
-                      @blur="codeBlur(null, true)" input-class="w-full !py-1.5"/>
-            <span class="markRequired">{{ errors.code }}</span>
+            <form-item for="password" label="Contraseña" mark :error="errors.password">
+                <Password v-model="password" input-id="password" :invalid="!!errors.password" class="w-full" :toggleMask="true"
+                          :feedback="false" @blur="passwordBlur($event, true)" input-class="w-full !py-1.5"/>
+            </form-item>
         </div>
         <div class="max-cols-4">
-            <label-required for="confirm" label="Confirmar Contraseña" mark/>
-            <Password v-model="codeConfirm" input-id="confirm" :invalid="!!errors.codeConfirm" class="w-full" :toggleMask="true"
-                      :feedback="false" @blur="codeConfirmBlur( null, true)" input-class="w-full !py-1.5"/>
-            <span class="markRequired">{{ errors.codeConfirm }}</span>
+            <form-item for="confirm" label="Confirmar Contraseña" mark :error="errors.passwordConfirm">
+                <Password v-model="passwordConfirm" input-id="confirm" :invalid="!!errors.passwordConfirm" class="w-full" :toggleMask="true"
+                          :feedback="false" @blur="passwordConfirmBlur($event, true)" input-class="w-full !py-1.5"/>
+            </form-item>
         </div>
         <Divider class="col-span-1 md:col-span-12 !my-2"/>
     </div>
@@ -163,7 +163,7 @@ const reloadData = () => {
                 <i-ri-close-line class="mx-1"/>
             </template>
         </Button>
-        <Button :label="`${!props.formData?.id ? 'Crear' : 'Editar'} Usuario`" severity="info" class="w-full" @click="onSubmit">
+        <Button :label="`${!props.formData?.id ? 'Crear' : 'Editar'} Usuario`" class="w-full" @click="onSubmit">
             <template #icon>
                 <i-ri-user-add-line class="mx-1"/>
             </template>

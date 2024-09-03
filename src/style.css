@@ -79,11 +79,11 @@
     @apply flex h-4 text-sm text-red-500 items-center mt-0.5;
 }
 
-.labelSize {
+.label-size {
     @apply mb-1 block text-sm;
 }
 
-.alignItemsForm {
+.align-items-form {
     @apply grid grid-cols-1 items-start justify-start gap-x-3.5 gap-y-1 md:grid-cols-12;
 }
 

@@ -2,7 +2,7 @@
 import addCustomer from "@/modules/customer/addCustomer.vue";
 import CustomerList from "@/modules/customer/customerList.vue";
 import ModalComponent from "@/hooks/components/modal/modalComponent.vue";
-import LabelRequired from "@/hooks/components/labelRequired/labelRequired.vue";
+import FormItem from "@/hooks/components/formItem/formItem.vue";
 
 const refListCustomer = ref();
 const showCustomerFilter = ref(true);
@@ -42,7 +42,7 @@ const addParametersCustomerModal = () => {
     parametersModal.value = {
         visible: true,
         header: "Registrar Cliente",
-        width: "80vw",
+        width: "60vw",
         footer: null,
         component: componentAddClientModal
     };
@@ -81,28 +81,28 @@ const getFiltersCustomer = async() => {
         </template>
         <template #content>
             <Fieldset class="mb-2" :collapsed="showCustomerFilter">
-                <div class="alignItemsForm">
+                <div class="align-items-form">
                     <div class="max-cols-2">
-                        <label-required for="docType" label="Documento"/>
-                        <Select v-model="customerFilters.docType" input-id="docType" size="small" optionLabel="name" optionValue="value"
-                                show-clear class="w-full"/>
+                        <form-item for="document" label="Documento" hide-error>
+                            <Select v-model="customerFilters.docType" input-id="document" size="small" optionLabel="name"
+                                    optionValue="value" show-clear class="w-full"/>
+                        </form-item>
                     </div>
                     <div class="max-cols-2">
-                        <label-required for="docNumber" label="N° Documento"/>
-                        <InputText v-model="customerFilters.docNumber" id="docNumber" size="small" class="w-full"/>
+                        <form-item for="docNumber" label="N° Documento" hide-error>
+                            <InputText v-model="customerFilters.docNumber" id="docNumber" size="small" class="w-full"/>
+                        </form-item>
                     </div>
                     <div class="max-cols-4">
-                        <label-required for="name" label="Nombres"/>
-                        <InputText v-model="customerFilters.name" id="name" size="small" class="w-full"/>
+                        <form-item for="name" label="Nombres" hide-error>
+                            <InputText v-model="customerFilters.name" id="name" size="small" class="w-full"/>
+                        </form-item>
                     </div>
-                    <!--                    <div class="max-cols-2">-->
-                    <!--                        <label-required for="phone" label="Celular"/>-->
-                    <!--                        <InputText v-model="customerFilters.phone" id="phone" size="small" class="w-full"/>-->
-                    <!--                    </div>-->
                     <div class="max-cols-2">
-                        <label-required for="xs" label="Estado"/>
-                        <Select v-model="customerFilters.status" :options="optionsStatus" optionLabel="label" optionValue="value"
-                                inputId="xs" size="small" class="w-full" show-clear/>
+                        <form-item for="state" label="Estado" hide-error>
+                            <Select v-model="customerFilters.status" :options="optionsStatus" optionLabel="label" optionValue="value"
+                                    input-id="state" size="small" class="w-full" show-clear/>
+                        </form-item>
                     </div>
                     <div class="max-cols-2">
                         <Button label="Buscar" size="small" @click="getFiltersCustomer" raised rounded class="mt-6 w-full">

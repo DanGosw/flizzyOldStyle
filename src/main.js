@@ -113,7 +113,6 @@ import VirtualScroller from "primevue/virtualscroller";
 
 import routes from "@/routes/index.js";
 import Aura from "@/Aura";
-import { useCookies } from "@vueuse/integrations/useCookies";
 
 const pinia = createPinia();
 
@@ -229,7 +228,6 @@ app.component("TreeTable", TreeTable);
 app.component("VirtualScroller", VirtualScroller);
 
 app.use(pinia);
-app.use(useCookies, { expireTimes: "2d" });
 app.use(PrimeVue, {
     ripple: true,
     unstyled: true,

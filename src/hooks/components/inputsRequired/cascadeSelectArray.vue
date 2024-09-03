@@ -1,7 +1,7 @@
 <script setup>
 import { toRef } from "vue";
 import { useField } from "vee-validate";
-import LabelRequired from "@/hooks/components/labelRequired/labelRequired.vue";
+import FormItem from "@/hooks/components/formItem/formItem.vue";
 
 const props = defineProps({
     value: { type: [String, Number, Object], default: "" },
@@ -20,12 +20,10 @@ const { value: selectValue, errorMessage, handleBlur, handleChange } = useField(
 
 </script>
 <template>
-    <div class="flex flex-col">
-        <label-required :label="label" :mark="showMark" :for="name"/>
-        <CascadeSelect v-model="selectValue" :options="options" :optionLabel="optionLabel" :optionGroupLabel="optionGroupLabel"
+    <form-item :label="label" :mark="showMark" :for="name" :error="errorMessage">
+        <CascadeSelect v-model="selectValue" :options="options" :optionLabel="optionLabel" :optionGroupLabel="optionGroupLabel" fluid
                        :optionGroupChildren="['states', 'cities']" style="min-width: 14rem" @input="handleChange" :invalid="!!errorMessage"
                        @blur="handleBlur($event, true)" placeholder="Seleccione" :optionValue="optionValue" :input-id="name"/>
-        <span class="markRequired" v-if="showMark">{{ errorMessage }}</span>
-    </div>
+    </form-item>
 </template>
 

@@ -3,9 +3,9 @@ import { useNumericInput } from "@/hooks/inputMethods.js";
 import { ref } from "vue";
 import * as yup from "yup";
 import { useField, useFieldArray, useForm } from "vee-validate";
-import LabelRequired from "@/hooks/components/labelRequired/labelRequired.vue";
 import CascadeSelectArray from "@/hooks/components/inputsRequired/cascadeSelectArray.vue";
 import InputValidateArray from "@/hooks/components/inputsRequired/inputValidateArray.vue";
+import FormItem from "@/hooks/components/formItem/formItem.vue";
 
 const toast = useToast();
 
@@ -179,53 +179,57 @@ function handleInput(event) {
 </script>
 
 <template>
-    <div class="alignItemsForm">
+    <div class="align-items-form">
         <div class="max-cols-4">
-            <label-required for="documentType" label="Documento" mark/>
-            <Select v-model="docType" input-id="documentType" size="small" :options="optionsDocument" optionLabel="name" show-clear
-                    :invalid="!!errors.docType" optionValue="value" @blur="docTypeBlur($event, true)" class="w-full"/>
-            <span class="markRequired">{{ errors.docType }}</span>
+            <form-item for="documentType" label="Documento" mark :error="errors.docType">
+                <Select v-model="docType" input-id="documentType" size="small" :options="optionsDocument" optionLabel="name" show-clear
+                        :invalid="!!errors.docType" optionValue="value" @blur="docTypeBlur($event, true)" class="w-full"/>
+            </form-item>
         </div>
         <div class="max-cols-4">
-            <label-required for="docNumber" label="DNI" mark/>
-            <InputGroup class="w-full">
-                <InputText v-model.number="docNumber" id="docNumber" maxlength="8" :invalid="!!errors.docNumber"
-                           size="small" @blur="docNumberBlur($event, true)" @input="handleInputDocNumber"/>
-                <Button size="small">
-                    <template #icon>
-                        <i-material-symbols-manage-search-rounded class="!mx-1"/>
-                    </template>
-                </Button>
-            </InputGroup>
-            <span class="markRequired">{{ errors.docNumber }}</span>
+            <form-item for="dni" label="DNI" mark :error="errors.docNumber">
+                <InputGroup class="w-full">
+                    <InputText v-model.number="docNumber" id="dni" maxlength="8" :invalid="!!errors.docNumber"
+                               size="small" @blur="docNumberBlur($event, true)" @input="handleInputDocNumber"/>
+                    <Button size="small">
+                        <template #icon>
+                            <i-material-symbols-manage-search-rounded class="!mx-1"/>
+                        </template>
+                    </Button>
+                </InputGroup>
+            </form-item>
         </div>
         <div class="max-cols-4">
-            <label-required for="genere" label="Genero" mark/>
-            <Select v-model="genere" input-id="genere" size="small" :options="optionsGenere" optionLabel="name"
-                    :invalid="!!errors.genere" optionValue="value" @blur="genereBlur($event, true)" class="w-full"/>
-            <span class="markRequired">{{ errors.genere }}</span>
+            <form-item for="genere" label="Genero" mark :error="errors.genere">
+                <Select v-model="genere" input-id="genere" size="small" :options="optionsGenere" optionLabel="name"
+                        :invalid="!!errors.genere" optionValue="value" @blur="genereBlur($event, true)" class="w-full"/>
+            </form-item>
         </div>
         <div class="max-cols-6">
-            <label-required for="names" label="Nombres" mark/>
-            <InputText v-model="names" id="names" size="small" :invalid="!!errors.names" @blur="namesBlur($event, true)"/>
-            <span class="markRequired">{{ errors.names }}</span>
+            <form-item for="names" label="Nombres" mark :error="errors.names">
+                <InputText v-model="names" id="names" size="small" :invalid="!!errors.names" @blur="namesBlur($event, true)"/>
+            </form-item>
         </div>
         <div class="max-cols-6">
-            <label-required for="lastnames" label="Apellidos" mark/>
-            <InputText v-model="lastnames" id="lastnames" size="small" :invalid="!!errors.lastnames" @blur="lastnamesBlur($event, true)"/>
-            <span class="markRequired">{{ errors.lastnames }}</span>
+            <form-item for="lastnames" label="Apellidos" mark :error="errors.lastnames">
+                <InputText v-model="lastnames" id="lastnames" size="small" :invalid="!!errors.lastnames"
+                           @blur="lastnamesBlur($event, true)"/>
+            </form-item>
         </div>
         <div class="max-cols-4">
-            <label-required for="birthday" label="F. Nacimiento"/>
-            <DatePicker v-model="birthday" class="!w-full" size="small" input-id="birthday" date-format="dd-mm-yy" show-icon/>
+            <form-item for="birthday" label="F. Nacimiento" hide-error>
+                <DatePicker v-model="birthday" class="!w-full" size="small" input-id="birthday" date-format="dd-mm-yy" show-icon/>
+            </form-item>
         </div>
         <div class="max-cols-4">
-            <label-required for="cellphone" label="Teléfono"/>
-            <InputText v-model="phone" id="cellphone" size="small" maxlength="9" @input="handleInput"/>
+            <form-item for="cellphone" label="Teléfono" hide-error>
+                <InputText v-model="phone" id="cellphone" size="small" maxlength="9" @input="handleInput"/>
+            </form-item>
         </div>
         <div class="max-cols-4">
-            <label-required for="email" label="Correo"/>
-            <InputText v-model="email" id="email" size="small"/>
+            <form-item for="email" label="Correo" hide-error>
+                <InputText v-model="email" id="email" size="small"/>
+            </form-item>
         </div>
     </div>
     <div class="sm:space-x-2 space-x-0 space-y-2 sm:space-y-0 flex flex-wrap items-center justify-center my-2">
@@ -234,7 +238,8 @@ function handleInput(event) {
         </div>
         <div class="flex-grow">
             <Divider class="w-full !my-1" align="right">
-                <Button label="Agregar Dirección" size="small" class="w-full" @click="addDirection(fields.address[0])">
+                <Button label="Agregar Dirección" size="small" class="w-full" @click="addDirection(fields.address[0])"
+                        :disabled="valueFields.length ===6">
                     <template #icon>
                         <i-material-symbols-add-location-alt-outline-rounded/>
                     </template>
@@ -242,14 +247,13 @@ function handleInput(event) {
             </Divider>
         </div>
     </div>
-
-    <div class="alignItemsForm p-2" v-for="(data, index) in valueFields" :key="data.key">
+    <div class="align-items-form" v-for="(data, index) in valueFields" :key="data.key">
         <div class="max-cols-4">
             <cascade-select-array :options="ubigeoOptions" :name="`address[${index}].ubigeo`" label="Ubigeo" option-value="code"
                                   :value="data.value.ubigeo" option-group-label="name" option-label="cname" showMark
                                   :option-group-children="['states', 'cities']"/>
         </div>
-        <div class="max-cols-7">
+        <div :class="`max-cols-${index !== 0 ? 7 : 8}`">
             <input-validate-array :name="`address[${index}].location`" label="Dirección" :value="data.value.location" show-mark/>
         </div>
         <div class="col-span-1 flex items-center justify-center">
@@ -267,7 +271,7 @@ function handleInput(event) {
                 <i-ri-close-line class="mx-1"/>
             </template>
         </Button>
-        <Button label="Crear Usuario" severity="info" class="w-full" @click="onSubmit">
+        <Button label="Crear Usuario" class="w-full" @click="onSubmit">
             <template #icon>
                 <i-ri-user-add-line class="mx-1"/>
             </template>

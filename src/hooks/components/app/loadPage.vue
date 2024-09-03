@@ -25,7 +25,12 @@ onMounted(() => {
         </div>
     </div>
     <div v-else>
-        <router-view/>
+        <router-view v-slot="{ Component }">
+            <transition mode="out-in">
+                <component :is="Component"/>
+            </transition>
+        </router-view>
+        <toast/>
     </div>
 </template>
 

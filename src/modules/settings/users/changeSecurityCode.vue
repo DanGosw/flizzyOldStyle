@@ -3,7 +3,7 @@
 import { ref } from "vue";
 import * as yup from "yup";
 import { useField, useForm } from "vee-validate";
-import LabelRequired from "@/hooks/components/labelRequired/labelRequired.vue";
+import FormItem from "@/hooks/components/formItem/formItem.vue";
 
 const props = defineProps({
     // defaultOptions: { type: Object, default: () => {} },
@@ -50,31 +50,31 @@ const onReset = () => {
 </script>
 
 <template>
-    <div class="alignItemsForm">
+    <div class="align-items-form">
         <div class="max-cols-12">
-            <label-required for="code" label="Clave Actual" mark/>
-            <InputText v-model="code" id="code" @blur="codeBlur($event, true)" maxlength="10" :invalid="!!errors.code" class="w-full"/>
-            <span class="markRequired">{{ errors.code }}</span>
+            <form-item for="code" label="Clave Actual" mark :error="errors.code">
+                <InputText v-model="code" id="code" @blur="codeBlur($event, true)" maxlength="10" :invalid="!!errors.code" class="w-full"/>
+            </form-item>
         </div>
         <div class="max-cols-12">
-            <label-required for="newCode" label="Nueva Clave" mark/>
-            <InputText v-model="newCode" id="newCode" @blur="newCodeBlur($event, true)" :invalid="!!errors.newCode" class="w-full"/>
-            <span class="markRequired">{{ errors.newCode }}</span>
+            <form-item for="newCode" label="Nueva Clave" mark :error="errors.newCode">
+                <InputText v-model="newCode" id="newCode" @blur="newCodeBlur($event, true)" :invalid="!!errors.newCode" class="w-full"/>
+            </form-item>
         </div>
         <div class="max-cols-12">
-            <label-required for="confirm" label="Confirmar Clave" mark/>
-            <InputText v-model="codeConfirm" id="confirm" @blur="codeConfirmBlur($event, true)" :invalid="!!errors.codeConfirm"
-                       class="w-full"/>
-            <span class="markRequired">{{ errors.codeConfirm }}</span>
+            <form-item for="confirm" label="Confirmar Clave" mark :error="errors.codeConfirm">
+                <InputText v-model="codeConfirm" id="confirm" @blur="codeConfirmBlur($event, true)" :invalid="!!errors.codeConfirm"
+                           class="w-full"/>
+            </form-item>
         </div>
     </div>
-    <div class="mt-4 flex items-center justify-center space-x-2">
+    <div class="mt-2 flex items-center justify-center space-x-2">
         <Button label="Cancelar" severity="secondary" class="w-full border border-surface-300" @click="onReset">
             <template #icon>
                 <i-ri-close-line class="mx-1"/>
             </template>
         </Button>
-        <Button label="Modificar" severity="info" class="w-full" @click="onSubmit">
+        <Button label="Modificar" class="w-full" @click="onSubmit">
             <template #icon>
                 <i-fluent-save-24-regular class="mx-1"/>
             </template>

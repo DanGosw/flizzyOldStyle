@@ -1,7 +1,7 @@
 <script setup>
 import { toRef } from "vue";
 import { useField } from "vee-validate";
-import LabelRequired from "@/hooks/components/labelRequired/labelRequired.vue";
+import LabelRequired from "@/hooks/components/formItem/formItem.vue";
 
 const props = defineProps({
     type: { type: String, default: "text" },
@@ -9,7 +9,9 @@ const props = defineProps({
     name: { type: String, required: true },
     label: { type: String, default: "" },
     showMark: { type: Boolean, default: false },
-    placeholder: { type: String, default: "" }
+    placeholder: { type: String, default: "" },
+    showLabel: { type: Boolean, default: false },
+    showError: { type: Boolean, default: false }
 });
 
 const name = toRef(props, "name");
@@ -17,10 +19,8 @@ const { value: inputValue, errorMessage, handleBlur, handleChange } = useField(n
 </script>
 
 <template>
-    <div class="flex flex-col">
-        <label-required :label="label" :mark="showMark" :for="name" v-if="label"/>
+    <label-required :label="label" :mark="showMark" :for="name" :error="errorMessage" :hide-label="showLabel" :hide-error="showError">
         <InputText :name="name" :id="name" :type="type" v-model="inputValue" @input="handleChange" @blur="handleBlur($event, true)"
                    size="small" :invalid="!!errorMessage"/>
-        <span class="markRequired" v-if="showMark"> {{ errorMessage }} </span>
-    </div>
+    </label-required>
 </template>

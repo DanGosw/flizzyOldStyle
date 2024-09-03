@@ -62,6 +62,10 @@ import menubar from "./menubar";
 import megamenu from "./megamenu";
 import panelmenu from "./panelmenu";
 import tabmenu from "./tabmenu";
+import tab from "./tab";
+import tablist from "./tablist";
+import tabpanels from "./tabpanels";
+import tabpanel from "./tabpanel";
 import tieredmenu from "./tieredmenu";
 import message from "./message";
 import toast from "./toast";
@@ -133,6 +137,10 @@ export default {
     scrollpanel,
     splitter,
     tabs,
+    tab,
+    tablist,
+    tabpanels,
+    tabpanel,
     toolbar,
     confirmpopup,
     confirmdialog,

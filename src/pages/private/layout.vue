@@ -18,7 +18,6 @@ import Navbar from "@/hooks/layout/navbar/navbar.vue";
             </div>
         </div>
     </div>
-    <Toast/>
 </template>
 <style>
 .v-enter-active,

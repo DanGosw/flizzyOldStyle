@@ -1,7 +1,7 @@
 <script setup>
 import * as yup from "yup";
 import { useField, useForm } from "vee-validate";
-import LabelRequired from "@/hooks/components/labelRequired/labelRequired.vue";
+import FormItem from "@/hooks/components/formItem/formItem.vue";
 import router from "@/routes/index.js";
 
 const schemaValidate = yup.object({
@@ -10,16 +10,21 @@ const schemaValidate = yup.object({
 });
 
 const fields = ref({ username: "", password: "" });
-
-const { handleSubmit, resetForm, errors } = useForm({ validationSchema: schemaValidate, initialValues: fields.value });
+const toast = useToast();
+const { handleSubmit, errors } = useForm({ validationSchema: schemaValidate, initialValues: fields.value });
 
 const { value: username, errorMessage: usernameError, handleBlur: usernameBlur } = useField("username");
 const { value: password, errorMessage: passwordError, handleBlur: passwordBlur } = useField("password");
 
-const onSubmit = handleSubmit((values) => {
-    console.log("Submitted with", values);
-    router.push({ name: "home" });
-});
+const onSubmit = handleSubmit(async(values) => {
+        await router.push({ name: "home" });
+        console.log("Submitted with", values);
+    }, ({ errors }) => {
+        const errorMessages = Object.entries(errors).map(([field, message]) => `${field}: ${message}`).join(", ");
+        toast.add({ severity: "error", summary: "Error", detail: `Complete los siguientes campos: ${errorMessages}`, life: 10000 });
+    }
+);
+
 
 </script>
 
@@ -35,17 +40,17 @@ const onSubmit = handleSubmit((values) => {
                     <p class="my-2 text-center font-semibold text-gray-500 dark:text-gray-300">Inicie sesion para continuar</p>
                     <div class="grid grid-cols-4 gap-2" v-focustrap>
                         <div class="col-span-4">
-                            <label-required for="username" label="Usuario" mark/>
-                            <InputText v-model="username" class="w-full" placeholder="Ingrese su usuario" id="username" size="small"
-                                       @blur="usernameBlur($event, true)" :invalid="!!errors.username" autofocus/>
-                            <span class="markRequired">{{ usernameError }}</span>
+                            <form-item for="username" label="Usuario" mark :error="usernameError">
+                                <InputText v-model="username" class="w-full" placeholder="Ingrese su usuario" id="username" size="small"
+                                           @blur="usernameBlur($event, true)" :invalid="!!errors.username" autofocus/>
+                            </form-item>
                         </div>
                         <div class="col-span-4">
-                            <label-required for="password" label="Contraseña" mark/>
-                            <Password class="w-full" inputClass="w-full" :toggleMask="true" :feedback="false" :invalid="!!errors.password"
-                                      v-model="password" @blur="passwordBlur($event,true)" placeholder="Ingrese su contraseña"
-                                      input-id="password"/>
-                            <span class="markRequired">{{ passwordError }}</span>
+                            <form-item for="password" label="Contraseña" mark :error="passwordError">
+                                <Password class="w-full" inputClass="w-full" :toggleMask="true" :feedback="false" input-id="password"
+                                          :invalid="!!errors.password" v-model="password" @blur="passwordBlur($event,true)"
+                                          placeholder="Ingrese su contraseña"/>
+                            </form-item>
                         </div>
                     </div>
                     <Button class="mt-2 w-full" label="Iniciar Sesión" @click="onSubmit()">

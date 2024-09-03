@@ -3,7 +3,7 @@ const router = createRouter({
     routes: [
         {
             path: "/", name: "home", component: () => import("@/pages/private/layout.vue"),
-            meta: { prefetch: true }, redirect: "dashboard",
+            meta: { prefetch: true }, redirect: { name: "dashboard" },
             children: [
                 {
                     path: "/dashboard", name: "dashboard", component: () => import("@/modules/HelloWorld.vue"),
@@ -98,6 +98,9 @@ const router = createRouter({
                 },
                 {
                     path: "/branch", name: "branch", component: () => import("@/modules/settings/branchs/branchs.vue")
+                },
+                {
+                    path: "/application", name: "application", component: () => import("@/modules/settings/application/index.vue")
                 }
             ]
         },
