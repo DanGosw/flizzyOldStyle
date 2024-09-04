@@ -1,28 +1,33 @@
 <script setup>
 
+import AreaAndTables from "@/modules/settings/application/areas/areaAndTables.vue";
 </script>
 
 <template>
     <Card>
         <template #title>
-            Configuración General
+            <div class="flex gap-2 items-center">
+                <Button severity="secondary" size="small" class="!px-2" rounded @click="$router.go(-1)">
+                    <template #icon>
+                        <i-material-symbols-arrow-back-rounded/>
+                    </template>
+                </Button>
+                <p> Configuración General </p>
+            </div>
         </template>
         <template #content>
             <Tabs value="0">
                 <TabList>
-                    <Tab value="0">Header I</Tab>
-                    <Tab value="1">Header II</Tab>
-                    <Tab value="2">Header III</Tab>
+                    <Tab value="0">Areas y mesas</Tab>
+                    <Tab value="1">Lugares de preparación</Tab>
+                    <Tab value="2">Categorías de Producto</Tab>
+                    <Tab value="3">Métodos de Pago</Tab>
+                    <Tab value="4">Conceptos</Tab>
+                    <Tab value="5">Kardex</Tab>
                 </TabList>
                 <TabPanels>
                     <TabPanel value="0">
-                        <p class="m-0">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-                            laborum.
-                        </p>
+                        <area-and-tables/>
                     </TabPanel>
                     <TabPanel value="1">
                         <p class="m-0">

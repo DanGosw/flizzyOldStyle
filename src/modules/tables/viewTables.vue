@@ -323,9 +323,9 @@ const items = ref([
             Mesas
         </template>
         <template #content>
-            <div v-for="(branch, index) in tableSchema" :key="index" class="my-2">
-                <div class="flex h-full w-full flex-col rounded-lg p-2 bg-surface-200 dark:bg-surface-700/70 border border-surface-300 dark:border-surface-600">
-                    <p class="m-3">{{ branch.description }}</p>
+            <div v-for="(branch, index) in tableSchema" :key="index" class="mb-2">
+                <div class="flex h-full w-full flex-col rounded-2xl p-2 bg-surface-100 dark:bg-surface-700/70 border border-surface-300 dark:border-surface-600">
+                    <p class="m-1 font-bold">{{ branch.description }}</p>
                     <div class="grid grid-cols-1 flex-wrap items-center justify-start gap-2 sm:grid-cols-4 md:grid-cols-9 lg:grid-cols-10 xl:grid-cols-12">
                         <tableDesign v-for="table in branch.tables" :key="table.id" :table="table">
                             <SpeedDial :model="items" :radius="125" type="quarter-circle" direction="down-left" v-if="table.status === '3'"

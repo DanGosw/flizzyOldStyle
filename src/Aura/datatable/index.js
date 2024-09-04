@@ -41,9 +41,10 @@ export default {
             { "h-full": props.scrollable && props.scrollHeight === "flex" }
         ]
     }),
-    header: ({ props }) => ({
+    header: ({ props, context }) => ({
         class: [
-            "font-bold text-[0.72rem]",
+            "font-bold",
+            { "text-[1rem]": context?.size === "small" && !state["d_editing"] },
             
             // Shape
             props.showGridlines ? "border-x border-t border-b-0" : "border-y border-x-0",
@@ -110,14 +111,16 @@ export default {
                 { relative: context.resizable },
                 
                 // Alignment
-                "text-left  text-[0.72rem]",
+                "text-left",
+                
+                context?.size === "small" ? "text-[0.74rem]" : context?.size === "large" ? "text-[0.94rem]" : "text-[0.84rem]",
                 
                 // Shape
                 { "first:border-l border-y border-r": context?.showGridlines },
                 "border-0 border-b border-solid",
                 
                 // Spacing
-                context?.size === "small" ? "py-[0.375rem] px-2" : context?.size === "large" ? "py-[0.9375rem] px-5" : "py-3 px-4",
+                context?.size === "small" ? "py-[0.385rem] px-2" : context?.size === "large" ? "py-[0.5375rem] px-4" : "py-2.5 px-3",
                 
                 // Color
                 (props.sortable === "" || props.sortable) && context.sorted
@@ -157,7 +160,7 @@ export default {
                 { "sticky box-border border-b z-20": props.frozen || props.frozen === "" },
                 
                 // Alignment
-                "text-left text-[0.74rem]",
+                context?.size === "small" ? "text-[0.74rem]" : context?.size === "large" ? "text-[0.94rem]" : "text-[0.84rem]",
                 
                 // Shape
                 "border-0 border-b border-solid",
@@ -165,10 +168,10 @@ export default {
                 { "bg-surface-0 dark:bg-surface-900": parent.instance.frozenRow || props.frozen || props.frozen === "" },
                 
                 // Spacing
-                { "py-[0.375rem] px-2": context?.size === "small" && !state["d_editing"] },
-                { "py-[0.9375rem] px-5": context?.size === "large" && !state["d_editing"] },
-                { "py-3 px-4": context?.size !== "large" && context?.size !== "small" && !state["d_editing"] },
-                { "py-[0.6rem] px-2": state["d_editing"] },
+                { "py-[0.385rem] px-2": context?.size === "small" && !state["d_editing"] },
+                { "py-[0.5375rem] px-5": context?.size === "large" && !state["d_editing"] },
+                { "py-2.5 px-3": context?.size !== "large" && context?.size !== "small" && !state["d_editing"] },
+                { "py-[0.6rem] px-1.5": state["d_editing"] },
                 
                 // Color
                 "border-surface-200 dark:border-surface-700",

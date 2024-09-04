@@ -7,7 +7,7 @@ export default {
             { "overflow-hidden": props.scrollable }
         ]
     }),
-    navContent: ({ instance }) => ({
+    navContent: () => ({
         class: [
             // Overflow and Scrolling
             "overflow-y-hidden overscroll-contain",
@@ -57,7 +57,7 @@ export default {
                 // Misc
                 "outline-none",
                 {
-                    "opacity-60 cursor-default user-select-none select-none pointer-events-none": props == null ? void 0 : props.disabled
+                    "opacity-60 cursor-default user-select-none select-none pointer-events-none": props === null ? void 0 : props.disabled
                 }
             ]
         }),
@@ -103,7 +103,7 @@ export default {
     },
     panelcontainer: {
         class: [
-            "p-[1.125rem] pt-[0.875rem]",
+            "p-[1rem] pt-[0.875rem]",
             "border-0 rounded-none",
             "border-br-md border-bl-md",
             "bg-surface-0 dark:bg-surface-900",
