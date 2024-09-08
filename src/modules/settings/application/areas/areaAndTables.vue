@@ -160,9 +160,9 @@ const saveRowEdit = ({ data }) => {
 
 const addDataOnRowClick = ({ data, originalEvent }) => {
     console.log(data);
-    // console.log(xd);
-    console.log(originalEvent.target.closest(""));
-    if(!originalEvent.target.closest(".xd .p-cell-editing")) {
+    console.log(!originalEvent.target.closest("[data-p-cell-editing='true']"));
+    console.log(originalEvent.target);
+    if(!originalEvent.target.closest(".xd") && !originalEvent.target.closest("[data-p-cell-editing='true']")) {
         arrayTable.value = data;
     }
 };
@@ -175,7 +175,7 @@ const addDataOnRowClick = ({ data, originalEvent }) => {
             <DataTable size="large" striped-rows show-gridlines dataKey="code" tableStyle="min-width: 15rem;" :value="tableSchema"
                        @row-click="addDataOnRowClick" edit-mode="row" v-model:editing-rows="editingRows" data-key="id"
                        @row-edit-save="saveRowEdit">
-                <Column field="description" header="Areas" style="width: 10%">
+                <Column field="description" header="Areas" class="cursor-pointer hover:!bg-opacity-0" style="width: 10%">
                     <template #editor="{ data, field }">
                         <InputText v-model="data[field]"/>
                     </template>
