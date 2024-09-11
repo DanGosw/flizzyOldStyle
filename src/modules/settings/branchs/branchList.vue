@@ -133,7 +133,7 @@ defineExpose({ loadBranchs });
         <Column style="width: 2%" header="Acciones">
             <template #body>
                 <div class="flex items-center justify-center space-x-1">
-                    <Button size="small" v-tooltip.top="'Editar Sucursal'" @click="addParametersBranchModal" class="!p-1">
+                    <Button size="small" v-tooltip.top="'Editar Sucursal'" @click="addParametersBranchModal" class="!p-0.5">
                         <template #icon>
                             <i-material-symbols-box-edit-outline-rounded class="mx-0.5"/>
                         </template>

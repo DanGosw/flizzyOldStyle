@@ -3,6 +3,7 @@ import { ref } from "vue";
 import * as yup from "yup";
 import { useField, useForm } from "vee-validate";
 import FormItem from "@/hooks/components/formItem/formItem.vue";
+import { useNumericInput } from "@/hooks/inputMethods.js";
 
 const toast = useToast();
 const businessOptions = ref([
@@ -65,6 +66,8 @@ const onSubmit = handleSubmit((values) => {
     props.refreshData();
     toast.add({ severity: "info", summary: "Title xd", detail: values, life: 10000 });
 });
+
+const { handleInputReactive: handleInputPhone } = useNumericInput(phone);
 
 /**
  * Handle file selection and update the corresponding model
@@ -171,12 +174,6 @@ const ubigeoOptions = ref([
         ]
     }
 ]);
-
-function handleInput(event) {
-    const newValue = event.target.value.replace(/\D/g, "");
-    formFields.value.phone = newValue;
-    event.target.value = newValue;
-}
 
 const fileUploadMini = ref(null);
 const fileUploadA4 = ref(null);
@@ -312,7 +309,7 @@ onMounted(async() => {
         </div>
         <div class="max-cols-4">
             <form-item for="phone" label="Teléfono">
-                <InputText v-model="phone" id="phone" size="small" @input="handleInput"/>
+                <InputText v-model="phone" id="phone" size="small" @input="handleInputPhone"/>
             </form-item>
         </div>
         <div class="max-cols-4">
@@ -376,7 +373,7 @@ onMounted(async() => {
         </div>
     </div>
     <div class="flex items-center flex-wrap md:flex-nowrap justify-center gap-2 mt-4">
-        <Button label="Cancelar" severity="secondary" class="w-full" @click="onReset">
+        <Button label="Cancelar" severity="secondary" outlined raised class="w-full" @click="onReset">
             <template #icon>
                 <i-ri-close-line class="mx-1"/>
             </template>

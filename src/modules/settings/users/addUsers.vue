@@ -70,7 +70,7 @@ const { value: passwordConfirm, handleBlur: passwordConfirmBlur } = useField("pa
 /**
  * validation input
  */
-const { handleInput: handleInputDocNumber } = useNumericInput(docNumber);
+const { handleInputReactive: handleInputDocNumber } = useNumericInput(docNumber);
 
 const onSubmit = handleSubmit((values) => {
     /**
@@ -121,7 +121,8 @@ const reloadData = () => {
         </div>
         <div class="max-cols-6">
             <form-item for="address" label="Dirección" mark :error="errors.address">
-                <InputText v-model="address" id="address" :invalid="!!errors.address" size="small" @blur="addressBlur($event, true)"/>
+                <InputText v-model="address" id="address" :invalid="!!errors.address" size="small" class="w-full"
+                           @blur="addressBlur($event, true)"/>
             </form-item>
         </div>
         <div class="max-cols-6">
@@ -158,7 +159,7 @@ const reloadData = () => {
         <Divider class="col-span-1 md:col-span-12 !my-2"/>
     </div>
     <div class="mt-4 flex items-center justify-center space-x-2">
-        <Button label="Cancelar" severity="secondary" class="w-full border border-surface-300" @click="reloadData">
+        <Button label="Cancelar" severity="secondary" outlined raised class="w-full border border-surface-300" @click="reloadData">
             <template #icon>
                 <i-ri-close-line class="mx-1"/>
             </template>

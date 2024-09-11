@@ -1,7 +1,7 @@
 export default {
     root: ({ props, context }) => ({
         class: [
-            "relative shrink-0 transition text-[13px]",
+            "relative shrink-0 transition text-[15px]",
             // Shape
             "border-b",
             "rounded-t-md",

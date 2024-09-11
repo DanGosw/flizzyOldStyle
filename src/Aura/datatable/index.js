@@ -113,14 +113,14 @@ export default {
                 // Alignment
                 "text-left",
                 
-                context?.size === "small" ? "text-[0.74rem]" : context?.size === "large" ? "text-[0.94rem]" : "text-[0.84rem]",
+                context?.size === "small" ? "text-[0.80rem]" : context?.size === "large" ? "text-[0.94rem]" : "text-[0.84rem]",
                 
                 // Shape
                 { "first:border-l border-y border-r": context?.showGridlines },
                 "border-0 border-b border-solid",
                 
                 // Spacing
-                context?.size === "small" ? "py-[0.385rem] px-2" : context?.size === "large" ? "py-[0.5375rem] px-4" : "py-2.5 px-3",
+                context?.size === "small" ? "py-[0.370rem] px-2" : context?.size === "large" ? "py-[0.5375rem] px-4" : "py-2.5 px-3",
                 
                 // Color
                 (props.sortable === "" || props.sortable) && context.sorted
@@ -131,7 +131,6 @@ export default {
                 // States
                 { "hover:bg-surface-100 dark:hover:bg-surface-800/50": (props.sortable === "" || props.sortable) && !context?.sorted },
                 "focus-visible:outline-none focus-visible:outline-offset-0 focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400",
-                
                 // Transition
                 { "transition duration-200": props.sortable === "" || props.sortable },
                 
@@ -160,7 +159,7 @@ export default {
                 { "sticky box-border border-b z-20": props.frozen || props.frozen === "" },
                 
                 // Alignment
-                context?.size === "small" ? "text-[0.74rem]" : context?.size === "large" ? "text-[0.94rem]" : "text-[0.84rem]",
+                context?.size === "small" ? "text-[0.80rem]" : context?.size === "large" ? "text-[0.94rem]" : "text-[0.84rem]",
                 
                 // Shape
                 "border-0 border-b border-solid",
@@ -356,6 +355,8 @@ export default {
             
             // State
             { "hover:bg-surface-300/20 dark:hover:bg-surface-800/50 hover:text-surface-600": props.selectionMode && !context.selected },
+            // change background color when mouse is hovered
+            "hover:bg-surface-200/60 hover:dark:bg-surface-700/60",
             
             // Transition
             { "transition duration-200": (props.selectionMode && !context.selected) || props.rowHover },

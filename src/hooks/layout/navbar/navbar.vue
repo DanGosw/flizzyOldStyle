@@ -3,6 +3,8 @@ import { useFullscreen } from "@vueuse/core";
 import { optionsMenuStore } from "@/store/layout/optionsMenu.js";
 import { useRoute, useRouter } from "vue-router";
 import AppConfig from "@/hooks/components/app/appConfig.vue";
+import Menubar from "primevue/menubar";
+import Button from "primevue/button";
 
 const router = useRouter();
 const route = useRoute();
@@ -11,15 +13,11 @@ const menuOptions = computed(() => { return optionsMenuStore.options;});
 
 const isDark = useDark({ disableTransition: false, initialValue: "auto" });
 
-const toggleDark = () => {
-    isDark.value = !isDark.value;
-};
-
 const { toggle, isFullscreen } = useFullscreen();
 </script>
 
 <template>
-    <Menubar :model="menuOptions" class="border shadow-md shadow-slate-300 font-medium text-[12px] dark:shadow-[#22242B] p-1">
+    <Menubar :model="menuOptions" class="border shadow-md shadow-slate-300 font-medium text-[12.1px] dark:shadow-[#22242B] p-0.5">
         <template #start>
             <div class="flex h-9 mr-1 w-14 items-center justify-center rounded-md border bg-surface-200 border-surface-300 dark:bg-surface-900 dark:border-surface-600">
                 <img src="@/assets/logo-white.svg" alt="logo" class="max-h-10 max-w-10" v-if="isDark"/>
@@ -51,12 +49,6 @@ const { toggle, isFullscreen } = useFullscreen();
                     <template #icon>
                         <i-material-symbols-fullscreen v-if="isFullscreen"/>
                         <i-material-symbols-fullscreen-exit v-else/>
-                    </template>
-                </Button>
-                <Button size="small" severity="secondary" class="border border-surface-300" @click="toggleDark">
-                    <template #icon>
-                        <i-ic-round-dark-mode v-if="isDark"/>
-                        <i-ic-round-light-mode v-else/>
                     </template>
                 </Button>
                 <Button size="small" severity="secondary" class="border border-surface-300" @click="router.push({ name: 'login' })">

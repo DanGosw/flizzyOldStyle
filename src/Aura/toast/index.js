@@ -11,7 +11,7 @@ export default {
     message: ({ props }) => ({
         class: [
             "mb-4 rounded-md w-full",
-            "border border-l-8",
+            "border",
             "backdrop-blur-md shadow-md",
             
             // Colors
@@ -31,15 +31,6 @@ export default {
                 "border-orange-200 dark:border-orange-500/20": props.message.severity === "warn",
                 "border-red-200 dark:border-red-500/20": props.message.severity === "error",
                 "border-surface-950 dark:border-surface-0": props.message.severity === "contrast"
-            },
-            // border of left message
-            {
-                "border-l-blue-400 dark:border-l-blue-500": props.message.severity === "info",
-                "border-l-green-400 dark:border-l-green-500": props.message.severity === "success",
-                "border-l-surface-400 dark:border-l-surface-500": props.message.severity === "secondary",
-                "border-l-orange-400 dark:border-l-orange-500": props.message.severity === "warn",
-                "border-l-red-400 dark:border-l-red-500": props.message.severity === "error",
-                "border-l-surface-500 dark:border-l-surface-500": props.message.severity === "contrast"
             },
             {
                 "text-blue-700 dark:text-blue-300": props.message.severity === "info",

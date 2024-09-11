@@ -6,7 +6,7 @@ const navBarStore = defineStore("optionsMenu", {
     }),
     actions: {
         async createOptionsMenu() {
-            const routerViews = router.resolve({ name: "home" }).matched[0].children;
+            const routerViews = router.resolve({ name: "home" })?.matched[0].children;
             this.options = this.processRoutes(routerViews);
         },
         processRoutes(routes) {
@@ -27,9 +27,10 @@ const navBarStore = defineStore("optionsMenu", {
                     path: route.path,
                     route: route.path,
                     meta: route.meta,
+                    icon: route.meta.icon,
                     visible: true
                 };
-                this.addIconToOption(objOption, route.meta.icon, route);
+                // this.addIconToOption(objOption, route.meta.icon, route);
                 
                 if(route.children) {
                     delete objOption.path;
@@ -44,16 +45,17 @@ const navBarStore = defineStore("optionsMenu", {
                 }
             }
             return null;
-        },
-        addIconToOption(objOption, icon, route) {
-            if(icon) {
-                const routesDefines = router.resolve({ name: "home" }).matched[0].children;
-                const shouldUseIcon = route.icon && routesDefines.some(routeD => routeD.name === route.name && routeD.meta?.["icon"]);
-                if(!shouldUseIcon) {
-                    objOption.icon = h(icon.render());
-                }
-            }
         }
+        // addIconToOption(objOption, icon, route) {
+        //     if(icon) {
+        //         console.log(objOption);
+        //         const routesDefines = router.resolve({ name: "home" })?.matched[0].children;
+        //         const shouldUseIcon = routesDefines.some(rt => rt.name === route.name && rt.meta?.["icon"]);
+        //         if(!shouldUseIcon) {
+        //             objOption.meta.icon = h(icon?.render());
+        //         }
+        //     }
+        // }
     }
 });
 

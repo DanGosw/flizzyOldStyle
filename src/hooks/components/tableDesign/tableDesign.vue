@@ -4,18 +4,14 @@ import defaultImage from "@/assets/animatedFood.gif";
 
 const props = defineProps({
     table: { type: Object, required: true },
-    image: { type: String, required: false, default: defaultImage }
+    image: { type: String, required: false, default: defaultImage },
+    tableClick: { type: Function, required: false, default: {} }
 });
 
-function handleTableClick(event) {
-    if(!event.target.closest(".xd")) {
-        props.table.order_amount = 666;
-    }
-}
 </script>
 
 <template>
-    <div @click="handleTableClick"
+    <div @click="tableClick"
          class="relative z-10 col-span-2 flex h-48 max-h-48 cursor-pointer flex-col justify-between rounded-lg font-semibold shadow-md sm:col-span-2 md:col-span-3 lg:col-span-2 transition">
         <div :class="`${table?.['status'] === '3' ? 'bg-primary-400/60 dark:bg-primary-400/70' : 'bg-surface-400/70 dark:bg-surface-800/60'} border border-surface-400 dark:border-surface-600 rounded-lg h-full max-h-48`">
             <div class="flex h-32 w-full select-none flex-wrap gap-1 overflow-y p-1.5" v-if="table?.['orders'].length > 0">

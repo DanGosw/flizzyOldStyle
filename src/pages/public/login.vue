@@ -3,6 +3,7 @@ import * as yup from "yup";
 import { useField, useForm } from "vee-validate";
 import FormItem from "@/hooks/components/formItem/formItem.vue";
 import router from "@/routes/index.js";
+import AppConfig from "@/hooks/components/app/appConfig.vue";
 
 const schemaValidate = yup.object({
     username: yup.string().required("Ingrese su usuario").label("username").min(5, "Ingresa al menos 5 caracteres"),
@@ -17,26 +18,28 @@ const { value: username, errorMessage: usernameError, handleBlur: usernameBlur }
 const { value: password, errorMessage: passwordError, handleBlur: passwordBlur } = useField("password");
 
 const onSubmit = handleSubmit(async(values) => {
-        await router.push({ name: "home" });
         console.log("Submitted with", values);
+        await router.push({ name: "home" });
     }, ({ errors }) => {
         const errorMessages = Object.entries(errors).map(([field, message]) => `${field}: ${message}`).join(", ");
         toast.add({ severity: "error", summary: "Error", detail: `Complete los siguientes campos: ${errorMessages}`, life: 10000 });
     }
 );
 
-
 </script>
 
 <template>
-    <div class="flex min-h-screen bg-gradient-to-b from-indigo-200 to-indigo-600">
+    <div class="flex min-h-screen bg-gradient-to-b from-primary-200 to-primary-600 dark:from-surface-700 dark:to-surface-950">
+        <div class="absolute top-2 right-2">
+            <app-config/>
+        </div>
         <div class="z-10 m-auto p-2">
             <div class="flex justify-center items-center">
                 <img class="h-64" draggable="false" src="~@/assets/flizzy-color.png" alt="business-logo"/>
             </div>
             <Card>
                 <template #content>
-                    <p class="text-center text-3xl font-extrabold"> Welcome Flizzy 2.0 </p>
+                    <p class="text-center text-3xl font-extrabold"> Bienvenido Flizzy 2.0 </p>
                     <p class="my-2 text-center font-semibold text-gray-500 dark:text-gray-300">Inicie sesion para continuar</p>
                     <div class="grid grid-cols-4 gap-2" v-focustrap>
                         <div class="col-span-4">
@@ -61,7 +64,7 @@ const onSubmit = handleSubmit(async(values) => {
                 </template>
             </Card>
             <div class="flex items-center justify-center gap-2 mt-2">
-                <span class="text-gray-400">Powered by DevRunner</span>
+                <span class="text-gray-300 ">Powered by DevRunner</span>
                 <i-bi-github/>
             </div>
         </div>
@@ -71,10 +74,10 @@ const onSubmit = handleSubmit(async(values) => {
                     <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"/>
                 </defs>
                 <g class="parallax">
-                    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(188, 189, 249, 0.7"/>
-                    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(99, 102, 241, 0.5)"/>
-                    <use xlink:href="#gentle-wave" x="48" y="8" fill="rgba(129, 131, 244, 0.3)"/>
-                    <use xlink:href="#gentle-wave" x="48" y="10" fill="rgba(129, 131, 244)"/>
+                    <use xlink:href="#gentle-wave" x="48" y="0" class="dark:fill-surface-600/80 fill-primary-400/80"/>
+                    <use xlink:href="#gentle-wave" x="48" y="5" class="dark:fill-surface-700/60 fill-primary-500/60"/>
+                    <use xlink:href="#gentle-wave" x="48" y="8" class="dark:fill-surface-800/40 fill-primary-600/40"/>
+                    <use xlink:href="#gentle-wave" x="48" y="10" class="dark:fill-surface-900/70 fill-primary-700/70"/>
                 </g>
             </svg>
         </div>

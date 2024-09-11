@@ -315,6 +315,13 @@ const items = ref([
     }
 ]);
 
+function handleTableClick(event, table) {
+    if(!event.target.closest(".xd")) {
+        table.order_amount = 666;
+        toast.add({ severity: "success", life: 5000, detail: "Redirigiendo a otra vista..." });
+    }
+}
+
 </script>
 
 <template>
@@ -327,7 +334,8 @@ const items = ref([
                 <div class="flex h-full w-full flex-col rounded-2xl p-2 bg-surface-100 dark:bg-surface-700/70 border border-surface-300 dark:border-surface-600">
                     <p class="m-1 font-bold">{{ branch.description }}</p>
                     <div class="grid grid-cols-1 flex-wrap items-center justify-start gap-2 sm:grid-cols-4 md:grid-cols-9 lg:grid-cols-10 xl:grid-cols-12">
-                        <tableDesign v-for="table in branch.tables" :key="table.id" :table="table">
+                        <tableDesign v-for="table in branch.tables" :key="table.id" :table="table"
+                                     :table-click="(event)=>{handleTableClick(event, table)}">
                             <SpeedDial :model="items" :radius="125" type="quarter-circle" direction="down-left" v-if="table.status === '3'"
                                        :button-class="`${table.orders.length > 0 ? 'bg-primary-400 hover:bg-primary-500' :'bg-primary-700 hover:bg-primary-600'} border-0`"
                                        mask mask-class="rounded-lg xd cursor-default" class="rounded-full absolute top-1 -right-1 xd">

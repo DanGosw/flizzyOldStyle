@@ -63,7 +63,7 @@ const addParametersCodeModal = () => {
         <template #title>
             <div class="alignHeader">
                 <div class="flex gap-2 items-center">
-                    <Button severity="secondary" size="small" class="!px-2" rounded @click="router.go(-1)">
+                    <Button severity="secondary" size="small" class="!px-2" rounded @click="router.push({name: 'settings', force: true})">
                         <template #icon>
                             <i-material-symbols-arrow-back-rounded class=""/>
                         </template>

@@ -43,7 +43,8 @@ const { value: cpe } = useField("cpe");
 const { value: website } = useField("website");
 const { fields: valueFields, push: addSocialMedia, remove: removeSocialMedia } = useFieldArray("socialNetworks");
 
-const { handleInput: handleInputDocNumber } = useNumericInput(docNumber);
+const { handleInputReactive: handleInputDocNumber } = useNumericInput(docNumber);
+const { handleInputReactive: handleInputWebsite } = useNumericInput(website);
 
 const onSubmit = handleSubmit((values) => {
     console.log("Submitted with", values);
@@ -56,12 +57,6 @@ const onReset = () => {
     props.closeModal();
     props.refreshData();
 };
-
-function handleInput(event) {
-    const newValue = event.target.value.replace(/\D/g, "");
-    fields.value.website = newValue;
-    event.target.value = newValue;
-}
 
 </script>
 
@@ -109,7 +104,7 @@ function handleInput(event) {
         </div>
         <div class="max-cols-4">
             <form-item for="website" label="Sitios Web">
-                <InputText v-model="website" id="website" size="small" @input="handleInput"/>
+                <InputText v-model="website" id="website" size="small" @input="handleInputWebsite"/>
             </form-item>
         </div>
         <div class="max-cols-8">
@@ -148,7 +143,7 @@ function handleInput(event) {
     </div>
 
     <div class="flex items-center flex-wrap md:flex-nowrap justify-center gap-2 mt-4">
-        <Button label="Cancelar" severity="secondary" class="w-full" @click="onReset">
+        <Button label="Cancelar" severity="secondary" outlined raised class="w-full" @click="onReset">
             <template #icon>
                 <i-ri-close-line class="mx-1"/>
             </template>

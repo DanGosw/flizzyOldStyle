@@ -3,7 +3,7 @@ const router = createRouter({
     routes: [
         {
             path: "/", name: "home", component: () => import("@/pages/private/layout.vue"),
-            meta: { prefetch: true }, redirect: { name: "dashboard" },
+            meta: { prefetch: true }, redirect: { name: "dashboard", force: true },
             children: [
                 {
                     path: "/dashboard", name: "dashboard", component: () => import("@/modules/HelloWorld.vue"),
@@ -114,7 +114,6 @@ const router = createRouter({
             path: "/:catchAll(.*)", name: "Page not found",
             beforeEnter: (to, from, next) => next({ path: "/" })
         }
-        // { path: "*", name: "notfound", component: NotFound },
     ]
 });
 

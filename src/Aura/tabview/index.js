@@ -103,7 +103,7 @@ export default {
     },
     panelcontainer: {
         class: [
-            "p-[1rem] pt-[0.875rem]",
+            "p-[1rem] py-[0.875rem]",
             "border-0 rounded-none",
             "border-br-md border-bl-md",
             "bg-surface-0 dark:bg-surface-900",

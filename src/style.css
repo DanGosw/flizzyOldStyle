@@ -3,15 +3,15 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: 'Tahoma';
-    src: url('@/assets/Tahoma.eot');
-    src: url('@/assets/Tahoma.eot?#iefix') format('embedded-opentype'), url('@/assets/Tahoma.woff') format('woff'), url('@/assets/TahomaRegular.ttf') format('truetype');
+    font-family: 'Poppins';
+    src: url('@/assets/Poppins-Medium.eot');
+    src: url('@/assets/Poppins-Medium.eot?#iefix') format('embedded-opentype'), url('@/assets/Poppins-Medium.woff') format('woff'), url('@/assets/Poppins-Medium.ttf') format('truetype');
 }
 
 .html, body {
     font: inherit;
     font-size: 100%;
-    font-family: 'Tahoma', Arial, serif;
+    font-family: 'Poppins', Arial, serif;
     font-weight: normal;
     font-style: normal;
 }
@@ -81,6 +81,14 @@
 
 .label-size {
     @apply mb-1 block text-sm;
+}
+
+.app-label-config {
+    @apply text-black dark:text-surface-0 text-xl font-semibold my-1.5;
+}
+
+.align-item-config {
+    @apply inline-flex flex-col items-start justify-start gap-2 pr-2;
 }
 
 .align-items-form {

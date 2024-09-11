@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const socketEvents = (io, socket) => {
-    console.log("socket.io - connection xd");
     
     //create a client to get info
     socket.on("getPokemonData", async(params) => {

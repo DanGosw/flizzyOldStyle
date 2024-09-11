@@ -53,7 +53,7 @@ const addParametersCustomerModal = () => {
     parametersModal.value = {
         visible: true,
         header: "Editar Cliente",
-        width: "80vw",
+        width: "60vw",
         footer: null,
         component: componentAddClientModal
     };

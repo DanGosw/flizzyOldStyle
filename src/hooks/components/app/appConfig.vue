@@ -4,10 +4,12 @@ import { useCookies } from "@vueuse/integrations/useCookies";
 
 const selectedPrimaryColor = ref({ type: "primary", name: "indigo" });
 const selectedSurfaceColor = ref({ type: "surface", name: "stone" });
-const scales = ref([12, 13, 14, 15, 16, 17]);
+const scales = ref([12, 13, 14, 15, 16, 17, 18]);
 const visible = ref(false);
 const textSize = ref(16);
 const onConfigButtonClick = () => visible.value = !visible.value;
+
+const isDark = useDark({ disableTransition: false, initialValue: "auto" });
 
 const primaryColors = [
     {
@@ -324,10 +326,12 @@ const decrementScale = () => {
     textSize.value -= 1;
     applyScale();
 };
+
 const incrementScale = () => {
     textSize.value += 1;
     applyScale();
 };
+
 const applyScale = () => {
     document.documentElement.style.fontSize = textSize.value + "px";
     useCookies().set("font-size", textSize.value, { path: "/" });
@@ -377,8 +381,8 @@ function applyTheme(type, colors) {
         <i-carbon-color-palette/>
     </Button>
     <Drawer v-model:visible="visible" position="right" class="w-28">
-        <div class="inline-flex flex-col items-start justify-start gap-2 pr-2">
-            <span class="text-black dark:text-surface-0 text-xl font-semibold">Escala</span>
+        <div class="align-item-config">
+            <span class="app-label-config">Escala</span>
             <div class="inline-flex items-center gap-2 border-1 surface-border py-1 px-2 rounded-2xl">
                 <Button @click="decrementScale" text rounded :disabled="textSize === scales[0]">
                     <template #icon>
@@ -395,8 +399,21 @@ function applyTheme(type, colors) {
                 </Button>
             </div>
         </div>
-        <div class="inline-flex flex-col items-start justify-start gap-2 pr-2">
-            <span class="text-black dark:text-surface-0 text-xl font-semibold">Colores Primarios</span>
+        <div class="align-item-config">
+            <span class="app-label-config">Elige tu modo</span>
+            <ToggleButton v-model="isDark" id="estado" size="small" onLabel="Claro" offLabel="Oscuro" class="w-full">
+                <template #icon>
+                    <i-ic-round-light-mode v-if="isDark"/>
+                    <i-ic-round-dark-mode v-else/>
+                </template>
+            </ToggleButton>
+        </div>
+        <!--        <Button size="small" severity="secondary" class="border border-surface-300" @click="toggleDark">-->
+        <!--            <template #icon>-->
+        <!--            </template>-->
+        <!--        </Button>-->
+        <div class="align-item-config">
+            <span class="app-label-config">Colores Primarios</span>
             <div class="inline-flex flex-wrap items-start justify-start gap-2 self-stretch">
                 <button v-for="primaryColor of primaryColors" :key="primaryColor.name" type="button"
                         @click="updateColors('primary', primaryColor.name)"
@@ -405,8 +422,8 @@ function applyTheme(type, colors) {
                         :style="{ backgroundColor: `rgb(${primaryColor.palette[5]})` }"/>
             </div>
         </div>
-        <div class="inline-flex flex-col items-start justify-start gap-2 pr-2">
-            <span class="text-black dark:text-surface-0 text-xl font-semibold">Modo Oscuro</span>
+        <div class="align-item-config">
+            <span class="app-label-config">Modo Oscuro</span>
             <div class="inline-flex flex-wrap items-start justify-start gap-2 self-stretch">
                 <button v-for="surface of surfaces" :key="surface.name" type="button" @click="updateColors('surface', surface.name)"
                         class="flex h-5 !w-12 cursor-pointer rounded-full bg-transparent p-2 transition-all border-1 align-items-center justify-content-center transition-duration-200"

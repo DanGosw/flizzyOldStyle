@@ -40,7 +40,7 @@ const showMessage = (info) => {
  */
 const loadBusiness = () => {
     loading.value = true;
-    socket.emit("getPokemonData", { limit: 10, offset: 0 });
+    socket.emit("getPokemonData", { limit: pageSize.value, offset: (page.value - 1) * pageSize.value });
 };
 
 socket.on("pokemonData", (response) => {
@@ -102,7 +102,7 @@ defineExpose({ loadBusiness });
         <Column style="width: 2%" header="Acciones">
             <template #body>
                 <div class="flex items-center justify-center space-x-1">
-                    <Button size="small" v-tooltip.top="'Editar Cliente'" @click="showMessage" class="!p-1">
+                    <Button size="small" v-tooltip.top="'Editar Cliente'" @click="showMessage" class="!p-0.5">
                         <template #icon>
                             <i-material-symbols-box-edit-outline-rounded class="mx-0.5"/>
                         </template>

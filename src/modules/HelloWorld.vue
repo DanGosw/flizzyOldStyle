@@ -94,7 +94,7 @@ const countries = ref([
                 <Column class="border border-[#474751]" style="width: 4%" header="Date">
                     <template #body>
                         <div class="flex justify-center">
-                            <Button size="small" severity="info" class="!p-1">
+                            <Button size="small" severity="info" class="!p-0.5">
                                 <template #icon>
                                     <i-ic-sharp-access-time class="!mx-1"/>
                                 </template>

@@ -1,13 +1,14 @@
 <script setup>
 
 import AreaAndTables from "@/modules/settings/application/areas/areaAndTables.vue";
+import router from "@/routes/index.js";
 </script>
 
 <template>
     <Card>
         <template #title>
             <div class="flex gap-2 items-center">
-                <Button severity="secondary" size="small" class="!px-2" rounded @click="$router.go(-1)">
+                <Button severity="secondary" size="small" class="!px-2" rounded @click="router.push({name: 'settings', force: true})">
                     <template #icon>
                         <i-material-symbols-arrow-back-rounded/>
                     </template>

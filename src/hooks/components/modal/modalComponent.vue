@@ -1,54 +1,58 @@
 <script setup>
-const propsModal = defineProps({
+const { parameters } = defineProps({
     /**
      * @param visible, header title, width, footer, component
      */
     parameters: {
-        /**
-         * @params {boolean} false - default value.
-         * @description Visible of the modal.
-         */
-        visible: {
-            type: Boolean,
-            default: false
+        default: {
+            /**
+             * @params {boolean} false - default value.
+             * @description Visible of the modal.
+             */
+            visible: {
+                type: Boolean,
+                default: false
+            },
+            /**
+             *  @params {string} - default value.
+             *  @description Title of the modal.
+             */
+            header: {
+                type: String,
+                default: ""
+            },
+            /**
+             *  @params {string} - default value.
+             *  @default default width is 50vh.
+             *  @description Width of the modal.
+             */
+            width: {
+                type: String,
+                default: "50vh"
+            },
+            /**
+             *  @params {Component} - Returns a component in footer modal.
+             *  @description Footer of the modal.
+             */
+            footer: {
+                type: String,
+                default: ""
+            },
+            /**
+             * @params {Component} - Function that returns a component
+             * @description Component of the modal.
+             */
+            component: {
+                type: Object,
+                default: () => {}
+            }
         },
-        /**
-         *  @params {string} - default value.
-         *  @description Title of the modal.
-         */
-        header: {
-            type: String,
-            default: ""
-        },
-        /**
-         *  @params {string} - default value.
-         *  @default default width is 50vh.
-         *  @description Width of the modal.
-         */
-        width: {
-            type: String,
-            default: "50vh"
-        },
-        /**
-         *  @params {Component} - Returns a component in footer modal.
-         *  @description Footer of the modal.
-         */
-        footer: {
-            type: String,
-            default: ""
-        },
-        /**
-         * @params {Component} - Function that returns a component
-         * @description Component of the modal.
-         */
-        component: {
-            type: Object,
-            default: () => {}
-        }
+        type: Object,
+        required: true
     }
 });
 
-defineExpose({ propsModal });
+defineExpose({ parameters });
 
 </script>
 

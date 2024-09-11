@@ -3,6 +3,7 @@
 import ModalComponent from "@/hooks/components/modal/modalComponent.vue";
 import addBranch from "@/modules/settings/branchs/addBranch.vue";
 import BranchList from "@/modules/settings/branchs/branchList.vue";
+import router from "@/routes/index.js";
 
 /* Defaults Variables */
 const refBranchList = ref();
@@ -45,7 +46,7 @@ const addParametersBranchModal = () => {
         <template #title>
             <div class="alignHeader">
                 <div class="flex gap-2 items-center">
-                    <Button severity="secondary" size="small" class="!px-2" rounded @click="$router.go(-1)">
+                    <Button severity="secondary" size="small" class="!px-2" rounded @click="router.push({name: 'settings', force: true})">
                         <template #icon>
                             <i-material-symbols-arrow-back-rounded/>
                         </template>

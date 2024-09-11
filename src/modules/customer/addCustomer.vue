@@ -81,7 +81,8 @@ const { value: phone } = useField("phone");
 const { value: email } = useField("email");
 const { fields: valueFields, push: addDirection, remove: removeAddress } = useFieldArray("address");
 
-const { handleInput: handleInputDocNumber } = useNumericInput(docNumber);
+const { handleInputReactive: handleInputDocNumber } = useNumericInput(docNumber);
+const { handleInputReactive: handleInputPhone } = useNumericInput(phone);
 
 const ubigeoOptions = ref([
     {
@@ -170,12 +171,6 @@ const onReset = () => {
     props.refreshData();
 };
 
-function handleInput(event) {
-    const newValue = event.target.value.replace(/\D/g, "");
-    phone.value = newValue;
-    event.target.value = newValue;
-}
-
 </script>
 
 <template>
@@ -192,9 +187,9 @@ function handleInput(event) {
                     <InputText v-model.number="docNumber" id="dni" maxlength="8" :invalid="!!errors.docNumber"
                                size="small" @blur="docNumberBlur($event, true)" @input="handleInputDocNumber"/>
                     <Button size="small">
-                        <template #icon>
-                            <i-material-symbols-manage-search-rounded class="!mx-1"/>
-                        </template>
+                        <!--                        <template #icon>-->
+                        <i-material-symbols-manage-search-rounded class="!mx-1"/>
+                        <!--                        </template>-->
                     </Button>
                 </InputGroup>
             </form-item>
@@ -223,7 +218,7 @@ function handleInput(event) {
         </div>
         <div class="max-cols-4">
             <form-item for="cellphone" label="Teléfono" hide-error>
-                <InputText v-model="phone" id="cellphone" size="small" maxlength="9" @input="handleInput"/>
+                <InputText v-model="phone" id="cellphone" size="small" maxlength="9" @input="handleInputPhone"/>
             </form-item>
         </div>
         <div class="max-cols-4">
@@ -266,7 +261,7 @@ function handleInput(event) {
     </div>
 
     <div class="flex items-center flex-wrap md:flex-nowrap justify-center gap-2">
-        <Button label="Cancelar" severity="secondary" class="w-full" @click="onReset">
+        <Button label="Cancelar" severity="secondary" outlined raised class="w-full" @click="onReset">
             <template #icon>
                 <i-ri-close-line class="mx-1"/>
             </template>

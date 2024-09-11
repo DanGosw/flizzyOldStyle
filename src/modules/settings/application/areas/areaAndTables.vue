@@ -1,6 +1,35 @@
 <script setup>
 
-import TableDesign from "@/hooks/components/tableDesign/tableDesign.vue";
+import ViewListTable from "@/modules/settings/application/areas/viewListTable.vue";
+import ModalComponent from "@/hooks/components/modal/modalComponent.vue";
+import addOrEditArea from "@/modules/settings/application/areas/addOrEditArea.vue";
+
+const closeModal = () => {
+    parametersModal.value.visible = false;
+};
+
+const parametersModal = ref({
+    visible: false,
+    header: "",
+    width: "30vw",
+    footer: () => {},
+    component: () => {}
+});
+
+const componentAddUBusinessModal = h(addOrEditArea, {
+    closeModal,
+    refreshData: () => {}
+});
+
+const addParametersAreaModal = () => {
+    parametersModal.value = {
+        visible: true,
+        header: "Agregar Area y mesas",
+        width: "60vw",
+        footer: "",
+        component: componentAddUBusinessModal
+    };
+};
 
 const tableSchema = ref([
     {
@@ -151,19 +180,24 @@ const tableSchema = ref([
     }
 ]);
 
-const arrayTable = ref([]);
+const arrayTable = ref({ data: tableSchema.value[0] || [], index: 0 });
 const editingRows = ref([]);
 
 const saveRowEdit = ({ data }) => {
     console.log(data);
 };
 
-const addDataOnRowClick = ({ data, originalEvent }) => {
-    console.log(data);
-    console.log(!originalEvent.target.closest("[data-p-cell-editing='true']"));
-    console.log(originalEvent.target);
+/**
+ * @description Evaluates if the row is being edited or if it contains a class where the edit function is being called
+ * @params {data, originalEvent, index}
+ */
+const addDataOnRowClick = ({ data, originalEvent, index }) => {
     if(!originalEvent.target.closest(".xd") && !originalEvent.target.closest("[data-p-cell-editing='true']")) {
-        arrayTable.value = data;
+        if(arrayTable.value.index === index) {
+            arrayTable.value = { data: [], index: null };
+        } else {
+            arrayTable.value = { data, index };
+        }
     }
 };
 
@@ -172,7 +206,7 @@ const addDataOnRowClick = ({ data, originalEvent }) => {
 <template>
     <div class="flex gap-2 flex-wrap md:flex-nowrap">
         <div class="md:w-1/4 w-full">
-            <DataTable size="large" striped-rows show-gridlines dataKey="code" tableStyle="min-width: 15rem;" :value="tableSchema"
+            <DataTable size="large" striped-rows show-gridlines dataKey="code" tableStyle="min-width: 10rem;" :value="tableSchema"
                        @row-click="addDataOnRowClick" edit-mode="row" v-model:editing-rows="editingRows" data-key="id"
                        @row-edit-save="saveRowEdit">
                 <Column field="description" header="Areas" class="cursor-pointer hover:!bg-opacity-0" style="width: 10%">
@@ -180,9 +214,9 @@ const addDataOnRowClick = ({ data, originalEvent }) => {
                         <InputText v-model="data[field]"/>
                     </template>
                 </Column>
-                <Column field="" header="" row-editor style="width: 1%" class="xd">
+                <Column row-editor style="width: 1%" class="xd">
                     <template #header>
-                        <Button raised text>
+                        <Button raised size="small" @click="addParametersAreaModal">
                             <template #icon>
                                 <i-fluent-table-offset-add-24-filled/>
                             </template>
@@ -197,29 +231,15 @@ const addDataOnRowClick = ({ data, originalEvent }) => {
                     <template #roweditorcancelicon>
                         <i-solar-close-square-bold class="xd"/>
                     </template>
-
                 </Column>
             </DataTable>
         </div>
-        <div class="md:w-3/4 w-full bg-surface-100 dark:bg-surface-800 p-2 rounded-xl border dark:border-slate-700">
-            Mesas de {{ arrayTable?.description }}
-            <div class="grid grid-cols-1 flex-wrap items-center justify-start gap-2 sm:grid-cols-4 md:grid-cols-9 lg:grid-cols-10 xl:grid-cols-12">
-
-                <tableDesign v-for="table in arrayTable?.tables" :key="table.id" :table="table">
-                    <div class="w-full bottom-0 absolute gap-2 flex p-1">
-                        <Button label="Editar" raised class="w-1/2">
-                            <template #icon>
-                                <i-material-symbols-edit-note-rounded/>
-                            </template>
-                        </Button>
-                        <Button label="Eliminar" raised severity="contrast" class="w-1/2">
-                            <template #icon>
-                                <i-material-symbols-light-delete-rounded/>
-                            </template>
-                        </Button>
-                    </div>
-                </tableDesign>
-            </div>
+        <view-list-table :table="arrayTable" v-if="arrayTable.index !== null"/>
+        <div v-else
+             class="md:w-3/4 w-full bg-surface-100 dark:bg-surface-800 rounded-xl border dark:border-slate-700 flex items-center justify-center">
+            <i-ic-round-hourglass-empty class="text-3xl animate-spin mx-1"/>
+            <span class="text-xl"> Seleccione una area para modificar </span>
         </div>
+        <modal-component :parameters="parametersModal"/>
     </div>
 </template>
