@@ -48,7 +48,7 @@ const countries = ref([
 </script>
 
 <template>
-    <Card class="">
+    <Card>
         <template #content>
             <div class="flex flex-wrap gap-2 card">
                 <Button size="small" label="count is" color="rgb(241, 245, 249)" :badge="count.toString()" @click="count++"/>
@@ -81,27 +81,26 @@ const countries = ref([
                 <template #loading>
                     <loading-data/>
                 </template>
-                <Column class="border border-[#474751]" style="width: 1%" field="id" header="ID"/>
-                <Column class="border border-[#474751]" style="width: 10%" field="Names" header="Names"/>
-                <Column class="border border-[#474751]" style="width: 10%" field="mail" header="E-Mail"/>
-                <Column class="border border-[#474751]" style="width: 16%" field="ubication" header="Location"/>
-                <Column class="border border-[#474751]" style="width: 5%" field="ip" header="IP Address"/>
-                <Column class="border border-[#474751]" style="width: 10%" field="industry" header="Industry"/>
-                <Column class="border border-[#474751]" style="width: 10%" field="interests" header="Interests"/>
-                <Column class="border border-[#474751]" style="width: 10%" field="url" header="URL"/>
-                <Column class="border border-[#474751]" style="width: 10%" field="job" header="Job"/>
-                <Column class="border border-[#474751]" style="width: 9%" field="date" header="Date"/>
-                <Column class="border border-[#474751]" style="width: 4%" header="Date">
-                    <template #body>
-                        <div class="flex justify-center">
-                            <Button size="small" severity="info" class="!p-0.5">
-                                <template #icon>
-                                    <i-ic-sharp-access-time class="!mx-1"/>
-                                </template>
-                            </Button>
-                        </div>
-                    </template>
-                </Column>
+                <Column style="width: 1%" field="id" header="ID"/>
+                <Column style="width: 10%" field="Names" header="Names"/>
+                <Column style="width: 10%" field="mail" header="E-Mail"/>
+                <Column style="width: 16%" field="ubication" header="Location"/>
+                <Column style="width: 5%" field="ip" header="IP Address"/>
+                <Column style="width: 10%" field="industry" header="Industry"/>
+                <Column style="width: 10%" field="interests" header="Interests"/>
+                <Column style="width: 10%" field="url" header="URL"/>
+                <Column style="width: 10%" field="job" header="Job"/>
+                <!--                <Column class="border border-[#474751]" style="width: 4%" header="Date">-->
+                <!--                    <template #body>-->
+                <!--                        <div class="flex justify-center">-->
+                <!--                            <Button size="small" severity="info" class="!p-0.5">-->
+                <!--                                <template #icon>-->
+                <!--                                    <i-ic-sharp-access-time class="!mx-1"/>-->
+                <!--                                </template>-->
+                <!--                            </Button>-->
+                <!--                        </div>-->
+                <!--                    </template>-->
+                <!--                </Column>-->
             </DataTable>
         </template>
     </Card>

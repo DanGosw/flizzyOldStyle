@@ -38,7 +38,7 @@ export default {
             "shrink-0",
             
             // Spacing
-            "p-[1.125rem]",
+            "p-[0.7rem]",
             
             // Colors
             "bg-surface-0 dark:bg-surface-900",

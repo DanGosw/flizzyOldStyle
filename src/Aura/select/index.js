@@ -241,7 +241,7 @@ export default {
     emptyMessage: {
         class: [
             // Font
-            "leading-none text-[14px]",
+            "leading-none",
             
             // Spacing
             "py-2 px-3",
@@ -254,8 +254,8 @@ export default {
     header: {
         class: [
             // Spacing
-            "pt-2",
-            "m-1 mb-8",
+            // "pt-2",
+            "m-1",
             
             //Shape
             "border-b-0",
@@ -277,13 +277,13 @@ export default {
             "leading-[normal]",
             
             // Sizing
-            "py-1.5 px-1",
+            "py-1.5 pr-1 pl-10",
             "m-1",
             "w-full",
             
             //Color
             "text-surface-700 dark:text-white/80",
-            "bg-surface-500 dark:bg-surface-950",
+            "bg-surface-500 dark:!bg-red-500",
             "border-surface-200 dark:border-surface-700",
             
             // Shape
@@ -304,9 +304,9 @@ export default {
         ]
     },
     filtericon: {
-        class: ["absolute", "top-1/2 right-3 mt-0.5"]
+        class: ["absolute", "top-1/2 right-3 -mt-2"]
     },
-    clearicon: {
+    clearIcon: {
         class: [
             // Color
             "text-surface-500 dark:text-surface-500 text-[14px]",

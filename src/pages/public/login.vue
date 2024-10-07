@@ -1,8 +1,9 @@
 <script setup>
 import * as yup from "yup";
 import { useField, useForm } from "vee-validate";
+import Card from "primevue/card";
 import FormItem from "@/hooks/components/formItem/formItem.vue";
-import router from "@/routes/index.js";
+import { useRouter } from "vue-router";
 import AppConfig from "@/hooks/components/app/appConfig.vue";
 
 const schemaValidate = yup.object({
@@ -12,6 +13,7 @@ const schemaValidate = yup.object({
 
 const fields = ref({ username: "", password: "" });
 const toast = useToast();
+const router = useRouter();
 const { handleSubmit, errors } = useForm({ validationSchema: schemaValidate, initialValues: fields.value });
 
 const { value: username, errorMessage: usernameError, handleBlur: usernameBlur } = useField("username");
@@ -19,7 +21,7 @@ const { value: password, errorMessage: passwordError, handleBlur: passwordBlur }
 
 const onSubmit = handleSubmit(async(values) => {
         console.log("Submitted with", values);
-        await router.push({ name: "home" });
+        await router.push({ name: "home", force: true });
     }, ({ errors }) => {
         const errorMessages = Object.entries(errors).map(([field, message]) => `${field}: ${message}`).join(", ");
         toast.add({ severity: "error", summary: "Error", detail: `Complete los siguientes campos: ${errorMessages}`, life: 10000 });
@@ -30,11 +32,11 @@ const onSubmit = handleSubmit(async(values) => {
 
 <template>
     <div class="flex min-h-screen bg-gradient-to-b from-primary-200 to-primary-600 dark:from-surface-700 dark:to-surface-950">
-        <div class="absolute top-2 right-2">
+        <div class="fixed top-2 right-2 z-20">
             <app-config/>
         </div>
         <div class="z-10 m-auto p-2">
-            <div class="flex justify-center items-center">
+            <div class="flex items-center justify-center">
                 <img class="h-64" draggable="false" src="~@/assets/flizzy-color.png" alt="business-logo"/>
             </div>
             <Card>
@@ -63,21 +65,22 @@ const onSubmit = handleSubmit(async(values) => {
                     </Button>
                 </template>
             </Card>
-            <div class="flex items-center justify-center gap-2 mt-2">
-                <span class="text-gray-300 ">Powered by DevRunner</span>
-                <i-bi-github/>
+            <div class="mt-1 flex items-center justify-center gap-2">
+                <span class="text-gray-300">Powered by DevRunner</span>
+                <i-bi-github class="text-surface-900 dark:text-surface-200"/>
             </div>
         </div>
+
         <div class="fixed right-0 bottom-0 left-0 z-0 waves-container">
             <svg class="waves" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
                 <defs>
                     <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"/>
                 </defs>
                 <g class="parallax">
-                    <use xlink:href="#gentle-wave" x="48" y="0" class="dark:fill-surface-600/80 fill-primary-400/80"/>
-                    <use xlink:href="#gentle-wave" x="48" y="5" class="dark:fill-surface-700/60 fill-primary-500/60"/>
-                    <use xlink:href="#gentle-wave" x="48" y="8" class="dark:fill-surface-800/40 fill-primary-600/40"/>
-                    <use xlink:href="#gentle-wave" x="48" y="10" class="dark:fill-surface-900/70 fill-primary-700/70"/>
+                    <use xlink:href="#gentle-wave" x="48" y="0" class="fill-primary-400/80 dark:fill-surface-600/80"/>
+                    <use xlink:href="#gentle-wave" x="48" y="5" class="fill-primary-500/60 dark:fill-surface-700/60"/>
+                    <use xlink:href="#gentle-wave" x="48" y="8" class="fill-primary-600/40 dark:fill-surface-800/40"/>
+                    <use xlink:href="#gentle-wave" x="48" y="10" class="fill-primary-700/70 dark:fill-surface-900/70"/>
                 </g>
             </svg>
         </div>
@@ -86,7 +89,7 @@ const onSubmit = handleSubmit(async(values) => {
 <style>
 
 .waves {
-    @apply relative w-full h-32 min-h-24 max-h-72
+    @apply relative w-full h-44 min-h-24 max-h-72
 }
 
 .parallax > use {

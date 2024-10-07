@@ -227,7 +227,7 @@ export default {
                 
                 // Sizing and Spacing
                 "w-[1%]",
-                "py-2 pl-3 pr-0",
+                "py-2.5 pl-3 pr-0",
                 
                 //Shape
                 "rounded-none",

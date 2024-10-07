@@ -33,7 +33,7 @@ const addParametersBusinessModal = () => {
     parametersModal.value = {
         visible: true,
         header: "Nueva Empresa",
-        width: "80vw",
+        width: "55vw",
         footer: "",
         component: componentAddUBusinessModal
     };
@@ -43,7 +43,7 @@ const addParametersBusinessModal = () => {
 <template>
     <Card>
         <template #title>
-            <div class="alignHeader">
+            <div class="align-header">
                 <div class="flex gap-2 items-center">
                     <Button severity="secondary" size="small" class="!px-2" rounded @click="router.push({name: 'settings', force: true})">
                         <template #icon>
@@ -52,7 +52,7 @@ const addParametersBusinessModal = () => {
                     </Button>
                     <p>Lista de Empresas</p>
                 </div>
-                <div class="sm:space-x-2 space-x-0 space-y-2 sm:space-y-0 mt-2 sm:mt-0">
+                <div class="align-header">
                     <Button label="Agregar Empresa" rounded size="small" @click="addParametersBusinessModal()">
                         <template #icon>
                             <i-material-symbols-add-business-outline-rounded class="mx-1"/>

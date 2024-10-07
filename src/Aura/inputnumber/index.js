@@ -34,7 +34,7 @@ export default {
                 { "text-center": parent.props.showButtons && parent.props.buttonLayout === "vertical" },
                 
                 // Spacing
-                "py-1.5 px-2",
+                "py-1 px-2",
                 "m-0",
                 
                 // Shape
@@ -109,7 +109,7 @@ export default {
             
             // Sizing
             "w-[3rem]",
-            { "px-3 py-1.5": props.showButtons && props.buttonLayout !== "stacked" },
+            { "px-3 py-1": props.showButtons && props.buttonLayout !== "stacked" },
             { "p-0": props.showButtons && props.buttonLayout === "stacked" },
             { "w-full": props.showButtons && props.buttonLayout === "vertical" },
             
@@ -154,7 +154,7 @@ export default {
             
             // Sizing
             "w-[3rem]",
-            { "px-3 py-1.5": props.showButtons && props.buttonLayout !== "stacked" },
+            { "px-3 py-1": props.showButtons && props.buttonLayout !== "stacked" },
             { "p-0": props.showButtons && props.buttonLayout === "stacked" },
             { "w-full": props.showButtons && props.buttonLayout === "vertical" },
             

@@ -132,7 +132,7 @@ export default {
                 "rounded-md",
                 
                 // Spacing
-                "py-1 px-2",
+                "py-2.5 px-2",
                 
                 // Colors
                 context.selected
@@ -322,7 +322,7 @@ export default {
                 
                 // Spacing
                 "m-0",
-                "py-2 px-3 pr-10",
+                "py-2.5 px-2 pr-10",
                 
                 // Size
                 "w-full",

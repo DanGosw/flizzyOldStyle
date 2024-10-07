@@ -5,6 +5,7 @@ import FormItem from "@/hooks/components/formItem/formItem.vue";
 
 const props = defineProps({
     value: { type: [String, Number, Object], default: "" },
+    cols: { type: String, default: "" },
     name: { type: String, required: true },
     showMark: { type: Boolean, required: true },
     label: { type: String, default: "" },
@@ -20,7 +21,7 @@ const { value: selectValue, errorMessage, handleBlur, handleChange } = useField(
 
 </script>
 <template>
-    <form-item :label="label" :mark="showMark" :for="name" :error="errorMessage">
+    <form-item :label="label" :mark="showMark" :for="name" :error="errorMessage" :cols="cols">
         <CascadeSelect v-model="selectValue" :options="options" :optionLabel="optionLabel" :optionGroupLabel="optionGroupLabel" fluid
                        :optionGroupChildren="['states', 'cities']" style="min-width: 14rem" @input="handleChange" :invalid="!!errorMessage"
                        @blur="handleBlur($event, true)" placeholder="Seleccione" :optionValue="optionValue" :input-id="name"/>

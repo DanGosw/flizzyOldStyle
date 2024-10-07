@@ -35,6 +35,7 @@ const { value: newCode, handleBlur: newCodeBlur } = useField("newCode");
 const { value: codeConfirm, handleBlur: codeConfirmBlur } = useField("codeConfirm");
 
 const onSubmit = handleSubmit(() => {
+    onReset();
     console.log("Submitted with", { ...values });
 }, ({ errors }) => {
     console.log(errors);
@@ -50,22 +51,16 @@ const onReset = () => {
 
 <template>
     <div class="align-items-form">
-        <div class="max-cols-12">
-            <form-item for="code" label="Clave Actual" mark :error="errors.code">
-                <InputText v-model="code" id="code" @blur="codeBlur($event, true)" maxlength="10" :invalid="!!errors.code" class="w-full"/>
-            </form-item>
-        </div>
-        <div class="max-cols-12">
-            <form-item for="newCode" label="Nueva Clave" mark :error="errors.newCode">
-                <InputText v-model="newCode" id="newCode" @blur="newCodeBlur($event, true)" :invalid="!!errors.newCode" class="w-full"/>
-            </form-item>
-        </div>
-        <div class="max-cols-12">
-            <form-item for="confirm" label="Confirmar Clave" mark :error="errors.codeConfirm">
-                <InputText v-model="codeConfirm" id="confirm" @blur="codeConfirmBlur($event, true)" :invalid="!!errors.codeConfirm"
-                           class="w-full"/>
-            </form-item>
-        </div>
+        <form-item for="code" label="Clave Actual" mark :error="errors.code" cols="12">
+            <InputText v-model="code" id="code" @blur="codeBlur($event, true)" maxlength="10" :invalid="!!errors.code" class="w-full"/>
+        </form-item>
+        <form-item for="newCode" label="Nueva Clave" mark :error="errors.newCode" cols="12">
+            <InputText v-model="newCode" id="newCode" @blur="newCodeBlur($event, true)" :invalid="!!errors.newCode" class="w-full"/>
+        </form-item>
+        <form-item for="confirm" label="Confirmar Clave" mark :error="errors.codeConfirm" cols="12">
+            <InputText v-model="codeConfirm" id="confirm" @blur="codeConfirmBlur($event, true)" :invalid="!!errors.codeConfirm"
+                       class="w-full"/>
+        </form-item>
     </div>
     <div class="mt-2 flex items-center justify-center space-x-2">
         <Button label="Cancelar" severity="secondary" outlined raised class="w-full border border-surface-300" @click="onReset">

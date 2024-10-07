@@ -63,7 +63,7 @@ const { value: sendAutomatic } = useField("sendAutomatic");
 
 const onSubmit = handleSubmit((values) => {
     console.log("Submitted with", values);
-    props.refreshData();
+    onReset();
     toast.add({ severity: "info", summary: "Title xd", detail: values, life: 10000 });
 });
 
@@ -272,107 +272,79 @@ onMounted(async() => {
 
 <template>
     <div class="align-items-form">
-        <div class="max-cols-6">
-            <form-item for="business" label="Empresa" mark :error="errors.business">
-                <Select v-model="business" input-id="business" :options="businessOptions" optionLabel="label" optionValue="value"
-                        class="w-full" :invalid="!!errors.business" @blur="businessBlur($event, true)"/>
-            </form-item>
-        </div>
-        <div class="max-cols-6">
-            <form-item for="branchName" label="Nombre Comercial" mark :error="errors.branchName">
-                <InputText v-model="branchName" id="branchName" size="small" :invalid="!!errors.branchName"
-                           @blur="branchNameBlur($event, true)" class="w-full"/>
-            </form-item>
-        </div>
-        <div class="max-cols-4">
-            <form-item for="description" label="Descripción" mark :error="errors.description">
-                <InputText v-model="description" id="description" size="small" :invalid="!!errors.description"
-                           @blur="descriptionBlur($event, true)" class="w-full"/>
-            </form-item>
-        </div>
-        <div class="max-cols-4">
-            <form-item for="ubigeo" label="Ubigeo" mark :error="errors.ubigeo">
-                <CascadeSelect :options="ubigeoOptions" name="ubigeo" label="Ubigeo" option-value="code" option-group-label="name" fluid
-                               option-label="cname" :option-group-children="['states', 'cities']" v-model="ubigeo" input-id="ubigeo"
-                               :invalid="!!errors.ubigeo" @blur="ubigeoBlur($event, true)" placeholder="Seleccione su ubigeo"/>
-            </form-item>
-        </div>
-        <div class="max-cols-4">
-            <form-item for="address" label="Dirección" mark :error="errors.address">
-                <InputText v-model="address" id="address" size="small" :invalid="!!errors.address" @blur="addressBlur($event, true)"/>
-            </form-item>
-        </div>
-        <div class="max-cols-4">
-            <form-item for="email" label="Correo">
-                <InputText v-model="email" size="small" id="email"/>
-            </form-item>
-        </div>
-        <div class="max-cols-4">
-            <form-item for="phone" label="Teléfono">
-                <InputText v-model="phone" id="phone" size="small" @input="handleInputPhone"/>
-            </form-item>
-        </div>
-        <div class="max-cols-4">
-            <form-item for="sendAutomatic" label="Activar envío automático">
-                <Checkbox v-model="sendAutomatic" binary input-id="sendAutomatic"/>
-            </form-item>
-        </div>
-        <div class="max-cols-4">
-            <form-item for="legendAsset" label="Leyenda Bienes">
-                <Textarea v-model="legendAsset" id="legendAsset" auto-resize rows="3" cols="30" class="w-full"/>
-            </form-item>
-        </div>
-        <div class="max-cols-4">
-            <form-item for="legendService" label="Leyenda Servicio">
-                <Textarea v-model="legendService" id="legendService" auto-resize rows="3" cols="30" class="w-full"/>
-            </form-item>
-        </div>
-        <div class="max-cols-4">
-            <form-item for="legendReturn" label="Leyenda Retorno">
-                <Textarea v-model="legendReturn" id="legendReturn" auto-resize rows="3" cols="30" class="w-full"/>
-            </form-item>
-        </div>
-        <div class="max-cols-4">
-            <form-item for="logoMini" label="Mini Logo">
-                <FileUpload name="logoMini[0]" accept="image/png, image/jpeg, image/jpg" :multiple="false" :max-file-size="1000000"
-                            :file-limit="1" @select="onFileSelect($event, 'mini')" input-id="logoMini" class="w-full"
-                            @remove="logoMini = []" v-model="logoMini" choose-label="Seleccione su logo" ref="fileUploadMini"
-                            invalid-file-size-message="La imagen supera el tamaño permitido" :show-upload-button="false"
-                            :show-cancel-button="false" invalid-file-limit-message="Solo puedes subir una imagen...">
-                    <template #empty>
-                        <span>Arrastre su logo aquí...</span>
-                    </template>
-                </FileUpload>
-            </form-item>
-        </div>
-        <div class="max-cols-4">
-            <form-item for="logoA4" label="Logo A4">
-                <FileUpload name="logoA4[0]" accept="image/png, image/jpeg, image/jpg" :multiple="false" :max-file-size="1000000"
-                            :file-limit="1" input-id="logoA4" @select="onFileSelect($event, 'a4')" class="w-full"
-                            @remove="logoA4 = []" v-model="logoA4" choose-label="Seleccione su logo" ref="fileUploadA4"
-                            invalid-file-size-message="La imagen supera el tamaño permitido" :show-upload-button="false"
-                            :show-cancel-button="false" invalid-file-limit-message="Solo puedes subir una imagen...">
-                    <template #empty>
-                        <span>Arrastre su logo aquí...</span>
-                    </template>
-                </FileUpload>
-            </form-item>
-        </div>
-        <div class="max-cols-4">
-            <form-item for="logoTicket" label="Logo Ticket">
-                <FileUpload name="logoTicket[0]" accept="image/png, image/jpeg, image/jpg" :multiple="false" :max-file-size="1000000"
-                            :file-limit="1" @select="onFileSelect($event, 'tick')" input-id="logoTicket" class="w-full"
-                            @remove="logoTicket = []" v-model="logoTicket" choose-label="Seleccione su logo" ref="fileUploadTicket"
-                            invalid-file-size-message="La imagen supera el tamaño permitido" :show-upload-button="false"
-                            :show-cancel-button="false" invalid-file-limit-message="Solo puedes subir una imagen...">
-                    <template #empty>
-                        <span>Arrastre su logo aquí...</span>
-                    </template>
-                </FileUpload>
-            </form-item>
-        </div>
+        <form-item for="business" label="Empresa" mark :error="errors.business" cols="6">
+            <Select v-model="business" input-id="business" :options="businessOptions" optionLabel="label" optionValue="value"
+                    class="w-full" :invalid="!!errors.business" @blur="businessBlur($event, true)"/>
+        </form-item>
+        <form-item for="branchName" label="Nombre Comercial" mark :error="errors.branchName" cols="6">
+            <InputText v-model="branchName" id="branchName" size="small" :invalid="!!errors.branchName"
+                       @blur="branchNameBlur($event, true)" class="w-full"/>
+        </form-item>
+        <form-item for="description" label="Descripción" mark :error="errors.description" cols="4">
+            <InputText v-model="description" id="description" size="small" :invalid="!!errors.description"
+                       @blur="descriptionBlur($event, true)" class="w-full"/>
+        </form-item>
+        <form-item for="ubigeo" label="Ubigeo" mark :error="errors.ubigeo" cols="4">
+            <CascadeSelect :options="ubigeoOptions" name="ubigeo" label="Ubigeo" option-value="code" option-group-label="name" fluid
+                           option-label="cname" :option-group-children="['states', 'cities']" v-model="ubigeo" input-id="ubigeo"
+                           :invalid="!!errors.ubigeo" @blur="ubigeoBlur($event, true)" placeholder="Seleccione su ubigeo"/>
+        </form-item>
+        <form-item for="address" label="Dirección" mark :error="errors.address" cols="4">
+            <InputText v-model="address" id="address" size="small" :invalid="!!errors.address" @blur="addressBlur($event, true)"/>
+        </form-item>
+        <form-item for="email" label="Correo" cols="4">
+            <InputText v-model="email" size="small" id="email"/>
+        </form-item>
+        <form-item for="phone" label="Teléfono" cols="4">
+            <InputText v-model="phone" id="phone" size="small" @input="handleInputPhone"/>
+        </form-item>
+        <form-item for="sendAutomatic" label="Activar envío automático" cols="4">
+            <Checkbox v-model="sendAutomatic" binary input-id="sendAutomatic"/>
+        </form-item>
+        <form-item for="legendAsset" label="Leyenda Bienes" cols="4">
+            <Textarea v-model="legendAsset" id="legendAsset" auto-resize rows="3" cols="30" class="w-full"/>
+        </form-item>
+        <form-item for="legendService" label="Leyenda Servicio" cols="4">
+            <Textarea v-model="legendService" id="legendService" auto-resize rows="3" cols="30" class="w-full"/>
+        </form-item>
+        <form-item for="legendReturn" label="Leyenda Retorno" cols="4">
+            <Textarea v-model="legendReturn" id="legendReturn" auto-resize rows="3" cols="30" class="w-full"/>
+        </form-item>
+        <form-item for="logoMini" label="Mini Logo" cols="4">
+            <FileUpload name="logoMini[0]" accept="image/png, image/jpeg, image/jpg" :multiple="false" :max-file-size="1000000"
+                        :file-limit="1" @select="onFileSelect($event, 'mini')" input-id="logoMini" class="w-full"
+                        @remove="logoMini = []" v-model="logoMini" choose-label="Seleccione su logo" ref="fileUploadMini"
+                        invalid-file-size-message="La imagen supera el tamaño permitido" :show-upload-button="false"
+                        :show-cancel-button="false" invalid-file-limit-message="Solo puedes subir una imagen...">
+                <template #empty>
+                    <span>Arrastre su logo aquí...</span>
+                </template>
+            </FileUpload>
+        </form-item>
+        <form-item for="logoA4" label="Logo A4" cols="4">
+            <FileUpload name="logoA4[0]" accept="image/png, image/jpeg, image/jpg" :multiple="false" :max-file-size="1000000"
+                        :file-limit="1" input-id="logoA4" @select="onFileSelect($event, 'a4')" class="w-full"
+                        @remove="logoA4 = []" v-model="logoA4" choose-label="Seleccione su logo" ref="fileUploadA4"
+                        invalid-file-size-message="La imagen supera el tamaño permitido" :show-upload-button="false"
+                        :show-cancel-button="false" invalid-file-limit-message="Solo puedes subir una imagen...">
+                <template #empty>
+                    <span>Arrastre su logo aquí...</span>
+                </template>
+            </FileUpload>
+        </form-item>
+        <form-item for="logoTicket" label="Logo Ticket" cols="4">
+            <FileUpload name="logoTicket[0]" accept="image/png, image/jpeg, image/jpg" :multiple="false" :max-file-size="1000000"
+                        :file-limit="1" @select="onFileSelect($event, 'tick')" input-id="logoTicket" class="w-full"
+                        @remove="logoTicket = []" v-model="logoTicket" choose-label="Seleccione su logo" ref="fileUploadTicket"
+                        invalid-file-size-message="La imagen supera el tamaño permitido" :show-upload-button="false"
+                        :show-cancel-button="false" invalid-file-limit-message="Solo puedes subir una imagen...">
+                <template #empty>
+                    <span>Arrastre su logo aquí...</span>
+                </template>
+            </FileUpload>
+        </form-item>
     </div>
-    <div class="flex items-center flex-wrap md:flex-nowrap justify-center gap-2 mt-4">
+    <div class="mt-4 flex flex-wrap items-center justify-center gap-2 md:flex-nowrap">
         <Button label="Cancelar" severity="secondary" outlined raised class="w-full" @click="onReset">
             <template #icon>
                 <i-ri-close-line class="mx-1"/>

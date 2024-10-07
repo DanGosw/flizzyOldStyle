@@ -12,7 +12,8 @@ export default {
             {
                 "py-3 px-3.5": props.size === "large",
                 "py-1.5 px-2 w-full": props.size === "small",
-                "py-2 px-3": props.size === null
+                "py-1.5 px-3": props.size === null,
+                "py-2 pr-8 pl-2": parent.instance.$name === "IconField"
             },
             
             // Shape

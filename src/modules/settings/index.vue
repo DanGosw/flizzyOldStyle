@@ -1,6 +1,7 @@
 <script setup>
 
-import router from "@/routes/index.js";
+
+const router = useRouter();
 
 const classContent = "h-72 flex flex-col cursor-pointer items-center justify-center w-72 rounded-xl border border-[#dadaea] dark:border-[#474751] hover:shadow-lg dark:hover:shadow-surface-700";
 
@@ -9,7 +10,7 @@ const classContent = "h-72 flex flex-col cursor-pointer items-center justify-cen
 <template>
     <Card>
         <template #title>
-            <h5>Configuración</h5>
+            <p>Configuración</p>
         </template>
         <template #content>
             <div class="flex flex-wrap items-center justify-center gap-2">

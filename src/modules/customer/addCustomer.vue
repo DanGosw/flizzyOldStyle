@@ -1,11 +1,13 @@
 <script setup>
 import { useNumericInput } from "@/hooks/inputMethods.js";
+import Button from "primevue/button";
 import { ref } from "vue";
 import * as yup from "yup";
 import { useField, useFieldArray, useForm } from "vee-validate";
 import CascadeSelectArray from "@/hooks/components/inputsRequired/cascadeSelectArray.vue";
 import InputValidateArray from "@/hooks/components/inputsRequired/inputValidateArray.vue";
 import FormItem from "@/hooks/components/formItem/formItem.vue";
+import toastErrorMessageForm from "@/hooks/composables/toastServer/toastEvent.js";
 
 const toast = useToast();
 
@@ -161,8 +163,11 @@ const ubigeoOptions = ref([
 
 const onSubmit = handleSubmit((values) => {
     console.log("Submitted with", values);
-    props.refreshData();
+    onReset();
     toast.add({ severity: "info", summary: "Title xd", detail: values, life: 10000 });
+}, ({ errors }) => {
+    const errorMessages = Object.entries(errors).map(([field, message]) => `${field}: ${message}`).join(", ");
+    toastErrorMessageForm(`Complete los siguientes campos: ${errorMessages}`);
 });
 
 const onReset = () => {
@@ -175,59 +180,51 @@ const onReset = () => {
 
 <template>
     <div class="align-items-form">
-        <div class="max-cols-4">
-            <form-item for="documentType" label="Documento" mark :error="errors.docType">
-                <Select v-model="docType" input-id="documentType" size="small" :options="optionsDocument" optionLabel="name" show-clear
-                        :invalid="!!errors.docType" optionValue="value" @blur="docTypeBlur($event, true)" class="w-full"/>
-            </form-item>
-        </div>
-        <div class="max-cols-4">
-            <form-item for="dni" label="DNI" mark :error="errors.docNumber">
-                <InputGroup class="w-full">
-                    <InputText v-model.number="docNumber" id="dni" maxlength="8" :invalid="!!errors.docNumber"
-                               size="small" @blur="docNumberBlur($event, true)" @input="handleInputDocNumber"/>
-                    <Button size="small">
-                        <!--                        <template #icon>-->
-                        <i-material-symbols-manage-search-rounded class="!mx-1"/>
-                        <!--                        </template>-->
-                    </Button>
-                </InputGroup>
-            </form-item>
-        </div>
-        <div class="max-cols-4">
-            <form-item for="genere" label="Genero" mark :error="errors.genere">
-                <Select v-model="genere" input-id="genere" size="small" :options="optionsGenere" optionLabel="name"
-                        :invalid="!!errors.genere" optionValue="value" @blur="genereBlur($event, true)" class="w-full"/>
-            </form-item>
-        </div>
-        <div class="max-cols-6">
-            <form-item for="names" label="Nombres" mark :error="errors.names">
-                <InputText v-model="names" id="names" size="small" :invalid="!!errors.names" @blur="namesBlur($event, true)"/>
-            </form-item>
-        </div>
-        <div class="max-cols-6">
-            <form-item for="lastnames" label="Apellidos" mark :error="errors.lastnames">
-                <InputText v-model="lastnames" id="lastnames" size="small" :invalid="!!errors.lastnames"
-                           @blur="lastnamesBlur($event, true)"/>
-            </form-item>
-        </div>
-        <div class="max-cols-4">
-            <form-item for="birthday" label="F. Nacimiento" hide-error>
-                <DatePicker v-model="birthday" class="!w-full" size="small" input-id="birthday" date-format="dd-mm-yy" show-icon/>
-            </form-item>
-        </div>
-        <div class="max-cols-4">
-            <form-item for="cellphone" label="Teléfono" hide-error>
-                <InputText v-model="phone" id="cellphone" size="small" maxlength="9" @input="handleInputPhone"/>
-            </form-item>
-        </div>
-        <div class="max-cols-4">
-            <form-item for="email" label="Correo" hide-error>
-                <InputText v-model="email" id="email" size="small"/>
-            </form-item>
-        </div>
+        <form-item for="documentType" label="Documento" mark :error="errors.docType" cols="4">
+            <Select v-model="docType" input-id="documentType" size="small" :options="optionsDocument" optionLabel="name" show-clear
+                    :invalid="!!errors.docType" optionValue="value" @blur="docTypeBlur($event, true)" class="w-full"/>
+        </form-item>
+
+        <form-item for="dni" label="DNI" mark :error="errors.docNumber" cols="4">
+            <InputGroup class="w-full">
+                <InputText v-model.number="docNumber" id="dni" maxlength="8" :invalid="!!errors.docNumber"
+                           size="small" @blur="docNumberBlur($event, true)" @input="handleInputDocNumber"/>
+                <Button size="small" raised>
+                    <template #icon>
+                        <i-material-symbols-manage-search-rounded class="!mx-1 text-lg"/>
+                    </template>
+                </Button>
+            </InputGroup>
+        </form-item>
+
+        <form-item for="genere" label="Genero" mark :error="errors.genere" cols="4">
+            <Select v-model="genere" input-id="genere" size="small" :options="optionsGenere" optionLabel="name"
+                    :invalid="!!errors.genere" optionValue="value" @blur="genereBlur($event, true)" class="w-full"/>
+        </form-item>
+
+        <form-item for="names" label="Nombres" mark :error="errors.names" cols="6">
+            <InputText v-model="names" id="names" size="small" :invalid="!!errors.names" @blur="namesBlur($event, true)"/>
+        </form-item>
+
+        <form-item for="lastnames" label="Apellidos" mark :error="errors.lastnames" cols="6">
+            <InputText v-model="lastnames" id="lastnames" size="small" :invalid="!!errors.lastnames"
+                       @blur="lastnamesBlur($event, true)"/>
+        </form-item>
+
+        <form-item for="birthday" label="F. Nacimiento" hide-error cols="4">
+            <DatePicker v-model="birthday" class="!w-full" size="small" input-id="birthday" date-format="dd-mm-yy" show-icon/>
+        </form-item>
+
+        <form-item for="cellphone" label="Teléfono" hide-error cols="4">
+            <InputText v-model="phone" id="cellphone" size="small" maxlength="9" @input="handleInputPhone"/>
+        </form-item>
+
+        <form-item for="email" label="Correo" hide-error cols="4">
+            <InputText v-model="email" id="email" size="small"/>
+        </form-item>
+
     </div>
-    <div class="sm:space-x-2 space-x-0 space-y-2 sm:space-y-0 flex flex-wrap items-center justify-center my-2">
+    <div class="my-2 flex flex-wrap items-center justify-center space-x-0 space-y-2 sm:space-x-2 sm:space-y-0">
         <div class="">
             Direcciones
         </div>
@@ -243,14 +240,12 @@ const onReset = () => {
         </div>
     </div>
     <div class="align-items-form" v-for="(data, index) in valueFields" :key="data.key">
-        <div class="max-cols-4">
-            <cascade-select-array :options="ubigeoOptions" :name="`address[${index}].ubigeo`" label="Ubigeo" option-value="code"
-                                  :value="data.value.ubigeo" option-group-label="name" option-label="cname" showMark
-                                  :option-group-children="['states', 'cities']"/>
-        </div>
-        <div :class="`max-cols-${index !== 0 ? 7 : 8}`">
-            <input-validate-array :name="`address[${index}].location`" label="Dirección" :value="data.value.location" show-mark/>
-        </div>
+        <cascade-select-array :options="ubigeoOptions" :name="`address[${index}].ubigeo`" label="Ubigeo" option-value="code"
+                              :value="data.value.ubigeo" option-group-label="name" option-label="cname" showMark cols="4"
+                              :option-group-children="['states', 'cities']"/>
+        <input-validate-array :name="`address[${index}].location`" label="Dirección" :value="data.value.location" show-mark
+                              :cols="`${index !== 0 ? '7' : '8'}`"/>
+
         <div class="col-span-1 flex items-center justify-center">
             <Button severity="danger" @click="removeAddress(index)" v-if="index !== 0" size="small" class="mt-6 w-full">
                 <template #icon>
@@ -260,7 +255,7 @@ const onReset = () => {
         </div>
     </div>
 
-    <div class="flex items-center flex-wrap md:flex-nowrap justify-center gap-2">
+    <div class="mt-2 flex flex-wrap items-center justify-center gap-2 md:flex-nowrap">
         <Button label="Cancelar" severity="secondary" outlined raised class="w-full" @click="onReset">
             <template #icon>
                 <i-ri-close-line class="mx-1"/>

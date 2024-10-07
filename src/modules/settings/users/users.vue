@@ -35,7 +35,7 @@ const addParametersUserModal = () => {
     parametersModal.value = {
         visible: true,
         header: "Nuevo usuario",
-        width: "70vw",
+        width: "55vw",
         footer: "",
         component: componentAddUserModal
     };
@@ -49,7 +49,6 @@ const addParametersCodeModal = () => {
     parametersModal.value = {
         visible: true,
         header: "Cambiar clave de seguridad",
-        content: "content",
         width: "30vw",
         footer: "",
         component: componentCodeModal
@@ -61,7 +60,7 @@ const addParametersCodeModal = () => {
 <template>
     <Card>
         <template #title>
-            <div class="alignHeader">
+            <div class="align-header">
                 <div class="flex gap-2 items-center">
                     <Button severity="secondary" size="small" class="!px-2" rounded @click="router.push({name: 'settings', force: true})">
                         <template #icon>
@@ -70,7 +69,7 @@ const addParametersCodeModal = () => {
                     </Button>
                     <p>Configuración de Usuarios</p>
                 </div>
-                <div class="sm:space-x-2 space-x-0 space-y-2 sm:space-y-0 mt-2 sm:mt-0">
+                <div class="align-header">
                     <Button label="Cambiar Clave de Seguridad" rounded size="small" severity="warn" @click="addParametersCodeModal">
                         <template #icon>
                             <i-ri-lock-password-line class="mx-1"/>

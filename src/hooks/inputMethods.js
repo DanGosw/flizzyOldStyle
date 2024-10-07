@@ -31,27 +31,27 @@
  * // <input @input="handleInput" v-model="customerFilters.value.dni" />
  */
 export function useNumericInput(existingRef, property) {
-    /**
-     * Handles input events for reactive references, ensuring that only numeric values are allowed.
-     *
-     * @param {Event} event - The input event object.
-     */
-    function handleInputReactive(event) {
-        const newValue = event.target.value.replace(/\D/g, "");
-        existingRef.value = newValue;
-        event.target.value = newValue;
-    }
-    
-    /**
-     * Handles input events for non-reactive objects, ensuring that only numeric values are allowed.
-     *
-     * @param {Event} event - The input event object.
-     */
-    function handleInput(event) {
-        const newValue = event.target.value.replace(/\D/g, "");
-        existingRef[property] = newValue;
-        event.target.value = newValue;
-    }
-    
-    return { handleInputReactive, handleInput };
+	/**
+	 * Handles input events for reactive references, ensuring that only numeric values are allowed.
+	 *
+	 * @param {Event} event - The input event object.
+	 */
+	function handleInputReactive(event) {
+		const newValue = event.target?.['value'].replace(/\D/g, "");
+		existingRef.value = newValue;
+		event.target.value = newValue;
+	}
+
+	/**
+	 * Handles input events for non-reactive objects, ensuring that only numeric values are allowed.
+	 *
+	 * @param {Event} event - The input event object.
+	 */
+	function handleInput(event) {
+		const newValue = event.target?.['value'].replace(/\D/g, "");
+		existingRef[property] = newValue;
+		event.target.value = newValue;
+	}
+
+	return {handleInputReactive, handleInput};
 }

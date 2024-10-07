@@ -75,8 +75,8 @@
     --primary-highlight-hover-opacity: 0.3;
 }
 
-.markRequired {
-    @apply flex h-4 text-sm text-red-500 items-center mt-0.5;
+.error-required {
+    @apply flex h-3 text-sm text-red-500 items-center mt-1;
 }
 
 .label-size {
@@ -95,8 +95,8 @@
     @apply grid grid-cols-1 items-start justify-start gap-x-3.5 gap-y-1 md:grid-cols-12;
 }
 
-.alignHeader {
-    @apply flex sm:justify-between flex-wrap items-center;
+.align-header {
+    @apply flex sm:justify-between flex-wrap items-center gap-2;
 }
 
 .max-cols-1 {
@@ -153,15 +153,15 @@
 }
 
 *::-webkit-scrollbar-track {
-    @apply bg-primary-200 dark:bg-surface-800 rounded;
+    @apply bg-primary-200 dark:bg-surface-700/50 rounded;
 }
 
 *::-webkit-scrollbar-thumb {
-    @apply bg-primary-400 dark:bg-surface-600 rounded;
+    @apply bg-primary-500 dark:bg-surface-500 rounded;
 }
 
 *::-webkit-scrollbar-thumb:horizontal {
-    @apply bg-primary-400 dark:bg-surface-600 rounded h-2;
+    @apply bg-primary-500 dark:bg-surface-500 rounded h-2;
 }
 
 *::-webkit-scrollbar-corner {
@@ -172,27 +172,18 @@
     @apply transition ease-[cubic-bezier(.73,.25,.43,.88)];
 }
 
-.customized-primary {
-    &:not(.dark) {
-        --primary: var(--primary-950);
-        --primary-inverse: var(--surface-0);
-        --primary-hover: var(--primary-800);
-        --primary-active-color: var(--primary-900);
+::selection {
+    @apply bg-primary-200 dark:bg-surface-700;
+}
 
-        --primary-highlight-opacity: 1;
-        --primary-highlight-inverse: var(--surface-0);
-        --primary-highlight-hover-opacity: 0.8;
-    }
-
-    &.dark {
-        --primary: var(--primary-50);
-        --primary-inverse: var(--surface-950);
-        --primary-hover: var(--primary-100);
-        --primary-active-color: var(--primary-100);
-
-        --primary-highlight-opacity: 0.1;
-        --primary-highlight-inverse: var(--surface-0);
-        --primary-highlight-hover-opacity: 0.2;
-
+.dark {
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: #e0e6ee;
+        transition: background-color 2000s ease-in-out 0s;
+        box-shadow: inset 0 0 20px 20px #23232329;
     }
 }

@@ -60,12 +60,10 @@ const addParametersCustomerModal = () => {
 };
 
 /* Methods */
-const deleteClient = (info, idx) => {
-    console.log(idx);
-    data.value.filter((_, index) => index !== idx);
+const deleteClient = (idx) => {
     data.value = data.value.filter((_, ind) => ind !== idx);
     console.log(data.value);
-    toast.add({ severity: "error", summary: "Title xd", detail: info.type, life: 5000 });
+    toast.add({ severity: "error", summary: "Title xd", detail: idx, life: 5000 });
 };
 
 /**
@@ -112,7 +110,7 @@ defineExpose({ loadCustomer });
 <template>
     <DataTable size="small" striped-rows show-gridlines :value="data" scroll-direction="horizontal" scroll-height="65vh"
                :rowsPerPageOptions="[10,20,50]" :total-records="totalLength" lazy scrollable @page="onPageChange" :loading="loading"
-               dataKey="code" tableStyle="min-width: 70rem;" paginator :rows="pageSize">
+               dataKey="code" tableStyle="min-width: 60rem;" paginator :rows="pageSize">
         <template #empty>
             <empty-table/>
         </template>
@@ -120,27 +118,27 @@ defineExpose({ loadCustomer });
             <loading-data/>
         </template>
         <Column style="width: 10%" field="dni" header="Documento">
-            <template #body="{data}">
-                {{ data.docType || "DNI" }}: {{ data.docNumber || "71111459" }}
+            <template #body="{index}">
+                {{ index + 1 }} : {{ data.docNumber || "71111459" }}
             </template>
         </Column>
         <Column style="width: 10%" field="name" header="Nombres"/>
         <Column style="width: 10%" field="address" header="Dirección"/>
         <Column style="width: 10%" field="birthday" header="F. Nacimiento"/>
         <Column style="width: 10%" field="phone" header="Teléfono"/>
-        <Column style="width: 10%" field="email" header="Correo"/>
+        <!--        <Column style="width: 10%" field="email" header="Correo"/>-->
         <Column style="width: 10%" field="status" header="Estado"/>
-        <Column style="width: 2%" header="Acciones">
+        <Column style="width: 3%" header="Acciones">
             <template #body="{index}">
-                <div class="flex items-center justify-center space-x-1">
+                <div class="flex items-center justify-start space-x-1">
                     <Button size="small" severity="warn" v-tooltip.top="'Editar Cliente'" @click="addParametersCustomerModal"
-                            class="!p-0.5">
+                            class="!p-[0.5px]">
                         <template #icon>
                             <i-tabler-user-edit class="mx-0.5"/>
                         </template>
                     </Button>
-                    <Button size="small" severity="danger" v-tooltip.top="'Bloquear cliente'" @click="deleteClient($event, index)"
-                            class="!p-0.5">
+                    <Button size="small" severity="danger" v-tooltip.top="'Bloquear cliente'" @click="deleteClient(index)"
+                            class="!p-[0.5px]">
                         <template #icon>
                             <i-solar-user-block-outline class="mx-0.5"/>
                         </template>

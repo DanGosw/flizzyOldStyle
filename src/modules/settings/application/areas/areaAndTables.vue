@@ -180,7 +180,7 @@ const tableSchema = ref([
     }
 ]);
 
-const arrayTable = ref({ data: tableSchema.value[0] || [], index: 0 });
+const arrayTable = ref(tableSchema.value[0]);
 const editingRows = ref([]);
 
 const saveRowEdit = ({ data }) => {
@@ -191,12 +191,12 @@ const saveRowEdit = ({ data }) => {
  * @description Evaluates if the row is being edited or if it contains a class where the edit function is being called
  * @params {data, originalEvent, index}
  */
-const addDataOnRowClick = ({ data, originalEvent, index }) => {
+const addDataOnRowClick = ({ data, originalEvent }) => {
     if(!originalEvent.target.closest(".xd") && !originalEvent.target.closest("[data-p-cell-editing='true']")) {
-        if(arrayTable.value.index === index) {
-            arrayTable.value = { data: [], index: null };
+        if(arrayTable.value?.id === data.id) {
+            arrayTable.value = null;
         } else {
-            arrayTable.value = { data, index };
+            arrayTable.value = data;
         }
     }
 };
@@ -204,40 +204,41 @@ const addDataOnRowClick = ({ data, originalEvent, index }) => {
 </script>
 
 <template>
-    <div class="flex gap-2 flex-wrap md:flex-nowrap">
-        <div class="md:w-1/4 w-full">
-            <DataTable size="large" striped-rows show-gridlines dataKey="code" tableStyle="min-width: 10rem;" :value="tableSchema"
+    <div class="flex flex-wrap gap-2 md:flex-nowrap">
+        <div class="w-full md:w-1/4">
+            <DataTable size="small" striped-rows show-gridlines dataKey="code" tableStyle="min-width: 10rem;" :value="tableSchema"
                        @row-click="addDataOnRowClick" edit-mode="row" v-model:editing-rows="editingRows" data-key="id"
-                       @row-edit-save="saveRowEdit">
+                       @row-edit-save="saveRowEdit"
+                       :row-class="({id})=>({'!bg-primary-300/80 dark:!bg-surface-600/80': id === arrayTable?.id})">
                 <Column field="description" header="Areas" class="cursor-pointer hover:!bg-opacity-0" style="width: 10%">
                     <template #editor="{ data, field }">
-                        <InputText v-model="data[field]"/>
+                        <InputText v-model="data[field]" class="w-full"/>
                     </template>
                 </Column>
                 <Column row-editor style="width: 1%" class="xd">
                     <template #header>
-                        <Button raised size="small" @click="addParametersAreaModal">
+                        <Button raised size="small" @click="addParametersAreaModal" v-tooltip.top="'Agregar nueva area'">
                             <template #icon>
                                 <i-fluent-table-offset-add-24-filled/>
                             </template>
                         </Button>
                     </template>
                     <template #roweditoriniticon>
-                        <i-material-symbols-edit class="xd"/>
+                        <i-material-symbols-edit class="text-lg xd"/>
                     </template>
                     <template #roweditorsaveicon>
-                        <i-ic-baseline-save-all class="xd"/>
+                        <i-ic-baseline-save-all class="text-lg xd"/>
                     </template>
                     <template #roweditorcancelicon>
-                        <i-solar-close-square-bold class="xd"/>
+                        <i-solar-close-square-bold class="text-lg xd"/>
                     </template>
                 </Column>
             </DataTable>
         </div>
-        <view-list-table :table="arrayTable" v-if="arrayTable.index !== null"/>
+        <view-list-table :table="arrayTable" v-if="arrayTable?.id !== undefined"/>
         <div v-else
-             class="md:w-3/4 w-full bg-surface-100 dark:bg-surface-800 rounded-xl border dark:border-slate-700 flex items-center justify-center">
-            <i-ic-round-hourglass-empty class="text-3xl animate-spin mx-1"/>
+             class="flex w-full items-center justify-center rounded-xl border min-h-36 bg-surface-100 dark:bg-surface-800 dark:border-slate-700 md:w-3/4">
+            <i-ic-round-hourglass-empty class="mx-1 animate-spin text-3xl"/>
             <span class="text-xl"> Seleccione una area para modificar </span>
         </div>
         <modal-component :parameters="parametersModal"/>

@@ -10,7 +10,7 @@ export default {
             },
             
             // Shape
-            "rounded-md",
+            "rounded-md border",
             
             // Color and Background
             { "bg-surface-0 dark:bg-surface-950": !props.disabled },
@@ -20,7 +20,7 @@ export default {
             // Invalid State
             "invalid:focus:ring-red-200",
             "invalid:hover:border-red-500",
-            { "border-red-500 dark:border-red-400": props.invalid },
+            { "border-red-400 dark:!border-red-500": props.invalid },
             
             // Transitions
             "transition-all",
@@ -40,14 +40,14 @@ export default {
     label: ({ props }) => ({
         class: [
             // Font
-            "leading-none text-[14px]",
+            "leading-[normal] text-[14px]",
             
             // Flex & Alignment
             "flex flex-auto",
             
             // Sizing and Spacing
             "w-[1%]",
-            "py-2 px-2",
+            "py-1.5 px-2",
             
             //Shape
             "rounded-none",
@@ -116,7 +116,7 @@ export default {
             // Colors
             {
                 "text-surface-500 dark:text-white/70": !context.focused && !context.active,
-                "text-surface-500 dark:text-white/70 bg-surface-200": context.focused && !context.active,
+                "text-surface-500 dark:text-white/70 bg-surface-200 dark:bg-surface-700": context.focused && !context.active,
                 "text-primary-highlight-inverse bg-primary-highlight": (context.focused && context.active) || context.active ||
                     (!context.focused && context.active)
             },

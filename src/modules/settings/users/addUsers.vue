@@ -76,8 +76,10 @@ const onSubmit = handleSubmit((values) => {
     /**
      * Send Values to Api
      */
-    props.refreshData();
+    reloadData();
     console.log("Submitted with", values);
+}, ({ errors }) => {
+    console.log(errors);
 });
 
 const reloadData = () => {
@@ -90,72 +92,52 @@ const reloadData = () => {
 
 <template>
     <div class="align-items-form">
-        <div class="max-cols-4">
-            <form-item for="docNumber" label="DNI" mark :error="errors.docNumber">
-                <InputGroup class="w-full">
-                    <InputText v-model.trim="docNumber" id="docNumber" maxlength="8" :invalid="!!errors.docNumber" size="small"
-                               @blur="docNumberBlur($event, true)" @input="handleInputDocNumber"/>
-                    <Button size="small">
-                        <template #icon>
-                            <i-material-symbols-manage-search-rounded class="!mx-1"/>
-                        </template>
-                    </Button>
-                </InputGroup>
-            </form-item>
-        </div>
-        <div class="max-cols-4">
-            <form-item for="names" label="Nombres" mark :error="errors.names">
-                <InputText v-model="names" id="names" :invalid="!!errors.names" size="small" @blur="namesBlur($event, true)"/>
-            </form-item>
-        </div>
-        <div class="max-cols-4">
-            <form-item for="lastnames" label="Apellidos" mark :error="errors.lastnames">
-                <InputText v-model="lastnames" id="lastnames" :invalid="!!errors.lastnames" size="small"
-                           @blur="lastnamesBlur($event, true)"/>
-            </form-item>
-        </div>
-        <div class="max-cols-6">
-            <form-item for="email" label="Correo">
-                <InputText v-model="email" id="email" size="small"/>
-            </form-item>
-        </div>
-        <div class="max-cols-6">
-            <form-item for="address" label="Dirección" mark :error="errors.address">
-                <InputText v-model="address" id="address" :invalid="!!errors.address" size="small" class="w-full"
-                           @blur="addressBlur($event, true)"/>
-            </form-item>
-        </div>
-        <div class="max-cols-6">
-            <form-item for="company" label="Empresa / Sucursal" mark :error="`${errors.company || ''} ${errors.branch || ''}`.trim()">
-                <InputGroup>
-                    <InputText v-model="company" id="company" :invalid="!!errors.company" size="small" @blur="companyBlur($event, true)"/>
-                    <InputText v-model="branch" id="branch" :invalid="!!errors.branch" size="small" @blur="branchBlur($event, true)"/>
-                </InputGroup>
-            </form-item>
-        </div>
-        <div class="max-cols-6">
-            <form-item for="profile" label="Perfil" mark :error="errors.profile">
-                <Select v-model="profile" id="profile" :invalid="!!errors.profile" size="small" :options="dropdownItems"
-                        optionLabel="name" optionValue="value" @blur="profileBlur($event, true)" class="w-full"/>
-            </form-item>
-        </div>
-        <div class="max-cols-4">
-            <form-item for="username" label="Usuario" mark :error="errors.username">
-                <InputText v-model="username" id="username" :invalid="!!errors.username" size="small" @blur="usernameBlur($event, true)"/>
-            </form-item>
-        </div>
-        <div class="max-cols-4">
-            <form-item for="password" label="Contraseña" mark :error="errors.password">
-                <Password v-model="password" input-id="password" :invalid="!!errors.password" class="w-full" :toggleMask="true"
-                          :feedback="false" @blur="passwordBlur($event, true)" input-class="w-full !py-1.5"/>
-            </form-item>
-        </div>
-        <div class="max-cols-4">
-            <form-item for="confirm" label="Confirmar Contraseña" mark :error="errors.passwordConfirm">
-                <Password v-model="passwordConfirm" input-id="confirm" :invalid="!!errors.passwordConfirm" class="w-full" :toggleMask="true"
-                          :feedback="false" @blur="passwordConfirmBlur($event, true)" input-class="w-full !py-1.5"/>
-            </form-item>
-        </div>
+        <form-item for="docNumber" label="DNI" mark :error="errors.docNumber" cols="4">
+            <InputGroup class="w-full">
+                <InputText v-model.trim="docNumber" id="docNumber" maxlength="8" :invalid="!!errors.docNumber" size="small"
+                           @blur="docNumberBlur($event, true)" @input="handleInputDocNumber"/>
+                <Button size="small">
+                    <template #icon>
+                        <i-material-symbols-manage-search-rounded class="!mx-1"/>
+                    </template>
+                </Button>
+            </InputGroup>
+        </form-item>
+        <form-item for="names" label="Nombres" mark :error="errors.names" cols="4">
+            <InputText v-model="names" id="names" :invalid="!!errors.names" size="small" @blur="namesBlur($event, true)"/>
+        </form-item>
+        <form-item for="lastnames" label="Apellidos" mark :error="errors.lastnames" cols="4">
+            <InputText v-model="lastnames" id="lastnames" :invalid="!!errors.lastnames" size="small"
+                       @blur="lastnamesBlur($event, true)"/>
+        </form-item>
+        <form-item for="email" label="Correo" cols="6">
+            <InputText v-model="email" id="email" size="small"/>
+        </form-item>
+        <form-item for="address" label="Dirección" mark :error="errors.address" cols="6">
+            <InputText v-model="address" id="address" :invalid="!!errors.address" size="small" class="w-full"
+                       @blur="addressBlur($event, true)"/>
+        </form-item>
+        <form-item for="company" label="Empresa / Sucursal" mark :error="`${errors.company || ''} ${errors.branch || ''}`.trim()" cols="6">
+            <InputGroup>
+                <InputText v-model="company" id="company" :invalid="!!errors.company" size="small" @blur="companyBlur($event, true)"/>
+                <InputText v-model="branch" id="branch" :invalid="!!errors.branch" size="small" @blur="branchBlur($event, true)"/>
+            </InputGroup>
+        </form-item>
+        <form-item for="profile" label="Perfil" mark :error="errors.profile" cols="6">
+            <Select v-model="profile" id="profile" :invalid="!!errors.profile" size="small" :options="dropdownItems"
+                    optionLabel="name" optionValue="value" @blur="profileBlur($event, true)" class="w-full"/>
+        </form-item>
+        <form-item for="username" label="Usuario" mark :error="errors.username" cols="4">
+            <InputText v-model="username" id="username" :invalid="!!errors.username" size="small" @blur="usernameBlur($event, true)"/>
+        </form-item>
+        <form-item for="password" label="Contraseña" mark :error="errors.password" cols="4">
+            <Password v-model="password" input-id="password" :invalid="!!errors.password" class="w-full" :toggleMask="true"
+                      :feedback="false" @blur="passwordBlur($event, true)" input-class="w-full !py-1.5"/>
+        </form-item>
+        <form-item for="confirm" label="Confirmar Contraseña" mark :error="errors.passwordConfirm" cols="4">
+            <Password v-model="passwordConfirm" input-id="confirm" :invalid="!!errors.passwordConfirm" class="w-full" :toggleMask="true"
+                      :feedback="false" @blur="passwordConfirmBlur($event, true)" input-class="w-full !py-1.5"/>
+        </form-item>
         <Divider class="col-span-1 md:col-span-12 !my-2"/>
     </div>
     <div class="mt-4 flex items-center justify-center space-x-2">

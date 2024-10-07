@@ -4,20 +4,20 @@ export default {
             // Shape
             "rounded-xl",
             "shadow-md",
-            "border",
+            // "border-2",
             
             // Size
             "max-h-[90vh]",
-            "mx-2",
+            // "mx-2",
             
             // Color
-            "bg-surface-0 dark:bg-surface-900",
-            "[&:last-child]:border-b",
-            "border-[#dadaea] dark:border-[#474751]",
+            // "bg-surface-0 dark:bg-surface-900",
+            // "[&:last-child]:border-b",
+            // "border-surface-500 dark:border-surface-700",
             
             // Transitions
             "transform",
-            "scale-100",
+            "scale-200",
             
             // Maximized State
             {
@@ -34,11 +34,11 @@ export default {
     header: {
         class: [
             // Flexbox and Alignment
-            "flex items-center justify-between w-full",
+            "flex items-center justify-between w-full h-full border border-x border-t border-b-0",
             "shrink-0",
             
             // Spacing
-            "py-2",
+            "py-1",
             "px-4",
             
             // Shape
@@ -47,8 +47,8 @@ export default {
             
             // Colors
             "text-surface-50 dark:text-surface-0/80 font-semibold",
-            "bg-primary-600/90 dark:bg-surface-800",
-            "border-surface-500 dark:border-surface-700"
+            "bg-primary-600/90 dark:bg-surface-800/90",
+            "border-primary-500 dark:border-surface-700"
         ]
     },
     title: {
@@ -68,12 +68,16 @@ export default {
             {
                 grow: state.maximized,
                 "rounded-bl-xl": !instance.$slots.footer,
-                "rounded-br-xl": !instance.$slots.footer
+                "rounded-br-xl": !instance.$slots.footer,
+                "border border-t-0 border-b": !instance.$slots.footer,
+                "border border-t-0 border-b-0": instance.$slots.footer
             },
             
             // Colors
             "text-surface-700 dark:text-surface-0/80",
             // "border border-t-0 border-b-0",
+            "bg-surface-0 dark:bg-surface-900",
+            
             "border-surface-500 dark:border-surface-700",
             
             // Misc
@@ -99,7 +103,7 @@ export default {
             // Colors
             "bg-surface-0 dark:bg-surface-900",
             "text-surface-700 dark:text-surface-0/80",
-            // "border border-t-0 border-b-0",
+            "border border-t-0 border-b-0",
             "border-surface-500 dark:border-surface-700"
         ]
     },

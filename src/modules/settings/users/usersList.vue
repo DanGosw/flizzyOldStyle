@@ -114,7 +114,7 @@ const addParametersUserModal = () => {
     parametersModal.value = {
         visible: true,
         header: "Editar usuario",
-        width: "70vw",
+        width: "55vw",
         footer: "",
         component: componentAddUserModal
     };
@@ -147,7 +147,7 @@ defineExpose({ loadUserList });
 
 <template>
     <div class="relative">
-        <i-ri-search-line class="absolute top-2/4 -mt-2.5 left-3 text-surface-400 dark:text-surface-600"/>
+        <i-ri-search-line class="absolute top-2/4 left-3 -mt-2.5 text-surface-400 dark:text-surface-600"/>
         <InputText placeholder="Buscar usuario" class="pl-10 !rounded-full !max-w-96" size="small"/>
     </div>
     <DataTable size="small" striped-rows show-gridlines :value="data" scroll-direction="horizontal" scroll-height="65vh" scrollable

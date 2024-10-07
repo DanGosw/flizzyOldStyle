@@ -5,9 +5,10 @@ import Icons from "unplugin-icons/vite";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import IconsResolver from "unplugin-icons/resolver";
-import { PrimeVueResolver, VueUseComponentsResolver, VueUseDirectiveResolver } from "unplugin-vue-components/resolvers";
+import { VueUseComponentsResolver, VueUseDirectiveResolver } from "unplugin-vue-components/resolvers";
 import vitePluginSocketIO from "vite-plugin-socket-io";
 import { socketEvents } from "./src/modules/socket/socket.js";
+import { PrimeVueResolver } from "@primevue/auto-import-resolver";
 
 export default defineConfig({
     plugins: [
@@ -53,7 +54,7 @@ export default defineConfig({
                     pinia: ["createPinia", "defineStore"],
                     "@vueuse/core": ["watchDebounced", "useDebounceFn", "useWindowSize", "useDark", "useToggle"],
                     "@vueuse/integrations/useCookies": ["useCookies"],
-                    "primevue": ["useConfirm", "useConfirmDialog", "Dialog", "Button", "Menubar", "Card"],
+                    "primevue": ["useConfirm", "useConfirmDialog", "Dialog", "Button", "Menubar", "Card", "Select"],
                     "primevue/usetoast": ["useToast"],
                     "vee-validate": ["useForm", "defineRule", "useField"],
                     "@vueuse/integrations/useAxios": ["useAxios"],

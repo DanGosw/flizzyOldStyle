@@ -2,6 +2,7 @@
 
 import AreaAndTables from "@/modules/settings/application/areas/areaAndTables.vue";
 import router from "@/routes/index.js";
+import ListPreparationPlace from "@/modules/settings/application/preparation/listPreparationPlace.vue";
 </script>
 
 <template>
@@ -17,7 +18,7 @@ import router from "@/routes/index.js";
             </div>
         </template>
         <template #content>
-            <Tabs value="0">
+            <Tabs value="1">
                 <TabList>
                     <Tab value="0">Areas y mesas</Tab>
                     <Tab value="1">Lugares de preparación</Tab>
@@ -31,13 +32,7 @@ import router from "@/routes/index.js";
                         <area-and-tables/>
                     </TabPanel>
                     <TabPanel value="1">
-                        <p class="m-0">
-                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
-                            aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
-                            enim
-                            ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
-                            ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
-                        </p>
+                        <list-preparation-place/>
                     </TabPanel>
                     <TabPanel value="2">
                         <p class="m-0">

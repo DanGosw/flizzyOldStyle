@@ -25,8 +25,7 @@ export default {
             "items-center",
             "flex-wrap",
             "flex-col smd:flex-row",
-            { hidden: !props?.mobileActive, flex: props?.mobileActive },
-            
+            { hidden: !(props !== null && props.mobileActive), flex: props === null ? void 0 : props.mobileActive },
             // Position
             "absolute smd:relative",
             "top-full left-0",
@@ -63,7 +62,7 @@ export default {
             "text-surface-700 dark:text-white/80",
             {
                 "text-surface-500 dark:text-white/70": !context.focused && !context.active,
-                "text-surface-500 dark:text-white/70 ": context.focused && !context.active,
+                "text-surface-500 dark:text-white/70 bg-surface-200 dark:bg-surface-700": context.focused && !context.active,
                 "bg-highlight": (context.focused && context.active) || context.active || (!context.focused && context.active)
             },
             
@@ -87,13 +86,11 @@ export default {
             "items-center",
             
             // Spacing
-            "py-1.5",
-            "px-3",
+            "p-1.5",
             
             // Size
             {
-                "pl-9 smd:pl-5": context.level === 1,
-                "pl-14 smd:pl-5": context.level === 2
+                "pl-5": context.level === 1 || context.level === 2
             },
             "leading-none",
             
@@ -145,8 +142,10 @@ export default {
     },
     button: {
         class: [
-            "flex smd:hidden items-center justify-center",
-            "w-8 h-8",
+            "flex smd:hidden",
+            "items-center justify-center",
+            "w-7",
+            "h-7",
             "rounded-full",
             // Color
             "text-surface-500 dark:text-white/80",

@@ -377,13 +377,13 @@ function applyTheme(type, colors) {
 
 </script>
 <template>
-    <Button size="small" @click="onConfigButtonClick()" class="border border-surface-300">
+    <Button size="small" @click="onConfigButtonClick()">
         <i-carbon-color-palette/>
     </Button>
     <Drawer v-model:visible="visible" position="right" class="w-28">
         <div class="align-item-config">
             <span class="app-label-config">Escala</span>
-            <div class="inline-flex items-center gap-2 border-1 surface-border py-1 px-2 rounded-2xl">
+            <div class="inline-flex items-center gap-2 rounded-2xl px-2 py-1 border-1 surface-border">
                 <Button @click="decrementScale" text rounded :disabled="textSize === scales[0]">
                     <template #icon>
                         <i-ic-twotone-text-decrease/>
@@ -408,10 +408,6 @@ function applyTheme(type, colors) {
                 </template>
             </ToggleButton>
         </div>
-        <!--        <Button size="small" severity="secondary" class="border border-surface-300" @click="toggleDark">-->
-        <!--            <template #icon>-->
-        <!--            </template>-->
-        <!--        </Button>-->
         <div class="align-item-config">
             <span class="app-label-config">Colores Primarios</span>
             <div class="inline-flex flex-wrap items-start justify-start gap-2 self-stretch">

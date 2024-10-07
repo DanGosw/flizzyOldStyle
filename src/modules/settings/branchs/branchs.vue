@@ -34,7 +34,7 @@ const addParametersBranchModal = () => {
     parametersModal.value = {
         visible: true,
         header: "Nueva Sucursal",
-        width: "80vw",
+        width: "55vw",
         footer: "",
         component: componentAddBranchModal
     };
@@ -44,7 +44,7 @@ const addParametersBranchModal = () => {
 <template>
     <Card>
         <template #title>
-            <div class="alignHeader">
+            <div class="align-header">
                 <div class="flex gap-2 items-center">
                     <Button severity="secondary" size="small" class="!px-2" rounded @click="router.push({name: 'settings', force: true})">
                         <template #icon>
@@ -53,7 +53,7 @@ const addParametersBranchModal = () => {
                     </Button>
                     <p>Lista de Sucursales</p>
                 </div>
-                <div class="sm:space-x-2 space-x-0 space-y-2 sm:space-y-0 mt-2 sm:mt-0">
+                <div class="align-header">
                     <Button label="Agregar Sucursal" rounded size="small" @click="addParametersBranchModal()">
                         <template #icon>
                             <i-material-symbols-add-business-outline-rounded class="mx-1"/>

@@ -270,7 +270,7 @@ export default {
     icon: ({ props }) => ({
         class: [
             "text-xl leading-4",
-            "mx-0",
+            "m-0",
             {
                 "mr-2": props.iconPos === "left" && props.label !== null,
                 "ml-2 order-1": props.iconPos === "right" && props.label !== null,

@@ -120,7 +120,7 @@ export default {
                 "border-0 border-b border-solid",
                 
                 // Spacing
-                context?.size === "small" ? "py-[0.370rem] px-2" : context?.size === "large" ? "py-[0.5375rem] px-4" : "py-2.5 px-3",
+                context?.size === "small" ? "py-[0.365rem] px-2" : context?.size === "large" ? "py-[0.4375rem] px-4" : "py-2.5 px-3",
                 
                 // Color
                 (props.sortable === "" || props.sortable) && context.sorted
@@ -348,15 +348,15 @@ export default {
         class: [
             // Color
             "dark:text-white/80",
-            { "bg-highlight": context.selected && props.highlightOnSelect },
+            { "!bg-primary-300/90 dark:!bg-surface-600/80": context.selected },
             { "bg-surface-0 text-surface-600 dark:bg-surface-900": !context.selected },
             { "font-bold bg-surface-0 dark:bg-surface-900 z-20": props.frozenRow },
             { "odd:bg-surface-0 odd:text-surface-600 dark:odd:bg-surface-900 even:bg-surface-50 even:text-surface-600 dark:even:bg-surface-800/50": context.stripedRows },
             
             // State
-            { "hover:bg-surface-300/20 dark:hover:bg-surface-800/50 hover:text-surface-600": props.selectionMode && !context.selected },
+            { "hover:bg-primary-300/50 dark:hover:bg-surface-800/50 hover:text-surface-600": props.selectionMode && !context.selected },
             // change background color when mouse is hovered
-            "hover:bg-surface-200/60 hover:dark:bg-surface-700/60",
+            "hover:bg-primary-200/70 hover:dark:bg-surface-600/50",
             
             // Transition
             { "transition duration-200": (props.selectionMode && !context.selected) || props.rowHover },
