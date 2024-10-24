@@ -120,7 +120,7 @@ export default {
                 "border-0 border-b border-solid",
                 
                 // Spacing
-                context?.size === "small" ? "py-[0.365rem] px-2" : context?.size === "large" ? "py-[0.4375rem] px-4" : "py-2.5 px-3",
+                context?.size === "small" ? "py-[0.255rem] px-2" : context?.size === "large" ? "py-[0.4375rem] px-4" : "py-2.5 px-3",
                 
                 // Color
                 (props.sortable === "" || props.sortable) && context.sorted
@@ -167,8 +167,8 @@ export default {
                 { "bg-surface-0 dark:bg-surface-900": parent.instance.frozenRow || props.frozen || props.frozen === "" },
                 
                 // Spacing
-                { "py-[0.385rem] px-2": context?.size === "small" && !state["d_editing"] },
-                { "py-[0.5375rem] px-5": context?.size === "large" && !state["d_editing"] },
+                { "py-[0.255rem] px-2": context?.size === "small" && !state["d_editing"] },
+                { "py-[0.4375rem] px-5": context?.size === "large" && !state["d_editing"] },
                 { "py-2.5 px-3": context?.size !== "large" && context?.size !== "small" && !state["d_editing"] },
                 { "py-[0.6rem] px-1.5": state["d_editing"] },
                 

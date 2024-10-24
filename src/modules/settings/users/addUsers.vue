@@ -3,7 +3,7 @@ import { ref } from "vue";
 import * as yup from "yup";
 import { useField, useForm } from "vee-validate";
 import FormItem from "@/hooks/components/formItem/formItem.vue";
-import { useNumericInput } from "@/hooks/inputMethods.js";
+import { useNumericInput } from "@/hooks/composables/inputMethods/inputMethods.js";
 
 const props = defineProps({
     closeModal: { type: Function, default: () => {}, required: true },

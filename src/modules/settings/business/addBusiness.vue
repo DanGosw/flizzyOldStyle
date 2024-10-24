@@ -1,5 +1,5 @@
 <script setup>
-import { useNumericInput } from "@/hooks/inputMethods.js";
+import { useNumericInput } from "@/hooks/composables/inputMethods/inputMethods.js";
 import { ref } from "vue";
 import * as yup from "yup";
 import { useField, useFieldArray, useForm } from "vee-validate";

@@ -1,13 +1,17 @@
 <script setup>
-import { useNumericInput } from "@/hooks/inputMethods.js";
+import { useNumericInput } from "@/hooks/composables/inputMethods/inputMethods.js";
 import Button from "primevue/button";
 import { ref } from "vue";
 import * as yup from "yup";
-import { useField, useFieldArray, useForm } from "vee-validate";
+import { configure, useField, useFieldArray, useForm } from "vee-validate";
 import CascadeSelectArray from "@/hooks/components/inputsRequired/cascadeSelectArray.vue";
 import InputValidateArray from "@/hooks/components/inputsRequired/inputValidateArray.vue";
 import FormItem from "@/hooks/components/formItem/formItem.vue";
 import toastErrorMessageForm from "@/hooks/composables/toastServer/toastEvent.js";
+
+configure({
+    validateOnBlur: true
+});
 
 const toast = useToast();
 
@@ -64,14 +68,13 @@ const fields = ref({
     phone: ""
 });
 
-// Watch for changes in formData prop
-watch(() => props.formData, () => {
-    if(!!props.formData.id) {
-        fields.value = props.formData;
+onMounted(() => {
+    if(props.formData?.id) {
+        setValues(props.formData);
     }
-}, { immediate: true });
+});
 
-const { handleSubmit, resetForm, errors } = useForm({ validationSchema: schemaValidate, initialValues: fields.value });
+const { handleSubmit, resetForm, errors, setValues } = useForm({ validationSchema: schemaValidate, initialValues: fields.value });
 
 const { value: docNumber, handleBlur: docNumberBlur } = useField("docNumber");
 const { value: names, handleBlur: namesBlur } = useField("names");
@@ -207,8 +210,7 @@ const onReset = () => {
         </form-item>
 
         <form-item for="lastnames" label="Apellidos" mark :error="errors.lastnames" cols="6">
-            <InputText v-model="lastnames" id="lastnames" size="small" :invalid="!!errors.lastnames"
-                       @blur="lastnamesBlur($event, true)"/>
+            <InputText v-model="lastnames" id="lastnames" size="small" :invalid="!!errors.lastnames" @blur="lastnamesBlur($event, true)"/>
         </form-item>
 
         <form-item for="birthday" label="F. Nacimiento" hide-error cols="4">
@@ -240,11 +242,12 @@ const onReset = () => {
         </div>
     </div>
     <div class="align-items-form" v-for="(data, index) in valueFields" :key="data.key">
-        <cascade-select-array :options="ubigeoOptions" :name="`address[${index}].ubigeo`" label="Ubigeo" option-value="code"
-                              :value="data.value.ubigeo" option-group-label="name" option-label="cname" showMark cols="4"
-                              :option-group-children="['states', 'cities']"/>
-        <input-validate-array :name="`address[${index}].location`" label="Dirección" :value="data.value.location" show-mark
-                              :cols="`${index !== 0 ? '7' : '8'}`"/>
+        <cascade-select-array :options="ubigeoOptions" :name="`address[${index}].ubigeo`" label="Ubigeo"
+                              option-value="code"
+                              :value="data.value.ubigeo" option-group-label="name" option-label="cname" showMark
+                              cols="4" :option-group-children="['states', 'cities']"/>
+        <input-validate-array :name="`address[${index}].location`" label="Dirección" :value="data.value.location"
+                              show-mark :cols="`${index !== 0 ? '7' : '8'}`"/>
 
         <div class="col-span-1 flex items-center justify-center">
             <Button severity="danger" @click="removeAddress(index)" v-if="index !== 0" size="small" class="mt-6 w-full">

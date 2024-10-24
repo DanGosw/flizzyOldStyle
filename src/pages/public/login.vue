@@ -37,7 +37,7 @@ const onSubmit = handleSubmit(async(values) => {
         </div>
         <div class="z-10 m-auto p-2">
             <div class="flex items-center justify-center">
-                <img class="h-64" draggable="false" src="~@/assets/flizzy-color.png" alt="business-logo"/>
+                <img class="h-64" draggable="false" src="../../assets/img/flizzy-color.png" alt="business-logo"/>
             </div>
             <Card>
                 <template #content>
@@ -59,9 +59,8 @@ const onSubmit = handleSubmit(async(values) => {
                         </div>
                     </div>
                     <Button class="mt-2 w-full" label="Iniciar Sesión" @click="onSubmit()">
-                        <template #icon>
-                            <i-ic-baseline-login class=""/>
-                        </template>
+                        <span>Iniciar Sesión </span>
+                        <i-mingcute-fire-fill class="absolute order-1 h-7 w-7 right-2"/>
                     </Button>
                 </template>
             </Card>

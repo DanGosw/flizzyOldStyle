@@ -161,7 +161,7 @@ export default {
     groupIcon: {
         class: [
             // Alignment
-            "ml-auto"
+            "absolute right-3 !top-4"
         ]
     },
     optionList: {

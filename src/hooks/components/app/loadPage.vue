@@ -1,5 +1,6 @@
 <script setup>
-import { ref } from "vue";
+import { onBeforeMount, onMounted, ref } from "vue";
+import { useDark } from "@vueuse/core";
 import LoadingData from "@/hooks/components/loading/loadingData.vue";
 
 const loadingPage = ref(true);
@@ -19,8 +20,8 @@ onMounted(() => {
 
 </script>
 <template>
-    <div v-if="loadingPage" :class="`flex h-screen w-full items-center justify-center ${isDark ?' bg-surface-900' : ' bg-primary-300'}`">
-        <div class="">
+    <div v-if="loadingPage" :class="`flex h-screen w-full items-center justify-center ${isDark ? 'bg-surface-900' : 'bg-primary-300'}`">
+        <div>
             <LoadingData/>
         </div>
     </div>
@@ -33,4 +34,3 @@ onMounted(() => {
         <toast/>
     </div>
 </template>
-

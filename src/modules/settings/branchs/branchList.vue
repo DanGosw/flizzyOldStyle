@@ -13,18 +13,6 @@ const page = ref(1);
 const loading = ref(true);
 const pageSize = ref(10);
 
-/* Methods */
-const showMessage = (info) => {
-    console.log(info);
-    /* Toast  @params {severity: 'success|info|warn|error', summary: 'string', detail: 'string', life: 'number'}*/
-    toast.add({ severity: "info", summary: "Title xd", detail: info.type, life: 5000 });
-    toast.add({ severity: "success", summary: "Title xd", detail: info.type, life: 5000 });
-    toast.add({ severity: "contrast", summary: "Title xd", detail: info.type, life: 5000 });
-    toast.add({ severity: "error", summary: "Title xd", detail: info.type, life: 5000 });
-    toast.add({ severity: "secondary", summary: "Title xd", detail: info.type, life: 5000 });
-    toast.add({ severity: "warn", summary: "Title xd", detail: info.type, life: 5000 });
-};
-
 /**
  * Carga datos de la API de Pokémon.
  *
@@ -93,7 +81,7 @@ const addParametersBranchModal = () => {
     parametersModal.value = {
         visible: true,
         header: "Editar Sucursal",
-        width: "80vw",
+        width: "70vw",
         footer: "",
         component: componentAddBranchModal
     };

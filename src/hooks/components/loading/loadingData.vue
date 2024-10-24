@@ -19,12 +19,10 @@
 </template>
 
 <style>
-
 .cube-loader {
-    width: 77px;
-    height: 76px;
+    @apply w-20 h-20;
     transform-style: preserve-3d;
-    transform: rotateX(-30deg);
+    transform: rotateX(-40deg);
     animation: animate 4s linear infinite;
 }
 
@@ -39,51 +37,40 @@
 }
 
 .cube-loader .cube-wrapper {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+    @apply absolute w-full h-full;
     transform-style: preserve-3d;
 }
 
 .dark {
-    .cube-loader .cube-wrapper .cube-span {
-        background: -webkit-linear-gradient(90deg, hsla(230, 42%, 26%, 0.85) 1%, hsla(258, 34%, 57%, 0.85) 99%);
-    }
+    --cube-gradient: -webkit-linear-gradient(90deg, hsla(230, 42%, 26%, 0.85) 1%, hsla(258, 34%, 57%, 0.85) 99%);
 
-    .cube-top {
-        background: -webkit-linear-gradient(90deg, hsla(230, 42%, 26%, 0.85) 1%, hsla(258, 34%, 57%, 0.85) 99%);
-    }
-
+    .cube-loader .cube-wrapper .cube-span,
+    .cube-top,
     .cube-top::before {
-        background: -webkit-linear-gradient(90deg, hsla(230, 42%, 26%, 0.85) 1%, hsla(258, 34%, 57%, 0.85) 99%);
+        background: var(--cube-gradient);
     }
 }
 
 .cube-loader .cube-wrapper .cube-span {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    transform: rotateY(calc(90deg * var(--i))) translateZ(38px);
+    @apply absolute w-full h-full;
+    transform: rotateY(calc(90deg * var(--i))) translateZ(39px);
     background: -webkit-linear-gradient(90deg, hsla(230, 39%, 41%, 0.85) 1%, hsla(257, 47%, 55%, 0.85) 99%);
 }
 
 .cube-top {
-    position: absolute;
-    width: 77px;
-    height: 76px;
+    @apply absolute w-20 h-20;
     background: -webkit-linear-gradient(90deg, hsla(230, 39%, 41%, 0.85) 1%, hsla(257, 47%, 55%, 0.85) 99%);
-    transform: rotateX(90deg) translateZ(38px);
+    transform: rotateX(90deg) translateZ(39px);
     transform-style: preserve-3d;
 }
 
 .cube-top::before {
+    @apply absolute w-20 h-20;
     content: '';
-    position: absolute;
-    width: 77px;
-    height: 76px;
     background: -webkit-linear-gradient(90deg, hsla(230, 39%, 41%, 0.85) 1%, hsla(257, 47%, 55%, 0.85) 99%);
     transform: translateZ(-90px);
     filter: blur(10px);
 }
+
 
 </style>

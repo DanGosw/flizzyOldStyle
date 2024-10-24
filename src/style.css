@@ -4,8 +4,8 @@
 
 @font-face {
     font-family: 'Poppins';
-    src: url('@/assets/Poppins-Medium.eot');
-    src: url('@/assets/Poppins-Medium.eot?#iefix') format('embedded-opentype'), url('@/assets/Poppins-Medium.woff') format('woff'), url('@/assets/Poppins-Medium.ttf') format('truetype');
+    src: url('@/assets/fonts/Poppins-Medium.eot');
+    src: url('@/assets/fonts/Poppins-Medium.eot?#iefix') format('embedded-opentype'), url('@/assets/fonts/Poppins-Medium.woff') format('woff'), url('@/assets/fonts/Poppins-Medium.ttf') format('truetype');
 }
 
 .html, body {
@@ -76,7 +76,7 @@
 }
 
 .error-required {
-    @apply flex h-3 text-sm text-red-500 items-center mt-1;
+    @apply mt-1 flex h-3 items-center text-sm text-red-500;
 }
 
 .label-size {
@@ -84,7 +84,7 @@
 }
 
 .app-label-config {
-    @apply text-black dark:text-surface-0 text-xl font-semibold my-1.5;
+    @apply text-xl font-semibold text-black my-1.5 dark:text-surface-0;
 }
 
 .align-item-config {
@@ -92,11 +92,11 @@
 }
 
 .align-items-form {
-    @apply grid grid-cols-1 items-start justify-start gap-x-3.5 gap-y-1 md:grid-cols-12;
+    @apply grid grid-cols-1 items-start justify-start gap-y-1 gap-x-3.5 md:grid-cols-12;
 }
 
 .align-header {
-    @apply flex sm:justify-between flex-wrap items-center gap-2;
+    @apply flex flex-wrap items-center gap-2 sm:justify-between;
 }
 
 .max-cols-1 {
@@ -149,41 +149,53 @@
 
 /* Works on Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-    @apply w-2 h-2;
+    @apply h-2 w-2;
 }
 
 *::-webkit-scrollbar-track {
-    @apply bg-primary-200 dark:bg-surface-700/50 rounded;
+    @apply rounded bg-primary-200 dark:bg-surface-700/50;
 }
 
 *::-webkit-scrollbar-thumb {
-    @apply bg-primary-500 dark:bg-surface-500 rounded;
+    @apply rounded bg-primary-500 dark:bg-surface-500;
 }
 
 *::-webkit-scrollbar-thumb:horizontal {
-    @apply bg-primary-500 dark:bg-surface-500 rounded h-2;
+    @apply h-2 rounded bg-primary-500 dark:bg-surface-500;
 }
 
 *::-webkit-scrollbar-corner {
     @apply bg-transparent;
 }
 
-* {
-    @apply transition ease-[cubic-bezier(.73,.25,.43,.88)];
-}
-
 ::selection {
-    @apply bg-primary-200 dark:bg-surface-700;
+    @apply bg-primary-300/90 text-surface-900 dark:bg-surface-600 dark:text-surface-100;
 }
 
-.dark {
-    input:-webkit-autofill,
-    input:-webkit-autofill:hover,
-    input:-webkit-autofill:focus,
-    input:-webkit-autofill:active {
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: #e0e6ee;
-        transition: background-color 2000s ease-in-out 0s;
-        box-shadow: inset 0 0 20px 20px #23232329;
-    }
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: #232323;
+    transition: background-color 2000s ease-in-out 0s;
+    box-shadow: inset 0 0 20px 20px #e0e6ee29; /* Fondo claro */
+}
+
+input {
+    caret-color: #232323;
+}
+
+.dark input:-webkit-autofill,
+.dark input:-webkit-autofill:hover,
+.dark input:-webkit-autofill:focus,
+.dark input:-webkit-autofill:active {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: #e0e6ee;
+    transition: background-color 2000s ease-in-out 0s;
+    box-shadow: inset 0 0 20px 20px #23232329; /* Fondo oscuro */
+}
+
+.dark input {
+    caret-color: #e0e6ee;
 }

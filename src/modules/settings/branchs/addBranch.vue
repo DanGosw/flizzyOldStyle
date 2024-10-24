@@ -1,22 +1,22 @@
 <script setup>
-import { ref } from "vue";
+// import { ref } from "vue";
 import * as yup from "yup";
 import { useField, useForm } from "vee-validate";
 import FormItem from "@/hooks/components/formItem/formItem.vue";
-import { useNumericInput } from "@/hooks/inputMethods.js";
+import { useNumericInput } from "@/hooks/composables/inputMethods/inputMethods.js";
 
 const toast = useToast();
-const businessOptions = ref([
-    { label: "Arizona", value: 1 },
-    { label: "Arizona Moyos", value: 2 },
-    { label: "Arizona Food", value: 3 }
-]);
 
 const props = defineProps({
     closeModal: { type: Function, default: () => {}, required: true },
     refreshData: { type: Function, default: () => {}, required: true },
     formData: { type: Object, default: () => {}, required: false }
 });
+const businessOptions = ref([
+    { label: "Arizona", value: 1 },
+    { label: "Arizona Moyos", value: 2 },
+    { label: "Arizona Food", value: 3 }
+]);
 
 const schemaValidate = ref(yup.object().shape({
     business: yup.number().required("Seleccione una empresa valida").label("Empresa"),
@@ -43,8 +43,19 @@ const formFields = ref({
     sendAutomatic: true
 });
 
-const { handleSubmit, resetForm, errors } = useForm(
-    { validationSchema: schemaValidate, initialValues: props.formData ? formFields.value : props.formData });
+const { handleSubmit, resetForm, errors, setValues } = useForm({ validationSchema: schemaValidate, initialValues: formFields.value });
+
+onMounted(async() => {
+    if(props.formData?.business) {
+        // Establecer valores iniciales en todos los campos del formulario
+        setValues(props.formData);
+
+        // // Actualizar imágenes con las funciones personalizadas
+        await setDefaultImages(props.formData?.logoA4, fileUploadA4.value, logoA4, "a4");
+        await setDefaultImages(props.formData?.logoTicket, fileUploadTicket.value, logoTicket, "ticket");
+        await setDefaultImages(props.formData?.logoMini, fileUploadMini.value, logoMini, "mini");
+    }
+});
 
 const { value: business, handleBlur: businessBlur } = useField("business");
 const { value: ubigeo, handleBlur: ubigeoBlur } = useField("ubigeo");
@@ -175,9 +186,9 @@ const ubigeoOptions = ref([
     }
 ]);
 
-const fileUploadMini = ref(null);
-const fileUploadA4 = ref(null);
-const fileUploadTicket = ref(null);
+const fileUploadMini = ref("");
+const fileUploadA4 = ref("");
+const fileUploadTicket = ref("");
 
 /**
  * Converts an image URL to a File object
@@ -258,15 +269,6 @@ const updateFilePreview = (fileUploadEl, files) => {
         reader.readAsDataURL(files[0]);
     }
 };
-
-onMounted(async() => {
-    if(props.formData?.business) {
-        formFields.value = props.formData;
-        await setDefaultImages(props.formData?.logoA4, fileUploadA4.value, logoA4, "a4");
-        await setDefaultImages(props.formData?.logoTicket, fileUploadTicket.value, logoTicket, "ticket");
-        await setDefaultImages(props.formData?.logoMini, fileUploadMini.value, logoMini, "mini");
-    }
-});
 
 </script>
 
@@ -356,4 +358,6 @@ onMounted(async() => {
             </template>
         </Button>
     </div>
+    {{ props }}
+    <pre>{{ props }}</pre>
 </template>

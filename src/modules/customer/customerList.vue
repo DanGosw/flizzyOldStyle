@@ -23,7 +23,7 @@ const parametersModal = ref({
 
 const closeModal = () => { parametersModal.value.visible = false; };
 
-const componentAddClientModal = h(addCustomer, {
+const componentEditClientModal = h(addCustomer, {
     /**
      * Function to close de modal
      */
@@ -49,13 +49,13 @@ const componentAddClientModal = h(addCustomer, {
     }
 });
 
-const addParametersCustomerModal = () => {
+const editCustomerModal = () => {
     parametersModal.value = {
         visible: true,
         header: "Editar Cliente",
         width: "60vw",
         footer: null,
-        component: componentAddClientModal
+        component: componentEditClientModal
     };
 };
 
@@ -131,7 +131,7 @@ defineExpose({ loadCustomer });
         <Column style="width: 3%" header="Acciones">
             <template #body="{index}">
                 <div class="flex items-center justify-start space-x-1">
-                    <Button size="small" severity="warn" v-tooltip.top="'Editar Cliente'" @click="addParametersCustomerModal"
+                    <Button size="small" severity="warn" v-tooltip.top="'Editar Cliente'" @click="editCustomerModal"
                             class="!p-[0.5px]">
                         <template #icon>
                             <i-tabler-user-edit class="mx-0.5"/>

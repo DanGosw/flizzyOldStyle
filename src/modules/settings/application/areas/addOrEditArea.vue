@@ -60,7 +60,7 @@ const onReset = () => {
         </form-item>
         <form-item for="denomination" label="Cantidad de Mesas" mark :error="errors.tableQuantity" cols="6">
             <InputNumber v-model="tableQuantity" id="denomination" size="small" :invalid="!!errors.tableQuantity" show-buttons :min="1"
-                         button-layout="horizontal" @blur="tableQuantityBlur($event, true)" fluid/>
+                         button-layout="horizontal" @blur="tableQuantityBlur($event, true)" fluid input-class="w-full"/>
         </form-item>
         <form-item for="legalRep" label="Cod. de Mesa" mark :error="errors.tableCode" cols="6">
             <InputText v-model="tableCode" id="legalRep" size="small" :invalid="!!errors.tableCode" @blur="tableCodeBlur($event, true)"

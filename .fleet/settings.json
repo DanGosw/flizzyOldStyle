@@ -1,3 +1,25 @@
 {
-    "files.exclude": [".DS_Store", ".git", "**/theme.css"]
+    "files.exclude": [".DS_Store", ".git", "**/theme.css"],
+    "plugins": [
+        {
+            "type": "add",
+            "pluginName": "com.github.catppuccin.fleet"
+        },
+        {
+            "type": "add",
+            "pluginName": "fleet.tailwindcss"
+        },
+        {
+            "type": "add",
+            "pluginName": "fleet.emmet"
+        },
+        {
+            "type": "add",
+            "pluginName": "izhangzhihao.fleet.rainbow.brackets"
+        },
+        {
+            "type": "add",
+            "pluginName": "fleet.vue"
+        }
+    ]
 }

@@ -1,6 +1,6 @@
 <script setup>
 
-import defaultImage from "@/assets/animatedFood.gif";
+import defaultImage from "@/assets/img/animatedFood.gif";
 
 const props = defineProps({
     table: { type: Object, required: true },
