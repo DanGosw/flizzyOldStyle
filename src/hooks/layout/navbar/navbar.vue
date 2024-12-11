@@ -2,6 +2,7 @@
 import { useRoute, useRouter } from "vue-router";
 import { computed } from "vue";
 import { useFullscreen } from "@vueuse/core";
+import AppConfig from "@/hooks/components/app/appConfig.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -21,26 +22,33 @@ const isChildActive = (childrenRoutes) => {
     });
 };
 
+const handleNavigation = (route) => {
+    if(typeof route === "string") {
+        router.push(route); // Si `route` es un string, usa el path directamente
+    } else if(route?.name) {
+        router.push({ name: route.name }); // Si `route` es un objeto, usa `name`
+    } else {
+        console.warn("Invalid route:", route);
+    }
+};
+
 const { toggle, isFullscreen } = useFullscreen();
 </script>
 <template>
     <Menubar :model="menuOptions" class="text-[12px]">
         <template #start>
             <div class="mr-1 flex h-9 w-14 items-center justify-center rounded-md">
-                <!--                <i-lets-icons-fire-duotone-fill class="text-4xl text-primary-500"/>-->
-                <!--                <i-mingcute-fire-fill class="text-3xl text-primary-500"/>-->
                 <img src="@/assets/img/flizzyLogo.png" alt="system logo" class="h-full w-auto p-0.5">
             </div>
         </template>
         <template #item="{ item, props }">
-            <router-link v-if="item.route && !item.items" :to="item.route">
-                <div v-bind="props.action" :class="`select-none ${isParentActive(item.route) ? 'bg-primary-500/80 rounded' : ''}`" v-ripple>
-                    <component :is="item.icon" :class="`${isParentActive(item.route) ? 'text-white' : 'text-primary-500'} text-[15px]`"/>
-                    <span :class="`${isParentActive(item.route) ? 'text-white' : 'text-surface-900 dark:text-surface-200'} ml-1`">
-                        {{ item.label }}
-                    </span>
-                </div>
-            </router-link>
+            <div @click="handleNavigation(item.route)" class="cursor-pointer" v-if="item.route && !item.items" v-bind="props.action"
+                 :class="`select-none ${isParentActive(item.route) ? 'bg-primary-500/80 rounded' : ''}`" v-ripple>
+                <component :is="item.icon" :class="`${isParentActive(item.route) ? 'text-white' : 'text-primary-500'} text-[15px]`"/>
+                <span :class="`${isParentActive(item.route) ? 'text-white' : 'text-surface-900 dark:text-surface-200'} ml-1`">
+                    {{ item.label }}
+                </span>
+            </div>
 
             <div v-else class="flex cursor-pointer select-none items-center pl-1 py-1.5"
                  :class="isChildActive(item.items) ? 'bg-primary-500/40 rounded' :''" v-ripple>

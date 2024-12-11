@@ -1,6 +1,4 @@
 <script setup>
-import { onBeforeMount, onMounted, ref } from "vue";
-import { useDark } from "@vueuse/core";
 import LoadingData from "@/hooks/components/loading/loadingData.vue";
 
 const loadingPage = ref(true);
@@ -26,8 +24,8 @@ watch(isDark, (newVal) => {
     }
 }, { immediate: true });
 
-
 </script>
+
 <template>
     <div v-if="loadingPage" :class="`flex h-screen w-full items-center justify-center ${isDark ? 'bg-surface-900' : 'bg-primary-300'}`">
         <div>
@@ -40,18 +38,6 @@ watch(isDark, (newVal) => {
                 <component :is="Component"/>
             </transition>
         </router-view>
-        <toast/>
+        <Toast/>
     </div>
 </template>
-
-<style>
-/* Puedes usar tus clases de Tailwind aquí para transiciones, etc. */
-body {
-    background-color: #f3f4f6;
-    transition: background-color 0.3s ease;
-}
-
-body.dark {
-    background-color: #09090b;
-}
-</style>
