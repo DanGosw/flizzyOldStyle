@@ -78,7 +78,7 @@ input.p-select-label {
 }
 
 .p-select-header {
-    @apply pt-2 pb-1 px-4
+    @apply p-1
 }
 
 .p-select-filter {

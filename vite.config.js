@@ -70,7 +70,7 @@ export default defineConfig({
             include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/, /\.md$/, /\.html/],
             resolvers: [
                 IconsResolver({ prefix: "Icon" }),
-                VueUseComponentsResolver(), PrimeVueResolver(), VueUseDirectiveResolver()
+                VueUseComponentsResolver(), VueUseDirectiveResolver()
             ],
             dts: true
         })],

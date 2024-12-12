@@ -1,5 +1,5 @@
 <script setup>
-import Navbar from "@/hooks/layout/navbar/navbar.vue";
+import Navbar from "@/hooks/layout/navbar.vue";
 </script>
 <template>
     <div class="h-screen flex flex-col dark:bg-surface-950">

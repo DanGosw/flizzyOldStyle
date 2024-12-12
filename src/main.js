@@ -1,6 +1,6 @@
 import { createApp } from "vue";
 import "./style.css";
-import App from "@/App.vue";
+import "./assets/primevue/tailwind.css";
 import PrimeVue from "primevue/config";
 
 import AnimateOnScroll from "primevue/animateonscroll";
@@ -12,9 +12,9 @@ import Ripple from "primevue/ripple";
 import StyleClass from "primevue/styleclass";
 import ToastService from "primevue/toastservice";
 import Tooltip from "primevue/tooltip";
-
 import routes from "@/routes/index.js";
-import Aura from "@/Aura";
+
+import App from "@/App.vue";
 
 const pinia = createPinia();
 
@@ -30,9 +30,9 @@ app.directive("animateonscroll", AnimateOnScroll);
 app.use(pinia);
 app.use(PrimeVue, {
     ripple: true,
-    unstyled: true,
-    pt: Aura
+    theme: "none"
 });
+
 app.use(ConfirmationService);
 app.use(ToastService);
 app.use(DialogService);

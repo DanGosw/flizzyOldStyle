@@ -1,172 +1,166 @@
 <script setup>
 
 import { useCookies } from "@vueuse/integrations/useCookies";
+import Drawer from "primevue/drawer";
 
 const selectedPrimary = ref({ type: "primary", name: "indigo" });
-const selectedSurface = ref({ type: "surface", name: "stone" });
+const selectedSurface = ref({ type: "surface", name: "slate" });
 const scales = ref([12, 13, 14, 15, 16, 17, 18]);
 const visible = ref(false);
-const textSize = ref(16);
+const textSize = ref(15);
 const onConfigButtonClick = () => visible.value = !visible.value;
 
 const isDark = useDark({ disableTransition: false, initialValue: "auto" });
 
 const schemaColor = ref([
     {
-        label: "Colores Primarios", type: "primary", select: selectedPrimary.value, palettes: [
+        label: "Colores Primarios", type: "primary", selected: selectedPrimary.value, palettes: [
             {
                 name: "emerald", palette: [
-                    "236 253 245", "209 250 229", "167 243 208", "110 231 183", "52 211 153", "16 185 129", "5 150 105", "4 120 87",
-                    "6 95 70", "4 78 56", "2 44 34"]
+                    "#ECFDF5", "#D1FAE5", "#A7F3D0", "#6EE7B7", "#34D399", "#10B981",
+                    "#059669", "#047857", "#065F46", "#044E38", "#022C22"]
             },
             {
                 name: "red", palette: [
-                    "254 242 242", "254 226 226", "254 202 202", "252 165 165", "248 113 113", "239 68 68", "220 38 38", "185 28 28",
-                    "153 27 27", "127 29 29", "69 10 10"]
+                    "#FEF2F2", "#FEE2E2", "#FECACA", "#FCA5A5", "#F87171", "#EF4444",
+                    "#DC2626", "#B91C1C", "#991B1B", "#7F1D1D", "#450A0A"]
             },
             {
                 name: "orange", palette: [
-                    "255 247 237", "255 237 213", "254 215 170", "253 186 116", "251 146 60", "249 115 22", "234 88 12", "194 65 12",
-                    "154 52 18", "124 45 18", "67 20 7"]
+                    "#FFF7ED", "#FFEDD5", "#FED7AA", "#FDBA74", "#FB923C", "#F97316",
+                    "#EA580C", "#C2410C", "#9A3412", "#7C2D12", "#431407"]
             },
             {
                 name: "amber", palette: [
-                    "255 251 235", "254 243 199", "253 230 138", "252 211 77", "251 191 36", "245 158 11", "217 119 6", "180 83 9",
-                    "146 64 14", "120 53 15", "69 26 3"]
+                    "#FFFBEB", "#FEF3C7", "#FDE68A", "#FCD34D", "#FBBF24", "#F59E0B",
+                    "#D97706", "#B45309", "#92400E", "#78350F", "#451A03"]
             },
             {
                 name: "yellow", palette: [
-                    "254 252 232", "254 249 195", "254 240 138", "253 224 71", "250 204 21", "234 179 8", "202 138 4", "161 98 7",
-                    "130 77 14", "113 63 18", "66 32 6"]
+                    "#FEFCE8", "#FEF9C3", "#FEF08A", "#FDE047", "#FACC15", "#EAB308",
+                    "#CA8A04", "#A16207", "#824D0E", "#713F12", "#421D06"]
             },
             {
                 name: "teal", palette: [
-                    "240 253 250", "204 251 241", "153 246 228", "94 234 212", "45 212 191", "20 184 166", "13 148 136", "15 118 110",
-                    "21 94 89", "20 78 74", "4 47 46"]
+                    "#F0FDF8", "#CCFBF1", "#99F6E4", "#5EEAD4", "#2DD4BF", "#14B8A6",
+                    "#0D9488", "#0F766E", "#155E59", "#144E4A", "#042F2E"]
             },
             {
                 name: "cyan", palette: [
-                    "236 254 255", "207 250 254", "165 243 252", "103 232 249", "34 211 238", "6 182 212",
-                    "8 145 178", "14 116 144", "21 94 117", "22 78 99", "8 51 68"]
+                    "#ECFEFF", "#CFFAFE", "#A5F3FC", "#67E8F9", "#22D3EE", "#06B6D4",
+                    "#0891B2", "#0E7490", "#155E75", "#164E63", "#083344"]
             },
             {
                 name: "sky", palette: [
-                    "240 249 255", "224 242 254", "186 230 253", "125 211 252", "56 189 248", "14 165 233",
-                    "2 132 199", "3 105 161", "21 94 133", "12 74 110", "8 47 73"]
+                    "#F0F9FF", "#E0F2FE", "#BAE6FD", "#7DD3FC", "#38BDF8", "#0EA5E9",
+                    "#0284C7", "#0369A1", "#155E85", "#0C4A6E", "#082F49"]
             },
             {
                 name: "blue", palette: [
-                    "239 246 255", "219 234 254", "191 219 254", "147 197 253", "96 165 250", "59 130 246", "37 99 235", "29 78 216",
-                    "30 64 175", "30 58 138", "23 37 84"]
+                    "#EFF6FF", "#DBEAFE", "#BFDBFE", "#93C5FD", "#60A5FA", "#3B82F6",
+                    "#2563EB", "#1D4ED8", "#1E40AF", "#1E3A8A", "#172554"]
             },
             {
                 name: "indigo", palette: [
-                    "238 242 255", "224 231 255", "199 210 254", "165 180 252", "129 140 248", "99 102 241", "79 70 229", "67 56 202",
-                    "55 48 163", "49 46 129", "30 27 75"]
+                    "#EEF2FF", "#E0E7FF", "#C7D2FE", "#A5B4FC", "#818CF8", "#6366F1",
+                    "#4F46E5", "#4338CA", "#3730A3", "#312E81", "#1E1B4B"]
             },
             {
                 name: "violet", palette: [
-                    "245 243 255", "237 233 254", "221 214 254", "196 181 253", "167 139 250", "139 92 246", "124 58 237", "109 40 217",
-                    "91 33 182", "76 29 149", "50 23 102"]
+                    "#F5F3FF", "#EDE9FE", "#DDD6FE", "#C4B5FD", "#A78BFA", "#8B5CF6",
+                    "#7C3AED", "#6D28D9", "#5B21B6", "#4C1D95", "#321766"]
             },
             {
                 name: "purple", palette: [
-                    "250 245 255", "243 232 255", "233 213 255", "216 180 254", "192 132 252", "168 85 247", "147 51 234", "126 34 206",
-                    "107 33 168", "88 28 135", "59 20 100"]
+                    "#FAF5FF", "#F3E8FF", "#E9D5FF", "#D8B4FE", "#C084FC", "#A855F7",
+                    "#9333EA", "#7E22CE", "#6B21A8", "#581C87", "#3B1464"]
             },
             {
                 name: "fuchsia", palette: [
-                    "253 244 255", "250 232 255", "245 208 254", "240 171 252", "232 121 249", "217 70 239", "192 38 211", "162 28 175",
-                    "126 34 153", "109 40 121", "74 9 78"]
+                    "#FDF4FF", "#FAE8FF", "#F5D0FE", "#F0ABFC", "#E879F9", "#D946EF",
+                    "#C026D3", "#A416AF", "#7E2299", "#6D2879", "#4A084E"]
             },
             {
                 name: "pink", palette: [
-                    "253 242 248", "252 231 243", "251 207 232", "249 168 212", "244 114 182", "236 72 153", "219 39 119", "190 24 93",
-                    "157 23 77", "131 24 67", "80 7 36"]
+                    "#FDF2F8", "#FCE7F3", "#FBCFE8", "#F9A8D4", "#F472B6", "#EC4899",
+                    "#DB2777", "#BE185D", "#9D174D", "#831843", "#500724"]
             },
             {
                 name: "rose", palette: [
-                    "255 241 242", "255 228 230", "254 205 211", "253 164 175", "251 113 133", "244 63 94", "225 29 72", "190 18 60",
-                    "159 18 57", "136 19 55", "76 5 25"]
+                    "#FFF1F2", "#FFE4E6", "#FECDD3", "#FDA4AF", "#FB7185", "#F43F5E",
+                    "#E11D48", "#BE123C", "#9F1239", "#881237", "#4C0519"]
             },
             {
                 name: "noir", palette: [
-                    "250 250 250", "244 244 245", "228 228 231", "212 212 216", "161 161 170", "113 113 122", "82 82 91", "63 63 70",
-                    "39 39 42", "24 24 27", "9 9 11"]
+                    "#FAFAFA", "#F4F4F5", "#E4E4E7", "#D4D4D8", "#A1A1AA", "#71717A",
+                    "#52525B", "#3F3F46", "#27272A", "#18181B", "#09090B"]
             }
         ]
     },
     {
-        label: "Colores Secundarios", type: "surface", select: selectedSurface.value, palettes: [
+        label: "Colores Secundarios", type: "surface", selected: selectedSurface.value, palettes: [
             {
-                name: "slate",
-                palette: [
-                    "255 255 255", "248 250 252", "241 245 249", "226 232 240", "203 213 225", "148 163 184", "100 116 139", "71 85 105",
-                    "51 65 85", "30 41 59", "15 23 42", "2 6 23"]
+                name: "slate", palette: [
+                    "#FFFFFF", "#F8FAFC", "#F1F5F9", "#E2E8F0", "#CBD5E1", "#94A3B8",
+                    "#64748B", "#475569", "#334155", "#1E293B", "#0F172A", "#020617"]
             },
             {
-                name: "gray",
-                palette: [
-                    "255 255 255", "249 250 251", "243 244 246", "229 231 235", "209 213 219", "156 163 175", "107 114 128", "75 85 99",
-                    "55 65 81", "31 41 55", "17 24 39", "3 7 18"]
+                name: "gray", palette: [
+                    "#FFFFFF", "#F9FAFB", "#F3F4F6", "#E5E7EB", "#D1D5DB", "#9CA3AF",
+                    "#6B7280", "#4B5563", "#374151", "#1F2937", "#111827", "#03070F"]
             },
             {
-                name: "zinc",
-                palette: [
-                    "255 255 255", "250 250 250", "244 244 245", "228 228 231", "212 212 216", "161 161 170", "113 113 122", "82 82 91",
-                    "63 63 70", "39 39 42", "24 24 27", "9 9 11"]
+                name: "zinc", palette: [
+                    "#FFFFFF", "#FAFAFA", "#F4F4F5", "#E4E4E7", "#D4D4D8", "#A1A1AA",
+                    "#71717A", "#52525B", "#3F3F46", "#27272A", "#18181B", "#09090B"]
             },
             {
-                name: "neutral",
-                palette: [
-                    "255 255 255", "250 250 250", "245 245 245", "229 229 229", "212 212 212", "163 163 163", "115 115 115", "82 82 82",
-                    "64 64 64", "38 38 38", "23 23 23", "10 10 10"]
+                name: "neutral", palette: [
+                    "#FFFFFF", "#FAFAFA", "#F5F5F5", "#E5E5E5", "#D4D4D4", "#A3A3A3",
+                    "#737373", "#525252", "#404040", "#262626", "#171717", "#0A0A0A"]
             },
             {
-                name: "stone",
-                palette: [
-                    "255 255 255", "250 250 250", "244 244 245", "228 228 231", "212 212 216", "161 161 170", "113 113 122", "82 82 91",
-                    "56 58 63", "22 24 29", "12 14 20", "9 9 11"]
+                name: "stone", palette: [
+                    "#FFFFFF", "#FAFAFA", "#F4F4F5", "#E4E4E7", "#D4D4D8", "#A1A1AA",
+                    "#71717A", "#52525B", "#383A3F", "#16181D", "#0C0E14", "#09090B"]
             },
             {
-                name: "soho",
-                palette: [
-                    "255 255 255", "244 244 244", "232 233 233", "210 210 212", "187 188 190", "165 165 169", "142 143 147", "119 120 125",
-                    "97 98 104", "74 75 82", "52 52 61", "29 30 39"]
+                name: "soho", palette: [
+                    "#FFFFFF", "#F4F4F4", "#E8E9E9", "#D2D2D4", "#BBBEBE", "#A5A5A9",
+                    "#8E8F93", "#77787D", "#616268", "#4A4B52", "#34333D", "#1D1E27"]
             },
             {
-                name: "ocean",
-                palette: [
-                    "255 255 255", "251 252 252", "247 249 248", "239 243 242", "218 222 221", "177 183 182", "130 135 135", "95 114 116",
-                    "65 91 97", "41 68 78", "24 50 64", "12 25 32"]
+                name: "ocean", palette: [
+                    "#FFFFFF", "#FBFCFC", "#F7F9F8", "#EFF3F2", "#DAE0DF", "#B1B7B6",
+                    "#828787", "#5F7274", "#415B61", "#29444E", "#183240", "#0C191F"]
             }
         ]
-    }]
-);
+    }
+]);
 
 const updateColors = (type, colorName) => {
     let selectedColor;
     const cookies = useCookies();
-
+    
     if(type === "primary") {
         selectedColor = schemaColor.value.find((color) => color.type === type).palettes.find(pl => pl.name === colorName);
         selectedPrimary.value = selectedColor;
-
+        
         const primarySchema = schemaColor.value.find((color) => color.type === "primary");
-        primarySchema.select = selectedPrimary.value;
-
+        primarySchema.selected = selectedPrimary.value;
+        
         cookies.set("primary", { type, name: colorName }, { path: "/", sameSite: true });
-
+        
     } else if(type === "surface") {
         selectedColor = schemaColor.value.find((color) => color.type === type).palettes.find(pl => pl.name === colorName);
         selectedSurface.value = selectedColor;
-
+        
         const surfaceSchema = schemaColor.value.find((color) => color.type === "surface");
-        surfaceSchema.select = selectedSurface.value;
-
+        surfaceSchema.selected = selectedSurface.value;
+        
         cookies.set("surface", { type, name: colorName }, { path: "/", sameSite: true });
     }
-
+    
     if(!document?.["startViewTransition"]) {
         applyTheme(type, selectedColor.palette);
     } else {
@@ -189,61 +183,54 @@ const applyScale = () => {
     useCookies().set("font-size", textSize.value, { path: "/", sameSite: true });
 };
 
+const loadTheme = (type, savedColor, selectedColor) => {
+    const colorSchema = schemaColor.value.find((color) => color.type === type);
+    const selected = savedColor && colorSchema.palettes.find((palette) => palette.name === savedColor.name);
+    
+    const finalColor = selected || colorSchema.palettes.find((palette) => palette.name === selectedColor.value.name);
+    
+    if(finalColor) {
+        applyTheme(type, finalColor.palette);
+        colorSchema.selected = finalColor;
+        selectedColor.value = finalColor;
+    }
+};
 onMounted(() => {
     const cookies = useCookies();
-
-    const savedPrimaryColor = cookies.get("primary");
-    const savedSurfaceColor = cookies.get("surface");
+    
     const savedFontSize = cookies.get("font-size");
-
-    if(savedFontSize) {
-        textSize.value = savedFontSize;
-        document.documentElement.style.fontSize = `${savedFontSize}px`;
-    }
-
-    if(savedPrimaryColor) {
-        const selectedPrimaryColor = schemaColor.value.find((color) => color.type === "primary").
-            palettes.
-            find(pl => pl.name === savedPrimaryColor.name);
-        if(selectedPrimaryColor) {
-            applyTheme("primary", selectedPrimaryColor.palette);
-            const primarySchema = schemaColor.value.find((color) => color.type === "primary");
-            primarySchema.select = selectedPrimaryColor; // Actualizamos select
-            selectedPrimary.value = selectedPrimaryColor; // Actualizamos el valor de selectedPrimary
-        }
-    }
-
-    if(savedSurfaceColor) {
-        const selectedSurfaceColor = schemaColor.value.find((color) => color.type === "surface").
-            palettes.find(pl => pl.name === savedSurfaceColor.name);
-        if(selectedSurfaceColor) {
-            applyTheme("surface", selectedSurfaceColor.palette);
-            const surfaceSchema = schemaColor.value.find((color) => color.type === "surface");
-            surfaceSchema.select = selectedSurfaceColor; // Actualizamos select
-            selectedSurface.value = selectedSurfaceColor; // Actualizamos el valor de selectedSurface
-        }
-    }
+    textSize.value = savedFontSize || textSize.value;
+    document.documentElement.style.fontSize = `${textSize.value}px`;
+    
+    const savedPrimaryColor = cookies.get("primary");
+    loadTheme("primary", savedPrimaryColor, selectedPrimary);
+    
+    const savedSurfaceColor = cookies.get("surface");
+    loadTheme("surface", savedSurfaceColor, selectedSurface);
 });
 
 function applyTheme(type, colors) {
     let increments;
-
+    
     if(type === "primary") {
         increments = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
     } else if(type === "surface") {
         increments = [0, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
     }
     colors.forEach((color, index) => {
-        document.documentElement.style.setProperty(`--${type}-${increments[index]}`, color);
+        document.documentElement.style.setProperty(`--p-${type}-${increments[index]}`, color);
     });
 }
 
 </script>
+
 <template>
-    <Button size="small" @click="onConfigButtonClick()">
-        <i-carbon-color-palette/>
+    <Button size="small" @click="onConfigButtonClick()" class="!w-8 h-8">
+        <template #icon>
+            <i-carbon-color-palette/>
+        </template>
     </Button>
-    <Drawer v-model:visible="visible" position="right" class="w-28">
+    <Drawer v-model:visible="visible" position="right" header="Configuración de estilos" modal>
         <div class="align-item-config">
             <span class="app-label-config">Escala</span>
             <div class="inline-flex items-center gap-2 rounded-2xl px-2 py-1 border-1 surface-border">
@@ -272,17 +259,16 @@ function applyTheme(type, colors) {
             </ToggleButton>
         </div>
         <div class="align-item-config">
-            <div v-for="{label, type, palettes, select} in schemaColor" :key="type">
+            <div v-for="{label, type, palettes, selected} in schemaColor" :key="type">
                 <span class="app-label-config">{{ label }}</span>
                 <div class="inline-flex flex-wrap items-start justify-start gap-2 self-stretch">
                     <button v-for="primary of palettes" :key="primary.name" type="button" @click="updateColors(type, primary.name)"
-                            class="h-5 w-12 cursor-pointer rounded-sm transition-all transition-duration-200"
+                            class="h-5 w-10 cursor-pointer rounded-sm transition-all transition-duration-200"
+                            :style="{ backgroundColor: `${primary.palette[5]}` }"
                             :class="{
-                    'ring-2 ring-offset-2 dark:ring-offset-surface-800': select.name === primary.name,
-                    'ring-primary-500': type === 'primary' && select.name === primary.name,
-                    'ring-surface-500': type === 'surface' && select.name === primary.name
-                }"
-                            :style="{ backgroundColor: `rgb(${primary.palette[5]})` }">
+                    'ring-2 ring-offset-2 dark:ring-offset-surface-800': selected.name === primary.name,
+                    'ring-primary-500': type === 'primary' && selected.name === primary.name,
+                    'ring-surface-500': type === 'surface' && selected.name === primary.name }">
                     </button>
                 </div>
             </div>
