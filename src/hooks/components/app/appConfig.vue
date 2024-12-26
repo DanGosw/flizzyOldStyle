@@ -195,6 +195,7 @@ const loadTheme = (type, savedColor, selectedColor) => {
         selectedColor.value = finalColor;
     }
 };
+
 onMounted(() => {
     const cookies = useCookies();
     
@@ -203,10 +204,10 @@ onMounted(() => {
     document.documentElement.style.fontSize = `${textSize.value}px`;
     
     const savedPrimaryColor = cookies.get("primary");
-    loadTheme("primary", savedPrimaryColor, selectedPrimary);
+    loadTheme("primary", savedPrimaryColor, selectedPrimary.value);
     
     const savedSurfaceColor = cookies.get("surface");
-    loadTheme("surface", savedSurfaceColor, selectedSurface);
+    loadTheme("surface", savedSurfaceColor, selectedSurface.value);
 });
 
 function applyTheme(type, colors) {

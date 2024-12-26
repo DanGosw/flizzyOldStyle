@@ -316,6 +316,7 @@ const items = ref([
 ]);
 
 function handleTableClick(event, table) {
+    console.log(event.target.closest(".xd"))
     if(!event.target.closest(".xd")) {
         table.order_amount = 666;
         toast.add({ severity: "success", life: 5000, detail: "Redirigiendo a otra vista..." });

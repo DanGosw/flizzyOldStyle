@@ -15,6 +15,7 @@ import Tooltip from "primevue/tooltip";
 import routes from "@/routes/index.js";
 
 import App from "@/App.vue";
+import Aura from "@/Aura/index.js";
 
 const pinia = createPinia();
 
@@ -30,7 +31,9 @@ app.directive("animateonscroll", AnimateOnScroll);
 app.use(pinia);
 app.use(PrimeVue, {
     ripple: true,
-    theme: "none"
+    unstyled: true,
+    pt: Aura
+    
 });
 
 app.use(ConfirmationService);

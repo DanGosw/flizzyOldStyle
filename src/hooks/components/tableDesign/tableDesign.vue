@@ -10,8 +10,8 @@ const props = defineProps({
 
 </script>
 <template>
-    <div @click="tableClick"
-         class="relative z-10 col-span-2 flex h-48 max-h-48 cursor-pointer flex-col justify-between rounded-lg font-semibold shadow-md transition sm:col-span-2 md:col-span-3 lg:col-span-2">
+    <div @click="tableClick"  @mouseover="tableClick"
+         class="relative z-10 col-span-2 flex h-48 max-h-48 cursor-wait flex-col justify-between rounded-lg font-semibold shadow-md transition sm:col-span-2 md:col-span-3 lg:col-span-2">
         <div :class="`${table?.['status'] === '3' ? 'bg-primary-400/60 dark:bg-primary-400/70' : 'bg-surface-400/70 dark:bg-surface-800/60'} border border-surface-400 dark:border-surface-600 rounded-lg h-full flex flex-col`">
             <!-- Primer bloque: Lista de órdenes o descripción -->
             <div class="flex h-32 w-full select-none flex-wrap gap-1 overflow-y p-1.5" v-if="table?.['orders'].length > 0">
